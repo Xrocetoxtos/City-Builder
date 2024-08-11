@@ -1,4 +1,5 @@
 function love.load()
+	DEBUG = true
     require('startup.require')
     Camera = CameraLib()
 
@@ -22,7 +23,11 @@ end
 
 function love.draw()
     Camera:attach()
+if DEBUG==true then
+
         Pointer.draw()
+	end
+
         love.graphics.rectangle("line", 100,100,400,500)
     Camera:detach()
 end
