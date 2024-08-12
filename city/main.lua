@@ -21,13 +21,24 @@ function love.keyreleased(key)
     end
 end
 
+local function debugDetached()
+    if DEBUG == false then return end
+
+    Pointer.debugDetached()
+end
+
+local function debugAttached()
+    if DEBUG == false then return end
+
+    Pointer.debugAttached()
+end
+
 function love.draw()
+    debugDetached()
+    
     Camera:attach()
-if DEBUG==true then
-
-        Pointer.draw()
-	end
-
+        debugAttached()
         love.graphics.rectangle("line", 100,100,400,500)
     Camera:detach()
 end
+
