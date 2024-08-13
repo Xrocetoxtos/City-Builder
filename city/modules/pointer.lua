@@ -1,6 +1,7 @@
 local pointer = {}
 
 function pointer.load(x,y)
+
     pointer.position = Vector(x,y)
     pointer.standStillVector = Vector(0,0)
     pointer.moveSpeed = 100
@@ -14,28 +15,47 @@ function pointer.update(dt)
     local move = pointer.getMovementInput()
     if move ~=pointer.standStillVector then
         move = move:normalized()
-        pointer.position = pointer.position + move*pointer.moveSpeed * dt
+        local newPos = pointer.position+move*pointer.moveSpeed * dt
+        
+        if newPos.x < HALF_WIDTH  then
+            newPos.x = HALF_WIDTH
+        else
+            if newPos.x > (Map.mapWidth - HALF_WIDTH) then
+                newPos.x = (Map.mapWidth - HALF_WIDTH)
+            end
+        end
+        if newPos.y < HALF_HEIGHT then
+            newPos.y = HALF_HEIGHT
+        else
+            if newPos.y > (Map.mapHeight - HALF_HEIGHT) then
+                newPos.y = (Map.mapHeight - HALF_HEIGHT)
+            end
+        end     
+        if newPos ~= pointer.position then 
+            pointer.position = newPos
+        end
+        print(newPos.x..":"..newPos.y.." --> " ..pointer.position.x..":"..pointer.position.y)
     end
 end
 
 function pointer.getMovementInput()
     local move = Vector(0,0)
-    if mousePosition.x < pointer.leftTop.x 
+    if MOUSE_POSITION.x < pointer.leftTop.x 
         or love.keyboard.isDown("a") 
         or love.keyboard.isDown("left") then
         move.x = move.x - 1
     end
-    if mousePosition.x > pointer.rightBottom.x 
+    if MOUSE_POSITION.x > pointer.rightBottom.x 
         or love.keyboard.isDown("d")
         or love.keyboard.isDown("right") then
         move.x = move.x + 1
     end
-    if mousePosition.y < pointer.leftTop.y 
+    if MOUSE_POSITION.y < pointer.leftTop.y 
         or love.keyboard.isDown("w")
         or love.keyboard.isDown("up") then
         move.y = move.y - 1
     end
-    if mousePosition.y > pointer.rightBottom.y 
+    if MOUSE_POSITION.y > pointer.rightBottom.y 
         or love.keyboard.isDown("s") 
         or love.keyboard.isDown("down") then
         move.y = move.y + 1

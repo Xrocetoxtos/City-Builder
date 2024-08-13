@@ -6,6 +6,9 @@ Timer = require('libraries.hump.timer')
 Vector = require('libraries.hump.vector')
 Signal = require('libraries.hump.signal')
 
+-- utils
+require('globals')
+
 -- resources
 Audio = require('startup.audio')
 Fonts = require('startup.fonts')

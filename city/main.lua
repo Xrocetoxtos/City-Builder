@@ -1,18 +1,18 @@
 function love.load()
-	DEBUG = true
     require('startup.require')
-    Camera = CameraLib()
 
-	SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
+    love.graphics.setDefaultFilter("nearest", "nearest")
 
-    Pointer.load(200,200)
+    Map.load()
+    Pointer.load(400,400)
 end
 
 
 function love.update(dt)
-    mousePosition = Vector(love.mouse.getPosition())
+    MOUSE_POSITION = Vector(love.mouse.getPosition())
     Pointer.update(dt)
     Camera:lookAt(Pointer.position.x, Pointer.position.y)
+    Map.update(dt)
 end
 
 function love.keyreleased(key)
@@ -30,16 +30,15 @@ end
 local function debugAttached()
     if DEBUG == false then return end
 
+    -- love.graphics.rectangle("line", 100,100,400,500)
     Pointer.debugAttached()
 end
 
 function love.draw()
-    debugDetached()
-    
     Camera:attach()
+        Map.draw()
         debugAttached()
-        love.graphics.rectangle("line", 100,100,400,500)
-
     Camera:detach()
+    debugDetached()
 end
 
