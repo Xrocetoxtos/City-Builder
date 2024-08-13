@@ -39,6 +39,7 @@ function love.draw()
     Camera:attach()
         debugAttached()
         love.graphics.rectangle("line", 100,100,400,500)
+
     Camera:detach()
 end
 

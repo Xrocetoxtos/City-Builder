@@ -13,3 +13,4 @@ Sprites = require('startup.sprites')
 
 -- modules
 Pointer = require('modules.pointer')
+Map = require('modules.map')
