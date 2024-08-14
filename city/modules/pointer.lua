@@ -34,7 +34,7 @@ function pointer.update(dt)
         if newPos ~= pointer.position then 
             pointer.position = newPos
         end
-        print(newPos.x..":"..newPos.y.." --> " ..pointer.position.x..":"..pointer.position.y)
+        -- print(newPos.x..":"..newPos.y.." --> " ..pointer.position.x..":"..pointer.position.y)
     end
 end
 
