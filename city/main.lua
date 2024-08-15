@@ -2,6 +2,7 @@ function love.load()
     require('startup.require')
 
     love.graphics.setDefaultFilter("nearest", "nearest")
+    -- love.mouse.setVisible(false)
 
     Map.load()
     Pointer.load(400,400)
@@ -23,6 +24,10 @@ end
 
 local function debugDetached()
     if DEBUG == false then return end
+
+    love.graphics.print ("mouse: " .. MOUSE_POSITION.x.." : " .. MOUSE_POSITION.y, 10,10)
+    love.graphics.print("grid: ".. Map.mouseGridPosition.x .. " : " .. Map.mouseGridPosition.y, 10,30)
+    love.graphics.print("map pointer: ".. Map.pointerPosition.x .. " : " .. Map.pointerPosition.y, 10,50)
 
     Pointer.debugDetached()
 end

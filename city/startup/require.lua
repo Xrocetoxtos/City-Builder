@@ -14,6 +14,7 @@ require('globals')
 Audio = require('startup.audio')
 Fonts = require('startup.fonts')
 Sprites = require('startup.sprites')
+Animations = require('startup.animations')
 
 -- modules
 Pointer = require('modules.pointer')

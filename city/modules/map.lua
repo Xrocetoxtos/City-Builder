@@ -3,11 +3,15 @@ local map = {}
     map.load =function ()
         map.gameMap = STI('maps/testmap.lua')
 
-        map.scale = 4
+        map.scale = 2
+        map.cellSize = map.gameMap.tilewidth
+        map.cellSizePixels = map.cellSize * map.scale
 
-        map.mapWidth = map.gameMap.width * map.gameMap.tilewidth * map.scale
-        map.mapHeight = map.gameMap.height * map.gameMap.tileheight *map.scale
+        map.mapWidth = map.gameMap.width * map.cellSize * map.scale
+        map.mapHeight = map.gameMap.height * map.cellSize *map.scale
         map.setupPathfinding()
+        map.mouseGridPosition = Vector(0,0)
+        map.pointerPosition = Vector(0,0)
     end
 
     function map.setupPathfinding()
@@ -33,13 +37,7 @@ local map = {}
             end
         end
 
-        for x = 1, 30, 1 do
-            local line = ""
-            for y=1, 30, 1 do
-                line = line .. map.pathfindingMap[x][y].." "
-            end
-            print(line)
-        end
+        map.debugPathfindingGrid()
 
         map.pathfinder = Jumper(map.pathfindingMap,map.walkable) -- Inits a pathfinder
 
@@ -57,8 +55,40 @@ local map = {}
         -- end
     end
 
+    function map.debugPathfindingGrid()
+        if DEBUG then
+            for x = 1, 30, 1 do
+                local line = ""
+                for y=1, 30, 1 do
+                    line = line .. map.pathfindingMap[x][y].." "
+                end
+                print(line)
+            end
+        end
+    end
+
+    function map.getGridCoordinate(vector)
+        if vector == nil then return nil end
+
+        vector.x = vector.x + Pointer.position.x - HALF_WIDTH
+        vector.y = vector.y + Pointer.position.y - HALF_HEIGHT
+
+        local x = math.ceil(vector.x /map.cellSizePixels)
+        local y = math.ceil(vector.y /map.cellSizePixels)
+        return Vector(x,y)
+    end
+
+    function map.getGridPosition(coordinates)
+        if coordinates == nil then return nil end
+
+        return Vector((coordinates.x-1)*map.cellSizePixels, (coordinates.y-1)*map.cellSizePixels)
+
+    end
+
     map.update = function (dt)
-        
+        map.mouseGridPosition = map.getGridCoordinate(MOUSE_POSITION)
+        map.pointerPosition = map.getGridPosition(map.mouseGridPosition)
+        Animations.ui.bonePointerAnimation:update(dt)
     end
 
     map.draw = function ()
@@ -68,6 +98,7 @@ local map = {}
         map.gameMap:drawLayer(map.gameMap.layers["sand"])
         map.gameMap:drawLayer(map.gameMap.layers["grass"])
         love.graphics.pop()
+        Animations.ui.bonePointerAnimation:draw(Sprites.ui.bonePointer,map.pointerPosition.x, map.pointerPosition.y)
     end
 
 return map
