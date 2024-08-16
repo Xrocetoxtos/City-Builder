@@ -6,12 +6,11 @@ local map = {}
         map.scale = 2
         map.cellSize = map.gameMap.tilewidth
         map.cellSizePixels = map.cellSize * map.scale
+        map.halfTile = Vector(map.cellSize * 0.5 * map.scale, map.cellSize * 0.5 * map.scale)
 
         map.mapWidth = map.gameMap.width * map.cellSize * map.scale
         map.mapHeight = map.gameMap.height * map.cellSize *map.scale
         map.setupPathfinding()
-        map.mouseGridPosition = Vector(0,0)
-        map.pointerPosition = Vector(0,0)
     end
 
     function map.setupPathfinding()
@@ -86,9 +85,7 @@ local map = {}
     end
 
     map.update = function (dt)
-        map.mouseGridPosition = map.getGridCoordinate(MOUSE_POSITION)
-        map.pointerPosition = map.getGridPosition(map.mouseGridPosition)
-        Animations.ui.bonePointerAnimation:update(dt)
+       
     end
 
     map.draw = function ()
@@ -98,7 +95,6 @@ local map = {}
         map.gameMap:drawLayer(map.gameMap.layers["sand"])
         map.gameMap:drawLayer(map.gameMap.layers["grass"])
         love.graphics.pop()
-        Animations.ui.bonePointerAnimation:draw(Sprites.ui.bonePointer,map.pointerPosition.x, map.pointerPosition.y)
     end
 
 return map

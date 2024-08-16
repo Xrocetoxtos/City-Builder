@@ -2,10 +2,13 @@ function love.load()
     require('startup.require')
 
     love.graphics.setDefaultFilter("nearest", "nearest")
-    -- love.mouse.setVisible(false)
+    --love.mouse.setVisible(false)
 
+    Keybinding.load(nil) -- file
     Map.load()
     Pointer.load(400,400)
+    UnitController.load()
+    MousePointer.load()
 end
 
 
@@ -14,10 +17,12 @@ function love.update(dt)
     Pointer.update(dt)
     Camera:lookAt(Pointer.position.x, Pointer.position.y)
     Map.update(dt)
+    UnitController.update(dt)
+    MousePointer.update(dt)
 end
 
 function love.keyreleased(key)
-    if key == "escape" then
+    if key == Keybinding.quit then
         love.event.quit()
     end
 end
@@ -26,8 +31,8 @@ local function debugDetached()
     if DEBUG == false then return end
 
     love.graphics.print ("mouse: " .. MOUSE_POSITION.x.." : " .. MOUSE_POSITION.y, 10,10)
-    love.graphics.print("grid: ".. Map.mouseGridPosition.x .. " : " .. Map.mouseGridPosition.y, 10,30)
-    love.graphics.print("map pointer: ".. Map.pointerPosition.x .. " : " .. Map.pointerPosition.y, 10,50)
+    love.graphics.print("grid: ".. MousePointer.mouseGridPosition.x .. " : " .. MousePointer.mouseGridPosition.y, 10,30)
+    love.graphics.print("map pointer: ".. MousePointer.pointerPosition.x .. " : " .. MousePointer.pointerPosition.y, 10,50)
 
     Pointer.debugDetached()
 end
@@ -42,6 +47,8 @@ end
 function love.draw()
     Camera:attach()
         Map.draw()
+        UnitController.draw()
+        MousePointer.draw()
         debugAttached()
     Camera:detach()
     debugDetached()

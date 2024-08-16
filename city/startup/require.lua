@@ -15,7 +15,11 @@ Audio = require('startup.audio')
 Fonts = require('startup.fonts')
 Sprites = require('startup.sprites')
 Animations = require('startup.animations')
+Keybinding = require('startup.keybinding')
 
 -- modules
 Pointer = require('modules.pointer')
 Map = require('modules.map')
+MousePointer = require('modules.mousepointer')
+Unit = require('modules.unit')
+UnitController = require('modules.unitcontroller')

@@ -4,9 +4,9 @@ function pointer.load(x,y)
 
     pointer.position = Vector(x,y)
     pointer.standStillVector = Vector(0,0)
-    pointer.moveSpeed = 100
+    pointer.moveSpeed = Keybinding.camera.moveSpeed
 
-    pointer.margin = 50
+    pointer.margin = Keybinding.camera.panMargin
     pointer.leftTop = Vector(pointer.margin,pointer.margin)
     pointer.rightBottom = Vector(SCREEN_WIDTH-pointer.margin, SCREEN_HEIGHT-pointer.margin)
 end
@@ -41,23 +41,23 @@ end
 function pointer.getMovementInput()
     local move = Vector(0,0)
     if MOUSE_POSITION.x < pointer.leftTop.x 
-        or love.keyboard.isDown("a") 
-        or love.keyboard.isDown("left") then
+        or love.keyboard.isDown(Keybinding.camera.left[1]) 
+        or love.keyboard.isDown(Keybinding.camera.left[2]) then
         move.x = move.x - 1
     end
     if MOUSE_POSITION.x > pointer.rightBottom.x 
-        or love.keyboard.isDown("d")
-        or love.keyboard.isDown("right") then
+        or love.keyboard.isDown(Keybinding.camera.right[1])
+        or love.keyboard.isDown(Keybinding.camera.right[2]) then
         move.x = move.x + 1
     end
     if MOUSE_POSITION.y < pointer.leftTop.y 
-        or love.keyboard.isDown("w")
-        or love.keyboard.isDown("up") then
+        or love.keyboard.isDown(Keybinding.camera.up[1])
+        or love.keyboard.isDown(Keybinding.camera.up[2]) then
         move.y = move.y - 1
     end
     if MOUSE_POSITION.y > pointer.rightBottom.y 
-        or love.keyboard.isDown("s") 
-        or love.keyboard.isDown("down") then
+        or love.keyboard.isDown(Keybinding.camera.down[1]) 
+        or love.keyboard.isDown(Keybinding.camera.down[2]) then
         move.y = move.y + 1
     end
     return move
