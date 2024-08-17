@@ -38,8 +38,8 @@ local map = {}
 
         map.debugPathfindingGrid()
 
-        map.pathfinder = Jumper(map.pathfindingMap,map.walkable) -- Inits a pathfinder
-
+        map.pathfinder = Jumper(map.pathfindingMap,map.walkable)
+        
         -- testpath 2,2 --> 5-2
         -- local startx, starty = 2,2 -- The start location 
         -- local endx, endy = 5,2 -- The goal location 

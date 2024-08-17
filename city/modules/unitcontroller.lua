@@ -2,10 +2,7 @@ local UC = {}
 
     function UC.load()
         UC.units = {}
-        -- local position = Map.getGridPosition(Vector(10,10))
-        -- UC.addUnit(position + Map.halfTile)
-        -- local position = Map.getGridPosition(Vector(13,11))
-        -- UC.addUnit(position + Map.halfTile)
+        UC.selectedUnits = {}
         UC.addUnit(Vector(10,10))
         UC.addUnit(Vector(13,11))
     end
@@ -43,6 +40,28 @@ local UC = {}
                 return unit
             end 
          end
+    end
+
+    function UC.select()
+        if not love.keyboard.isDown(Keybinding.select.multi[1]) and not love.keyboard.isDown(Keybinding.select.multi[2]) then
+            UC.deselectAll()
+        end
+        local unit = UC.getUnitOnCoordinate(MousePointer.mouseGridPosition)
+        if unit then
+            unit.toggleSelected()
+        end    
+    end
+
+    function UC.deselectAll()
+        for index, unit in ipairs(UC.selectedUnits) do
+            unit.toggleSelected()
+        end
+    end
+
+    function UC.moveSelected()
+        for index, unit in ipairs(UC.selectedUnits) do
+            unit.setPath(MousePointer.mouseGridPosition)
+        end        
     end
 
 return UC

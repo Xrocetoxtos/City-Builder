@@ -18,10 +18,11 @@ end
 
 function love.mousepressed(x,y,button)
     if button == 1 then
-        local unit = UnitController.getUnitOnCoordinate(MP.mouseGridPosition)
-        if unit then
-            unit.toggleSelected()
-        end        
+        UnitController.select()
+    else 
+        if button ==2 then
+            UnitController.moveSelected()
+        end
     end
 end
 

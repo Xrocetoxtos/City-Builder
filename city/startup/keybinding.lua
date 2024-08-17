@@ -4,6 +4,9 @@ local kb = {}
         if file == nil then
             kb.quit = "escape"
 
+            kb.select = {}
+            kb.select.multi = {"rshift", "lshift"}
+
             kb.camera = {}
             kb.camera.moveSpeed = 100
             kb.camera.panMargin = 50
