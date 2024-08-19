@@ -1,4 +1,5 @@
 local unit = {}
+    unit.id = 0
 
     unit.new = function (coordinate)
         local u = {}
@@ -6,11 +7,16 @@ local unit = {}
         u.position = Map.getGridPosition(coordinate) + Map.halfTile
         u.selected = false
 
+        u.pathTarget = nil
         u.path = {}
-        u.pathLength = 0
+        -- u.pathLength = 0
         u.moveSpeed = 30
 
         u.delete = false
+        u.test=false
+        
+        u.id = unit.id
+        unit.id=unit.id+1
 
         u.toggleSelected = function()
             if u.selected then 
@@ -29,11 +35,17 @@ local unit = {}
 
         u.setPath = function(coordinate)
             local pathLength =0
+            u.pathTarget = coordinate
             u.path = {}
             u.path, pathLength = Map.pathfinder:getPath(u.coordinate.x, u.coordinate.y, coordinate.x, coordinate.y) 
             if pathLength > 0 then
                 table.remove(u.path, 1)
             end
+        end
+        
+        u.cancelPath = function ()
+            u.pathTarget=nil
+            u.path={}
         end
 
         u.update = function (dt)
@@ -69,6 +81,12 @@ local unit = {}
                 type = "fill"
             end
             love.graphics.circle(type, u.position.x, u.position.y, 10)
+            if u.test then
+                love.graphics.setColor(1,0,0,1)
+                love.graphics.circle("fill", u.position.x, u.position.y, 5)
+                love.graphics.setColor(1,1,1,1)
+
+           end
             if #u.path > 0 then
                 local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
                 love.graphics.line(u.position.x, u.position.y, nextPosition.x, nextPosition.y)
