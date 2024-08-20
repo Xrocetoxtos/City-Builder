@@ -36,7 +36,7 @@ local map = {}
             end
         end
 
-        map.debugPathfindingGrid()
+        -- map.debugPathfindingGrid()
 
         map.pathfinder = Jumper(map.pathfindingMap,map.walkable)
         
@@ -55,14 +55,14 @@ local map = {}
     end
 
     function map.debugPathfindingGrid()
-        if DEBUG then
-            for x = 1, 30, 1 do
-                local line = ""
-                for y=1, 30, 1 do
-                    line = line .. map.pathfindingMap[x][y].." "
-                end
-                print(line)
+        if DEBUG == false then return end
+
+        for x = 1, map.gameMap.width, 1 do
+            local line = ""
+            for y=1, map.gameMap.width, 1 do
+                line = line .. map.pathfindingMap[x][y].." "
             end
+            print(line)
         end
     end
 

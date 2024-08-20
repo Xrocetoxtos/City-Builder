@@ -16,7 +16,7 @@ function MP.draw()
 end
 
 
-function love.mousepressed(x,y,button)
+function love.mousereleased(x,y,button)
     if button == 1 then
         UnitController.select()
     else 

@@ -9,7 +9,6 @@ local unit = {}
 
         u.pathTarget = nil
         u.path = {}
-        -- u.pathLength = 0
         u.moveSpeed = 30
 
         u.delete = false
@@ -18,15 +17,10 @@ local unit = {}
         u.id = unit.id
         unit.id=unit.id+1
 
-        u.toggleSelected = function()
-            if u.selected then 
-                u.selected=false
-                table.remove(UnitController.selectedUnits, u.selectID)
-            else
-                u.selected=true
-                table.insert(UnitController.selectedUnits, u)
-                u.selectID = #UnitController.selectedUnits
-            end            
+        u.select = function()
+            u.selected=true
+            table.insert(UnitController.selectedUnits, u)
+            u.selectID = #UnitController.selectedUnits
         end
         
         u.setCoordinate = function ()
@@ -64,7 +58,6 @@ local unit = {}
             local distance = u.position:dist(nextPosition)
             if distance < 3 then
                 table.remove(u.path,1)
-                print("new: "..nextPosition.x..":"..nextPosition.y)
                 return
             end
             local velocity = nextPosition-u.position
@@ -81,13 +74,8 @@ local unit = {}
                 type = "fill"
             end
             love.graphics.circle(type, u.position.x, u.position.y, 5)
-            if u.test then
-                love.graphics.setColor(1,0,0,1)
-                love.graphics.circle("fill", u.position.x, u.position.y, 3)
-                love.graphics.setColor(1,1,1,1)
 
-           end
-            if #u.path > 0 then
+            if DEBUG and #u.path > 0 then
                 local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
                 love.graphics.line(u.position.x, u.position.y, nextPosition.x, nextPosition.y)
             end
