@@ -59,7 +59,8 @@ local UC = {}
 
     function UC.select()
         local unit = UC.getUnitOnCoordinate(MousePointer.mouseGridPosition)
-        if unit == nil then
+        if unit == nil or 
+        (#UC.selectedUnits > 0 and not love.keyboard.isDown(Keybinding.select.multi[1]) and not love.keyboard.isDown(Keybinding.select.multi[2])) then
             UC.deselectAll()
             return
         end

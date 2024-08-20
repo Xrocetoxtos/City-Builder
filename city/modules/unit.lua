@@ -80,10 +80,10 @@ local unit = {}
             if u.selected then
                 type = "fill"
             end
-            love.graphics.circle(type, u.position.x, u.position.y, 10)
+            love.graphics.circle(type, u.position.x, u.position.y, 5)
             if u.test then
                 love.graphics.setColor(1,0,0,1)
-                love.graphics.circle("fill", u.position.x, u.position.y, 5)
+                love.graphics.circle("fill", u.position.x, u.position.y, 3)
                 love.graphics.setColor(1,1,1,1)
 
            end

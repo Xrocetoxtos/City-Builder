@@ -12,7 +12,7 @@ function MP.update (dt)
 end
 
 function MP.draw()
-    Animations.ui.bonePointerAnimation:draw(Sprites.ui.bonePointer,MP.pointerPosition.x, MP.pointerPosition.y)
+    Animations.ui.bonePointerAnimation:draw(Sprites.ui.bonePointer,MP.pointerPosition.x, MP.pointerPosition.y,0,Map.scale)
 end
 
 

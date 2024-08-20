@@ -3,7 +3,7 @@ local map = {}
     map.load =function ()
         map.gameMap = STI('maps/testmap.lua')
 
-        map.scale = 2
+        map.scale = 1
         map.cellSize = map.gameMap.tilewidth
         map.cellSizePixels = map.cellSize * map.scale
         map.halfTile = Vector(map.cellSize * 0.5 * map.scale, map.cellSize * 0.5 * map.scale)
