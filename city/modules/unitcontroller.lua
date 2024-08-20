@@ -17,7 +17,7 @@ local UC = {}
             end
             
             if unitTarget.target.x == target.x and unitTarget.target.y == target.y then
-                print("Targeted target.target is already target! Target another target or target the target for target practise!")
+                print("Targeted unitTarget.target is already a targeted target! Target another target or target the targeted target for target practise!")
                 unit.cancelPath()
                 return false
             end
