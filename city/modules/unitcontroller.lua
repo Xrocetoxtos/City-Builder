@@ -15,7 +15,8 @@ local UC = {}
                 table.remove(UC.targets, index)
                 break
             end
-            
+            -- local available = UC.nodeAvailable(target, unit)
+            -- if available == false then
             if unitTarget.target.x == target.x and unitTarget.target.y == target.y then
                 print("Targeted unitTarget.target is already a targeted target! Target another target or target the targeted target for target practise!")
                 unit.cancelPath()
@@ -63,38 +64,75 @@ local UC = {}
             UC.deselectAll()
             return
         end
-        if not love.keyboard.isDown(Keybinding.select.multi[1]) and not love.keyboard.isDown(Keybinding.select.multi[2]) then
+        if not love.keyboard.isDown(Settings.select.multi[1]) and not love.keyboard.isDown(Settings.select.multi[2]) then
             UC.deselectAll()
+            unit.select()  
+        else
+            if unit.selected then
+                unit.deselect()
+            else
+                unit.select()
+            end
         end
-        unit.select()  
     end
 
     function UC.deselectAll()
         while #UC.selectedUnits>0 do
             UC.selectedUnits[1].selected=false
-            print("removing - id ".. UC.selectedUnits[1].id)
             table.remove(UC.selectedUnits, 1)
         end
     end
 
-    function UC.findNodeAround(node)
-        return nil
-        --TODO. een node in 1 kring rondom target.
-        -- - bestaat die node?
-        -- - zit daar iemand
-        -- - is het walkable
+    function UC.findNodeAround(coordinate, unit)
+        local options = {}
+        UC.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y-1), unit)
+        UC.addNodeToTable(options, Vector(coordinate.x, coordinate.y-1), unit)
+        UC.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y-1), unit)
+        UC.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y), unit)
+        UC.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y), unit)
+        UC.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y+1), unit)
+        UC.addNodeToTable(options, Vector(coordinate.x, coordinate.y+1), unit)
+        UC.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y+1), unit)
+
+        if #options == 0 then return nil end
+
+        return options[1]   -- TODO: bepalen hoe bepaald wordt welke destination hij dan kiest. Nu gewoon de eerste
+    end
+
+    function UC.addNodeToTable(targetTable, coordinate, unit)
+        local node = Map.isNodeWalkable(coordinate)
+        if node ~=nil then
+            if UC.nodeAvailable(coordinate, unit) == true then
+                table.insert(targetTable, node)
+            end
+        end
+        return targetTable
+    end
+
+    function UC.nodeAvailable(coordinate, unit)
+        for index, unitTarget in ipairs(UC.targets) do
+            if unitTarget.target.x == coordinate.x and unitTarget.target.y == coordinate.y and unitTarget.unit ~= unit then
+                print("Targeted unitTarget.target is already a targeted target! Target another target or target the targeted target for target practise!")
+                return false
+            end
+        end
+        return true
     end
 
     function UC.moveSelected()
+        local coordinate = MousePointer.mouseGridPosition
         for index, unit in ipairs(UC.selectedUnits) do
-            local availableNode = UC.setTarget(unit, MousePointer.mouseGridPosition)
+            -- local availableNode = UC.setTarget(unit, MousePointer.mouseGridPosition)
+            local availableNode = UC.nodeAvailable(coordinate, unit)
             if availableNode ==true then
-                unit.setPath(MousePointer.mouseGridPosition)
+                UC.setTarget(unit, coordinate)
+                unit.setPath(coordinate)
             else
-                local destination = UC.findNodeAround(MousePointer.mouseGridPosition)
+                local destination = UC.findNodeAround(MousePointer.mouseGridPosition, unit)
                 if destination ~=nil then
+                    UC.setTarget(unit, destination)
                     unit.setPath(destination)
-
+                    -- FIXME:  bij meertje rechtsponder kan 2e nog geen pad vinden rechts onder het meertje (dus optie 2 kiezen)
                 end
             end
         end        

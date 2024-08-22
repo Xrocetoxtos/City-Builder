@@ -15,7 +15,7 @@ Audio = require('startup.audio')
 Fonts = require('startup.fonts')
 Sprites = require('startup.sprites')
 Animations = require('startup.animations')
-Keybinding = require('startup.keybinding')
+Settings = require('startup.settings')
 
 -- modules
 Pointer = require('modules.pointer')

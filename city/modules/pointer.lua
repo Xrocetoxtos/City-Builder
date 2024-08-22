@@ -4,9 +4,9 @@ function pointer.load(x,y)
 
     pointer.position = Vector(x,y)
     pointer.standStillVector = Vector(0,0)
-    pointer.moveSpeed = Keybinding.camera.moveSpeed
+    pointer.moveSpeed = Settings.camera.moveSpeed
 
-    pointer.margin = Keybinding.camera.panMargin
+    pointer.margin = Settings.camera.panMargin
     pointer.leftTop = Vector(pointer.margin,pointer.margin)
     pointer.rightBottom = Vector(SCREEN_WIDTH-pointer.margin, SCREEN_HEIGHT-pointer.margin)
 end
@@ -35,28 +35,41 @@ function pointer.update(dt)
             pointer.position = newPos
         end
     end
+    -- pointer.getZoomInput(dt)     -- TODO: kijken of dit werkt, want dit werkt door op de positie van alle objecten op de map. niet alleen de grootte
 end
+
+-- function pointer.getZoomInput(dt)
+--     if love.keyboard.isDown(Settings.camera.zoomIn) then
+--         Map.scale = Map.scale + Map.scale*Settings.camera.zoomSpeed*dt
+--     end
+--     if love.keyboard.isDown(Settings.camera.zoomOut) then
+--         Map.scale = Map.scale - Map.scale*Settings.camera.zoomSpeed*dt
+--     end
+--     if Map.scale > Settings.camera.maxZoom then Map.scale = Settings.camera.maxZoom end
+--     if Map.scale < Settings.camera.minZoom then Map.scale = Settings.camera.minZoom end
+
+-- end
 
 function pointer.getMovementInput()
     local move = Vector(0,0)
     if MOUSE_POSITION.x < pointer.leftTop.x 
-        or love.keyboard.isDown(Keybinding.camera.left[1]) 
-        or love.keyboard.isDown(Keybinding.camera.left[2]) then
+        or love.keyboard.isDown(Settings.camera.left[1]) 
+        or love.keyboard.isDown(Settings.camera.left[2]) then
         move.x = move.x - 1
     end
     if MOUSE_POSITION.x > pointer.rightBottom.x 
-        or love.keyboard.isDown(Keybinding.camera.right[1])
-        or love.keyboard.isDown(Keybinding.camera.right[2]) then
+        or love.keyboard.isDown(Settings.camera.right[1])
+        or love.keyboard.isDown(Settings.camera.right[2]) then
         move.x = move.x + 1
     end
     if MOUSE_POSITION.y < pointer.leftTop.y 
-        or love.keyboard.isDown(Keybinding.camera.up[1])
-        or love.keyboard.isDown(Keybinding.camera.up[2]) then
+        or love.keyboard.isDown(Settings.camera.up[1])
+        or love.keyboard.isDown(Settings.camera.up[2]) then
         move.y = move.y - 1
     end
     if MOUSE_POSITION.y > pointer.rightBottom.y 
-        or love.keyboard.isDown(Keybinding.camera.down[1]) 
-        or love.keyboard.isDown(Keybinding.camera.down[2]) then
+        or love.keyboard.isDown(Settings.camera.down[1]) 
+        or love.keyboard.isDown(Settings.camera.down[2]) then
         move.y = move.y + 1
     end
     return move

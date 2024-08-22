@@ -66,6 +66,17 @@ local map = {}
         end
     end
 
+    function map.isNodeWalkable(coordinate)
+        if coordinate.x < 1 or coordinate.x> map.mapWidth or coordinate.y < 1 or coordinate.y > map.mapHeight then
+            return nil
+        end
+        local node = map.pathfindingMap[coordinate.x][coordinate.y]
+        if node == map.walkable then    -- TODO: verder uitwerken als een node meer info kan bevatten
+            return coordinate
+        end
+        return nil
+    end
+
     function map.getGridCoordinate(vector)
         if vector == nil then return nil end
 

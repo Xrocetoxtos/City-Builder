@@ -4,7 +4,7 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     --love.mouse.setVisible(false)
 
-    Keybinding.load(nil) -- file
+    Settings.load(nil) -- file
     Map.load()
     Pointer.load(400,400)
     UnitController.load()
@@ -22,7 +22,7 @@ function love.update(dt)
 end
 
 function love.keyreleased(key)
-    if key == Keybinding.quit then
+    if key == Settings.quit then
         love.event.quit()
     end
 end

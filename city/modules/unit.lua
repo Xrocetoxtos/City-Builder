@@ -6,6 +6,7 @@ local unit = {}
         u.coordinate = coordinate
         u.position = Map.getGridPosition(coordinate) + Map.halfTile
         u.selected = false
+        u.selectID = -1
 
         u.pathTarget = nil
         u.path = {}
@@ -22,6 +23,12 @@ local unit = {}
             table.insert(UnitController.selectedUnits, u)
             u.selectID = #UnitController.selectedUnits
         end
+
+        u.deselect = function()
+            u.selected=false
+            table.remove(UnitController.selectedUnits, u.selectID)
+            u.selectID = -1
+        end
         
         u.setCoordinate = function ()
            u.coordinate = Map.getGridCoordinate(u.position) 
@@ -32,7 +39,7 @@ local unit = {}
             u.pathTarget = coordinate
             u.path = {}
             u.path, pathLength = Map.pathfinder:getPath(u.coordinate.x, u.coordinate.y, coordinate.x, coordinate.y) 
-            if pathLength > 0 then
+            if pathLength ~=nil and pathLength > 0 then
                 table.remove(u.path, 1)
             end
         end
@@ -43,7 +50,7 @@ local unit = {}
         end
 
         u.update = function (dt)
-            if #u.path > 0 then
+            if u.path ~=nil and #u.path > 0 then
                 --raar gedrag als ik coordinaat bepaal via Map.getGridPosition()
                 local x = math.ceil(u.position.x /Map.cellSizePixels)
                 local y = math.ceil(u.position.y /Map.cellSizePixels)
@@ -73,9 +80,9 @@ local unit = {}
             if u.selected then
                 type = "fill"
             end
-            love.graphics.circle(type, u.position.x, u.position.y, 5)
+            love.graphics.circle(type, u.position.x, u.position.y, 5*Map.scale)
 
-            if DEBUG and #u.path > 0 then
+            if DEBUG and u.path ~= nil and #u.path > 0 then
                 local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
                 love.graphics.line(u.position.x, u.position.y, nextPosition.x, nextPosition.y)
             end
