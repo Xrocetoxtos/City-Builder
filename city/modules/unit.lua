@@ -1,7 +1,7 @@
 local unit = {}
     unit.id = 0
 
-    unit.new = function (coordinate)
+    unit.new = function (coordinate, hp)
         local u = {}
         u.coordinate = coordinate
         u.position = Map.getGridPosition(coordinate) + Map.halfTile
@@ -13,7 +13,8 @@ local unit = {}
         u.moveSpeed = 30
 
         u.delete = false
-        u.test=false
+
+        u.health=Health.new(hp, u)
         
         u.id = unit.id
         unit.id=unit.id+1
@@ -58,6 +59,15 @@ local unit = {}
 
                 u.move(dt) 
             end
+
+            -- if u.selected then
+            --     if love.keyboard.isDown("p") then
+            --         u.health.damage(1)
+            --     end
+            --     if love.keyboard.isDown("o") then
+            --         u.health.heal(1)
+            --     end
+            -- end
         end
 
         u.move = function(dt)
@@ -77,16 +87,31 @@ local unit = {}
         end
 
         u.draw = function ()
+            local healthBar= false
             local type = "line"
             if u.selected then
                 type = "fill"
+                healthBar=true
             end
             love.graphics.circle(type, u.position.x, u.position.y, 5*Map.scale)
-            print(u.position)
             if DEBUG and u.path ~= nil and #u.path > 0 then
                 local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
                 love.graphics.line(u.position.x, u.position.y, nextPosition.x, nextPosition.y)
             end
+            if u.coordinate.x == MousePointer.mouseGridPosition.x and u.coordinate.y == MousePointer.mouseGridPosition.y then
+                healthBar=true
+            end
+            if healthBar then
+                u.drawHealthBar()
+            end
+        end
+
+        u.drawHealthBar = function()
+            love.graphics.setColor(0,0,0,1)
+            love.graphics.rectangle("fill", u.position.x-11, u.position.y-16, 22, 4)
+            love.graphics.setColor(1,0,0,1)
+            love.graphics.rectangle("fill", u.position.x-10, u.position.y-15, 20*u.health.getHealthRatio(), 2)
+            love.graphics.setColor(1,1,1,1)
         end
 
         return u

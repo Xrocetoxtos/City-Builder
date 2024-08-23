@@ -17,6 +17,9 @@ Sprites = require('startup.sprites')
 Animations = require('startup.animations')
 Settings = require('startup.settings')
 
+-- databases
+BuildingDatabase = require('database.buildings_database')
+
 -- components 
 Health = require('modules.components.health')
 

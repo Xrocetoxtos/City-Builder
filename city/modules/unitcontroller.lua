@@ -3,8 +3,8 @@ local UC = {}
     function UC.load()
         UC.units = {}
         UC.selectedUnits = {}
-        UC.addUnit(Vector(10,10))
-        UC.addUnit(Vector(13,11))
+        UC.addUnit(Vector(10,10), 10)
+        UC.addUnit(Vector(13,11), 10)
 
         UC.targets = {} -- houdt bij waar welke unit naartoe loopt
     end
@@ -27,8 +27,8 @@ local UC = {}
         return true
     end
     
-    function UC.addUnit(coordinate)
-        local unit = Unit.new(coordinate)
+    function UC.addUnit(coordinate, hp)
+        local unit = Unit.new(coordinate, hp)
         table.insert(UC.units, unit)
         if DEBUG then
             unit.select()
