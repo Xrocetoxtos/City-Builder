@@ -63,7 +63,8 @@ local unit = {}
         u.move = function(dt)
             local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
             local distance = u.position:dist(nextPosition)
-            if distance < 3 then
+            if distance < 1 then
+                u.position = nextPosition
                 table.remove(u.path,1)
                 return
             end
@@ -81,7 +82,7 @@ local unit = {}
                 type = "fill"
             end
             love.graphics.circle(type, u.position.x, u.position.y, 5*Map.scale)
-
+            print(u.position)
             if DEBUG and u.path ~= nil and #u.path > 0 then
                 local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
                 love.graphics.line(u.position.x, u.position.y, nextPosition.x, nextPosition.y)

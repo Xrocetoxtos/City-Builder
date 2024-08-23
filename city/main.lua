@@ -32,6 +32,7 @@ local function debugDetached()
 
     love.graphics.print ("mouse: " .. MOUSE_POSITION.x.." : " .. MOUSE_POSITION.y, 10,10)
     love.graphics.print("grid: ".. MousePointer.mouseGridPosition.x .. " : " .. MousePointer.mouseGridPosition.y, 10,30)
+    -- love.graphics.print("walkable: ".. Map.pathfindingMap[MousePointer.mouseGridPosition.x][MousePointer.mouseGridPosition.y], 100,30)
     love.graphics.print("map pointer: ".. MousePointer.pointerPosition.x .. " : " .. MousePointer.pointerPosition.y, 10,50)
 
     Pointer.debugDetached()

@@ -26,8 +26,10 @@ local map = {}
         for i = 1, mapdata.layers[2].height*mapdata.layers[2].width do
             if mapdata.layers[2].data[i]~=0 then
                 map.pathfindingMap[y][x] = 0
+                -- map.pathfindingMap[x][y]=0
             else
                 map.pathfindingMap[y][x] = 1
+                -- map.pathfindingMap[x][y]=1
             end
             x=x+1
             if x> mapdata.width then
@@ -36,7 +38,7 @@ local map = {}
             end
         end
 
-        -- map.debugPathfindingGrid()
+         map.debugPathfindingGrid()
 
         map.pathfinder = Jumper(map.pathfindingMap,map.walkable)
         
@@ -57,9 +59,11 @@ local map = {}
     function map.debugPathfindingGrid()
         if DEBUG == false then return end
 
-        for x = 1, map.gameMap.width, 1 do
+        -- for x = 1, map.gameMap.width, 1 do
+        for x=1, 30, 1 do
             local line = ""
-            for y=1, map.gameMap.width, 1 do
+            -- for y=1, map.gameMap.width, 1 do
+            for y=1, 30, 1 do
                 line = line .. map.pathfindingMap[x][y].." "
             end
             print(line)
@@ -71,6 +75,8 @@ local map = {}
             return nil
         end
         local node = map.pathfindingMap[coordinate.x][coordinate.y]
+        print(coordinate)
+        print(node)
         if node == map.walkable then    -- TODO: verder uitwerken als een node meer info kan bevatten
             return coordinate
         end

@@ -30,6 +30,9 @@ local UC = {}
     function UC.addUnit(coordinate)
         local unit = Unit.new(coordinate)
         table.insert(UC.units, unit)
+        if DEBUG then
+            unit.select()
+        end
     end
 
     function UC.update(dt)
@@ -96,6 +99,10 @@ local UC = {}
 
         if #options == 0 then return nil end
 
+        -- for index, value in ipairs(options) do
+        --     print (value.x..":"..value.y)
+        -- end
+
         return options[1]   -- TODO: bepalen hoe bepaald wordt welke destination hij dan kiest. Nu gewoon de eerste
     end
 
@@ -132,7 +139,7 @@ local UC = {}
                 if destination ~=nil then
                     UC.setTarget(unit, destination)
                     unit.setPath(destination)
-                    -- FIXME:  bij meertje rechtsponder kan 2e nog geen pad vinden rechts onder het meertje (dus optie 2 kiezen)
+                    -- FIXME:  bij meertje rechtsponder gaat 2e door het water als je de eerste er rechtsonder zet
                 end
             end
         end        

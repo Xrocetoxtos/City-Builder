@@ -17,6 +17,9 @@ Sprites = require('startup.sprites')
 Animations = require('startup.animations')
 Settings = require('startup.settings')
 
+-- components 
+Health = require('modules.components.health')
+
 -- modules
 Pointer = require('modules.pointer')
 Map = require('modules.map')
