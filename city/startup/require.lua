@@ -18,6 +18,7 @@ Animations = require('startup.animations')
 Settings = require('startup.settings')
 
 -- databases
+BuildingTypeDatabase = require('database.buildingtype_database')
 BuildingDatabase = require('database.buildings_database')
 
 -- components 
@@ -28,4 +29,5 @@ Pointer = require('modules.pointer')
 Map = require('modules.map')
 MousePointer = require('modules.mousepointer')
 Unit = require('modules.unit')
-UnitController = require('modules.unitcontroller')
+UnitController = require('modules.controllers.unitcontroller')
+BuildingController = require('modules.controllers.buildingcontroller')
