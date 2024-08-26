@@ -1,8 +1,5 @@
 local BC = {}
 
-    local Types = BuildingTypeDatabase
-    local Buildings = BuildingDatabase
-
     BC.builders = {}
     BC.pendingBuildings = {}
 
@@ -13,7 +10,7 @@ local BC = {}
 
     function BC.getBuildingsByType(type)
         BC.buildings = {}
-        for index, building in ipairs(Buildings) do
+        for index, building in ipairs(BuildingDatabase) do
             if building.type == type then
                 table.insert(BC.buildings, building)
             end
@@ -40,27 +37,21 @@ local BC = {}
     end
 
     function BC.getBuilderByUnit(builder)
-        local i = -1
-        local record = nil
         for index, unit in ipairs(BC.builders) do
             if unit.unit == builder then
-                i=index
-                record=unit
+                return unit, index
             end
         end
-        return record, i
+        return nil, -1
     end
 
     function BC.getBuilderByBuilding(building)
-        local i = -1
-        local record = nil
         for index, unit in ipairs(BC.builders) do
             if unit.building == building then
-                i=index
-                record=unit
+                return unit, index
             end
         end
-        return record, i
+        return -1, nil
     end
 
     function BC.getIdleBuilderUnits()
@@ -73,25 +64,36 @@ local BC = {}
         return idle
     end
 
-    function BC.addPendingBuilding(building)
-        --check of building al pending is
-        -- zo niet, toevoegen
+    function BC.getPendingBuilding(building)
+        for index, building in ipairs(BC.pendingBuildings) do
+            if building == building then
+                return building, index
+            end
+        end
+        return nil, -1
     end
 
-    --TODO: verwijderen buildings en units
-    -- TODO: loskoppelen en weer idle/pending maken
-    -- TODO: dichtstbijzijnd doel kiezen.
+    function BC.addPendingBuilding(building)
+        local pending, i = BC.getPendingBuilding(building)
+        if pending == nil then
+            table.insert(BC.pendingBuildings, building)
+        end
+    end
 
+    function BC.removePendingBuilding(building)
+        local b, i = BC.getPendingBuilding(building)
+        if b~=nil then
+            table.remove(BC.pendingBuildings, i)
+        end
+    end
 
     function BC.addBuilder(builder, building)
-        if builder == nil then              -- mag best geen buiulding hebben. dan is het gewoon een builder zonder taak.
+        if builder == nil then              -- mag best geen building hebben. dan is het gewoon een builder zonder taak.
             error("Builder is nil")
             return 
         end
-        local record, index = BC.getBuilderByUnit(builder)
-        if index ~= -1 then
-            table.remove(BC.builders, index)
-        end
+        BC.removeBuilder(builder)
+
         local newRecord = {
             unit = builder, 
             building = building
@@ -99,5 +101,62 @@ local BC = {}
         table.insert(BC.builders, newRecord)
     end
 
+    function BC.removeBuilder (builder)
+        local record, index = BC.getBuilderByUnit(builder)
+        if index ~= -1 then
+            table.remove(BC.builders, index)
+        end
+    end
+
+    function BC.detachBuilder(builder)
+        local attachment, index = BC.getBuilderByUnit(builder)
+        if attachment ~= nil then
+            attachment.building = nil
+            table.insert(BC.pendingBuildings, attachment.building)
+        end
+    end
+
+    function BC.findNearestIdleUnit(position)
+        local units = BC.getIdleBuilderUnits()
+        if #units <= 0 then 
+            return nil 
+        end
+        if #units == 1 then
+            return units[1]
+        end
+
+        local distance = 99999999
+        local unit = nil
+
+        for index, value in ipairs(units) do
+            local dist = value.unit.position:dist(position)
+            if dist < distance then
+                distance=dist
+                unit = value.unit
+            end
+        end
+        return unit
+    end
+
+    function BC.findNearestPendingBuilding(position)
+        if #BC.pendingBuildings <= 0 then 
+            return nil 
+        end
+        if #BC.pendingBuildings == 1 then
+            return BC.pendingBuildings[1]
+        end
+
+        local distance = 99999999
+        local pBuilding = nil
+
+        for index, value in ipairs(BC.pendingBuildings) do
+            local dist = value.position:dist(position)
+            if dist < distance then
+                distance=dist
+                pBuilding = value
+            end
+        end
+        return pBuilding
+    end
 
 return BC
