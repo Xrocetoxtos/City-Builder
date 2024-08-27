@@ -138,6 +138,7 @@ local UC = {}
                 local destination = UC.findNodeAround(MousePointer.mouseGridPosition, unit)
                 if destination ~=nil then
                     UC.setTarget(unit, destination)
+                    unit.tree = nil
                     unit.setPath(destination)
                     -- FIXME:  bij meertje rechtsponder gaat 2e door het water als je de eerste er rechtsonder zet
                 end

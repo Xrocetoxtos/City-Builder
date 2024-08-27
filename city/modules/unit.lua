@@ -11,10 +11,13 @@ local unit = {}
         u.pathTarget = nil
         u.path = {}
         u.moveSpeed = 30
+        u.maxDistance= 50
 
         u.delete = false
 
-        u.health=Health.new(hp, u)
+        u.tree = BTDatabase.Builder.new(u)
+
+        u.health = Health.new(hp, u)
         
         u.id = unit.id
         unit.id=unit.id+1
@@ -48,9 +51,13 @@ local unit = {}
         u.cancelPath = function ()
             u.pathTarget=nil
             u.path={}
+            u.tree=nil
         end
 
         u.update = function (dt)
+            if u.tree ~=nil then
+                u.tree.tree.process()
+            end
             if u.path ~=nil and #u.path > 0 then
                 --raar gedrag als ik coordinaat bepaal via Map.getGridPosition()
                 local x = math.ceil(u.position.x /Map.cellSizePixels)

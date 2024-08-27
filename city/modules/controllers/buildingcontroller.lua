@@ -116,7 +116,7 @@ local BC = {}
         end
     end
 
-    function BC.findNearestIdleUnit(position)
+    function BC.findNearestIdleUnit(position, maxDistance)
         local units = BC.getIdleBuilderUnits()
         if #units <= 0 then 
             return nil 
@@ -125,7 +125,7 @@ local BC = {}
             return units[1]
         end
 
-        local distance = 99999999
+        local distance = maxDistance or 99999999
         local unit = nil
 
         for index, value in ipairs(units) do
@@ -138,7 +138,7 @@ local BC = {}
         return unit
     end
 
-    function BC.findNearestPendingBuilding(position)
+    function BC.findNearestPendingBuilding(position, maxDistance)
         if #BC.pendingBuildings <= 0 then 
             return nil 
         end
@@ -146,7 +146,7 @@ local BC = {}
             return BC.pendingBuildings[1]
         end
 
-        local distance = 99999999
+        local distance = maxDistance or 99999999
         local pBuilding = nil
 
         for index, value in ipairs(BC.pendingBuildings) do
