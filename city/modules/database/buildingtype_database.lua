@@ -1,9 +1,15 @@
-BTD = {}
+local BTD = {
+    {
+        name= "Civic"
+    },
+    {
+        name= "Military"
+    },
+    {
+        name = "Industrial"
+    }
+}
 
-    BTD.Civic = {}
 
-    BTD.Military = {}
-
-    BTD.Industrial = {}
 
 return BTD

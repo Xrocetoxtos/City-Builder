@@ -16,6 +16,8 @@ local unit = {}
         u.delete = false
 
         u.tree = BTDatabase.Builder.new(u)
+        u.timer = 0
+        u.timerMax = 0.5
 
         u.health = Health.new(hp, u)
         
@@ -51,12 +53,21 @@ local unit = {}
         u.cancelPath = function ()
             u.pathTarget=nil
             u.path={}
-            u.tree=nil
+            u.setTree(nil)
+        end
+
+        u.setTree = function(tree)
+            u.tree = tree
+            u.timer = u.timerMax+1
         end
 
         u.update = function (dt)
             if u.tree ~=nil then
-                u.tree.tree.process()
+                u.timer = u.timer +dt
+                if u.timer>u.timerMax then
+                    u.tree.tree.process()
+                    u.timer = 0
+                end
             end
             if u.path ~=nil and #u.path > 0 then
                 --raar gedrag als ik coordinaat bepaal via Map.getGridPosition()

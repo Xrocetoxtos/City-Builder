@@ -6,10 +6,13 @@ Timer = require('libraries.hump.timer')
 Vector = require('libraries.hump.vector')
 Signal = require('libraries.hump.signal')
 Jumper = require('libraries.jumper.init')
+-- Windfield = require('libraries.windfield')
+Bump = require('libraries.bump')
 BT = require('libraries.bt')
 
 -- utils
 require('globals')
+Utils = require('startup.utils')
 
 -- resources
 Audio = require('startup.audio')
@@ -30,6 +33,10 @@ Health = require('modules.components.health')
 Pointer = require('modules.pointer')
 Map = require('modules.map')
 MousePointer = require('modules.mousepointer')
-Unit = require('modules.unit')
+Unit = require('modules.objects.unit')
 UnitController = require('modules.controllers.unitcontroller')
 BuildingController = require('modules.controllers.buildingcontroller')
+
+-- gui
+BuildingControllerDisplay = require('modules.ui.buildingcontrollerdisplay')
+GuiController = require('modules.ui.guicontroller')

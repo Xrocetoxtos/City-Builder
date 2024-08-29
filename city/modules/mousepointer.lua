@@ -18,7 +18,11 @@ end
 
 function love.mousereleased(x,y,button)
     if button == 1 then
-        UnitController.select()
+        if MOUSE_ON_GUI == false then
+            UnitController.select()
+        else
+            GuiController.click()
+        end
     else 
         if button ==2 then
             UnitController.moveSelected()

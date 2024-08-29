@@ -6,6 +6,7 @@ local BTree= {}
             BuilderTree.target = nil
 
             local function setIdle()
+
                 -- idle animation voor BuilderTree.parent
                 return Status.SUCCESS
             end
@@ -21,7 +22,8 @@ local BTree= {}
             end
 
             local function targetExists()
-                -- TODO: BuilderTree.target bestaat en is nog niet afgebouwd             
+                -- TODO: BuilderTree.target bestaat en is nog niet afgebouwd    
+                return Status.FAILURE
             end
 
             local function moveToTarget()
@@ -35,6 +37,7 @@ local BTree= {}
                 -- TODO: buildingtellertje ophogen
                 -- als gedaan: failure
                 -- als bezig: running
+                return Status.FAILURE
             end
 
             local idle = BT.leaf("Idle state", 1, setIdle, nil)
