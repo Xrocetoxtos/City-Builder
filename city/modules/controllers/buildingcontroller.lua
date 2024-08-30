@@ -1,17 +1,56 @@
+-- selecteer een building. rechtermuisknop: plaatsen
+-- als dan een unit geselecteerd is, maak er een builder van en verwijs hem naar dit gebouw. 
+-- anders moet de BT van builders dit zelf oppakken
+
+-- dit script mag veel korter tzt.
+
 local BC = {}
 
     BC.builders = {}
     BC.pendingBuildings = {}
+    BC.activeBuildings = {}
 
     BC.buildings = {}
 
     BC.currentBuildingType = nil
     BC.currentBuilding = nil
 
+    BC.ghostPosition = Vector(0,0)
+
+    function BC.load()
+
+    end
+
+    function BC.update(dt)
+        if BC.currentBuilding ~=nil then
+            BC.ghostPosition = MousePointer.pointerPosition
+        end
+        for index, building in ipairs(BC.activeBuildings) do
+            building.update(dt)
+        end
+    end
+
+    function BC.draw()
+        if BC.currentBuilding ~=nil then
+            Utils.drawRect("fill", BC.ghostPosition, Vector(Map.cellSize, Map.cellSize))
+        end
+        for index, building in ipairs(BC.activeBuildings) do
+            building.draw()
+        end
+    end
+
+    function BC.placeCurrentBuilding()
+        print("begonnen")
+        if BC.currentBuilding == nil then return end
+        print("verder")
+        local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
+        table.insert(BC.activeBuildings, building)
+    end
+
     function BC.getBuildingsByType(type)
         BC.buildings = {}
         for index, building in ipairs(BuildingDatabase) do
-            if building.type == type then
+            if building.type == type.name then
                 table.insert(BC.buildings, building)
             end
         end

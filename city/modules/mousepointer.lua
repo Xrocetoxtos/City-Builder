@@ -23,9 +23,13 @@ function love.mousereleased(x,y,button)
         else
             GuiController.click()
         end
-    else 
-        if button ==2 then
+    end
+    if button ==2 then
+        if MOUSE_ON_GUI == true then
+
+        else
             UnitController.moveSelected()
+            BuildingController.placeCurrentBuilding()
         end
     end
 end

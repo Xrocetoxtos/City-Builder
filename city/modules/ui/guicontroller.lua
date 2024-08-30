@@ -19,6 +19,20 @@ local GC = {}
             args = args
         }
         table.insert(GC.elements, element)
+        return element
+    end
+
+    function GC.removeElement(element)
+        for index, elm in ipairs(GC.elements) do
+            if elm == element then
+                table.remove(GC.elements, index)
+            end
+        end
+    end
+
+    function GC.clearAllElements()
+        GC.elements = {}
+        BuildingControllerDisplay.elements = {}
     end
 
     function GC.click()

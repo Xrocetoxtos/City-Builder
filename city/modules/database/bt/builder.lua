@@ -6,7 +6,6 @@ local BTree= {}
             BuilderTree.target = nil
 
             local function setIdle()
-
                 -- idle animation voor BuilderTree.parent
                 return Status.SUCCESS
             end
@@ -35,7 +34,7 @@ local BTree= {}
 
             local function buildBuilding()
                 -- TODO: buildingtellertje ophogen
-                -- als gedaan: failure
+                -- als gedaan: success en weghalen  building van lijst controller
                 -- als bezig: running
                 return Status.FAILURE
             end
