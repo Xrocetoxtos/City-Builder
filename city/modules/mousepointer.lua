@@ -18,16 +18,16 @@ end
 
 function love.mousereleased(x,y,button)
     if button == 1 then
-        if MOUSE_ON_GUI == false then
-            UnitController.select()
-        else
+        if MOUSE_ON_GUI == true then
             GuiController.click()
+        else
+            UnitController.select()
         end
     end
     if button ==2 then
         if MOUSE_ON_GUI == true then
 
-        else
+        else                                    -- TODO. beoordelen obv het target wat te doen.
             UnitController.moveSelected()
             BuildingController.placeCurrentBuilding()
         end

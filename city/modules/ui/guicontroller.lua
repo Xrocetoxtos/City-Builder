@@ -67,6 +67,8 @@ local GC = {}
             else
                 if element.image ~=nil then
                     love.graphics.draw(graphics.image, element.x, element.y)
+                else
+                    love.graphics.print(element.title, element.x, element.y)
                 end
             end      
             

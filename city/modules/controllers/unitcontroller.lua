@@ -127,6 +127,8 @@ local UC = {}
     end
 
     function UC.moveSelected()
+        if BuildingController.currentBuilding ~= nil then return end
+
         local coordinate = MousePointer.mouseGridPosition
         for index, unit in ipairs(UC.selectedUnits) do
             -- local availableNode = UC.setTarget(unit, MousePointer.mouseGridPosition)

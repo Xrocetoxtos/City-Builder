@@ -40,9 +40,7 @@ local BC = {}
     end
 
     function BC.placeCurrentBuilding()
-        print("begonnen")
         if BC.currentBuilding == nil then return end
-        print("verder")
         local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
         table.insert(BC.activeBuildings, building)
     end
