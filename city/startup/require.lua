@@ -6,8 +6,6 @@ Timer = require('libraries.hump.timer')
 Vector = require('libraries.hump.vector')
 Signal = require('libraries.hump.signal')
 Jumper = require('libraries.jumper.init')
--- Windfield = require('libraries.windfield')
-Bump = require('libraries.bump')
 BT = require('libraries.bt')
 
 -- utils

@@ -28,7 +28,7 @@ local BCD = {}
         -- TODO: plek bepalen 
         local x = 400   -- TODO uitrekenen
         for index, bt in ipairs(BuildingTypeDatabase) do
-            local element = GuiController.addElement(bt.name, x, 500, 64, 64, BCD.clickBuildingType, bt) -- TODO ook iets om een actief element aan te tonen bij het renderen
+            local element = GuiController.addElement(bt.name, x, 500, 64, 64, BCD.clickBuildingType, bt, bt.image, bt.quad) -- TODO ook iets om een actief element aan te tonen bij het renderen
             x=x+80
             table.insert(BCD.elements, element)
         end

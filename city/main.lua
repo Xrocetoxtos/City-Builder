@@ -1,7 +1,3 @@
--- TODO: grote scripts om elementjes samen te voegen.
-
-
-
 function love.load()
     require('startup.require')
 

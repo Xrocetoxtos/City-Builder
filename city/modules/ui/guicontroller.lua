@@ -5,10 +5,10 @@ local GC = {}
         GC.activeElement = nil
         BuildingControllerDisplay.load()
 
-        GC.addElement("test", 100, 100, 100, 150, nil, nil)
+        GC.addElement("test", 100, 100, 100, 150, nil, nil, nil, nil)
     end
 
-    function GC.addElement(title, x, y, width, height, func, args)
+    function GC.addElement(title, x, y, width, height, func, args, image, quad)
         local element = {
             title = title,
             x = x,
@@ -16,7 +16,9 @@ local GC = {}
             width = width,
             height = height,
             func = func,
-            args = args
+            args = args,
+            image = image,
+            quad = quad
         }
         table.insert(GC.elements, element)
         return element
@@ -58,6 +60,17 @@ local GC = {}
     function GC.draw()
         for index, element in ipairs(GC.elements) do
             love.graphics.rectangle("line",element.x,element.y,element.width, element.height)
+            if element.quad ~= nil then
+                local x, y, width, height = element.quad:getViewport()
+                local size = element.width / width
+                love.graphics.draw(element.image, element.quad, element.x, element.y, 0, size)
+            else
+                if element.image ~=nil then
+                    love.graphics.draw(graphics.image, element.x, element.y)
+                end
+            end      
+            
+
         end
     end
 
