@@ -22,6 +22,7 @@ function love.mousereleased(x,y,button)
             GuiController.click()
         else
             UnitController.select()
+            BuildingController.selectBuilding(nil)
         end
     end
     if button ==2 then

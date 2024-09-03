@@ -35,7 +35,9 @@ Unit = require('modules.objects.unit')
 Building = require('modules.objects.building')
 UnitController = require('modules.controllers.unitcontroller')
 BuildingController = require('modules.controllers.buildingcontroller')
+ResourceController = require('modules.controllers.resourcecontroller')
 
 -- gui
 BuildingControllerDisplay = require('modules.ui.buildingcontrollerdisplay')
+ResourceControllerDisplay = require('modules.ui.resourcescontrollerdisplay')
 GuiController = require('modules.ui.guicontroller')

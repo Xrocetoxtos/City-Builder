@@ -4,8 +4,6 @@ local GC = {}
         GC.elements = {}
         GC.activeElement = nil
         BuildingControllerDisplay.load()
-
-        GC.addElement("test", 100, 100, 100, 150, nil, nil, nil, nil)
     end
 
     function GC.addElement(title, x, y, width, height, func, args, image, quad)
@@ -57,6 +55,7 @@ local GC = {}
            end 
         end
     end
+
     function GC.draw()
         for index, element in ipairs(GC.elements) do
             love.graphics.rectangle("line",element.x,element.y,element.width, element.height)
@@ -65,14 +64,14 @@ local GC = {}
                 local size = element.width / width
                 love.graphics.draw(element.image, element.quad, element.x, element.y, 0, size)
             else
-                if element.image ~=nil then
-                    love.graphics.draw(graphics.image, element.x, element.y)
+                if element.image ~= nil then
+                    love.graphics.draw(element.image, element.x, element.y)
                 else
                     love.graphics.print(element.title, element.x, element.y)
                 end
             end      
             
-
+            ResourceControllerDisplay.draw()
         end
     end
 

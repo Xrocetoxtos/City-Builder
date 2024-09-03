@@ -15,8 +15,7 @@ local UC = {}
                 table.remove(UC.targets, index)
                 break
             end
-            -- local available = UC.nodeAvailable(target, unit)
-            -- if available == false then
+
             if unitTarget.target.x == target.x and unitTarget.target.y == target.y then
                 print("Targeted unitTarget.target is already a targeted target! Target another target or target the targeted target for target practise!")
                 unit.cancelPath()
@@ -126,6 +125,14 @@ local UC = {}
         return true
     end
 
+    function UC.reconsiderPaths()           -- TODO: kijken of mogelijk is om alleen units die voorbij bepaald punt komen mee te nemen.
+        for index, unit in ipairs(UC.units) do
+            if unit.pathTarget ~=nil then
+                unit.UnitController.reconsiderPaths(unit.pathTarget)
+            end
+        end
+    end
+
     function UC.moveSelected()
         if BuildingController.currentBuilding ~= nil then return end
 
@@ -142,7 +149,6 @@ local UC = {}
                     UC.setTarget(unit, destination)
                     unit.tree = nil
                     unit.setPath(destination)
-                    -- FIXME:  bij meertje rechtsponder gaat 2e door het water als je de eerste er rechtsonder zet
                 end
             end
         end        

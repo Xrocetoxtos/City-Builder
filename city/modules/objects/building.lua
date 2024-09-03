@@ -7,12 +7,12 @@ local B = {}
             b.building = building
      
             
-            local x = math.ceil((b.x + 1) /Map.cellSizePixels)
-            local y = math.ceil((b.y + 1) /Map.cellSizePixels)
+            local x = math.ceil((b.x + 1) / Map.cellSizePixels)
+            local y = math.ceil((b.y + 1) / Map.cellSizePixels)
             local coordinates =  Vector(x,y)
             Map.pathfindingMap[coordinates.y][coordinates.x] = 1
-            Map.debugPathfindingGrid()
-
+            -- Map.debugPathfindingGrid()
+            UnitController.reconsiderPaths()
 
             b.load=function()
                 

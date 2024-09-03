@@ -7,6 +7,12 @@ local BD = {
         ghost = nil,
         sprites = {
 
+        }, 
+        resource = {
+            wood = 30,
+            gold = 10,
+            stone = 20,
+            food = 20
         }
     },
 
@@ -17,6 +23,12 @@ local BD = {
         ghost = nil,
         sprites = {
 
+        }, 
+        resource = {
+            wood = 30,
+            gold = 10,
+            stone = 20,
+            food = 20
         }
     },
 
@@ -27,6 +39,12 @@ local BD = {
         ghost = nil,
         sprites = {
 
+        }, 
+        resource = {
+            wood = 30,
+            gold = 10,
+            stone = 20,
+            food = 20
         }
     },
  
@@ -37,6 +55,12 @@ local BD = {
         ghost = nil,
         sprites = {
 
+        }, 
+        resource = {
+            wood = 30,
+            gold = 10,
+            stone = 20,
+            food = 20
         }
     }
 }

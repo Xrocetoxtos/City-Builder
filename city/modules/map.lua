@@ -26,10 +26,8 @@ local map = {}
         for i = 1, mapdata.layers[2].height*mapdata.layers[2].width do
             if mapdata.layers[2].data[i]~=0 then
                 map.pathfindingMap[y][x] = 0
-                -- map.pathfindingMap[x][y]=0
             else
                 map.pathfindingMap[y][x] = 1
-                -- map.pathfindingMap[x][y]=1
             end
             x=x+1
             if x> mapdata.width then
@@ -74,9 +72,9 @@ local map = {}
         if coordinate.x < 1 or coordinate.x> map.mapWidth or coordinate.y < 1 or coordinate.y > map.mapHeight then
             return nil
         end
-        local node = map.pathfindingMap[coordinate.x][coordinate.y]
-        print(coordinate)
-        print(node)
+        -- local node = map.pathfindingMap[coordinate.x][coordinate.y]
+        local node = map.pathfindingMap[coordinate.y][coordinate.x]
+
         if node == map.walkable then    -- TODO: verder uitwerken als een node meer info kan bevatten
             return coordinate
         end
