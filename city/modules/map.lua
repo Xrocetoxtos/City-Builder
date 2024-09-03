@@ -112,6 +112,16 @@ local map = {}
         map.gameMap:drawLayer(map.gameMap.layers["sand"])
         map.gameMap:drawLayer(map.gameMap.layers["grass"])
         love.graphics.pop()
+
+        if DEBUG then
+            love.graphics.setColor(1,0,0,1)
+            for x=1, 30, 1 do
+                for y=1, 30, 1 do
+                    love.graphics.print(map.pathfindingMap[y][x], (x-1)*16, (y-1)*16)
+                end
+            end
+            love.graphics.setColor(1,1,1,1)
+        end
     end
 
 return map
