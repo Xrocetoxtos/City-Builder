@@ -23,4 +23,22 @@ local RC = {}
         return true
     end
 
+    function RC.addResources(resource)
+
+        if resource == nil then return end 
+    
+        if resource.wood ~= nil then 
+            RC.wood = RC.wood + resource.wood
+        end    
+        if resource.gold ~= nil then
+            RC.gold = RC.gold + resource.gold
+        end    
+        if resource.stone ~= nil then
+            RC.stone = RC.stone + resource.stone
+        end    
+        if resource.food ~= nil then
+            RC.food = RC.food + resource.food
+        end
+    end
+
 return RC
