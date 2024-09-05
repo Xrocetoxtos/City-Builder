@@ -7,6 +7,13 @@ local C = {}
         a=1
     }
 
+    C.BLACK = {
+        r=0,
+        g=0,
+        b=0,
+        a=1
+    }
+
     C.RED = {
         r=1,
         g=0,
@@ -21,8 +28,13 @@ local C = {}
         a=1
     }
 
+    C.currentColour= C.WHITE
+
     function C.setColour(colour)
-        love.graphics.setColor(colour.r, colour.g, colour.b, colour.a)
+        if C.currentColour ~= colour then 
+            love.graphics.setColor(colour.r, colour.g, colour.b, colour.a)
+            C.currentColour= colour
+        end
     end
 
 return C

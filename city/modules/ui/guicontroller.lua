@@ -4,6 +4,13 @@ local GC = {}
         GC.elements = {}
         GC.activeElement = nil
         BuildingControllerDisplay.load()
+        GC.messageTimerMax = 3
+        GC.setMessage("")
+    end
+
+    function GC.setMessage(message)
+        GC.message = message
+        GC.messageTimer = 0
     end
 
     function GC.addElement(title, typ, x, y, width, height, func, args, image, quad)
@@ -46,6 +53,12 @@ local GC = {}
     end
 
     function GC.update(dt)
+        if GC.message ~= "" then
+            GC.messageTimer = GC.messageTimer + dt
+            if GC.messageTimer >  GC.messageTimerMax then
+                GC.message = ""
+            end
+        end
         MOUSE_ON_GUI= false
         GC.activeElement=nil
         local x, y = love.mouse.getPosition()
@@ -74,6 +87,19 @@ local GC = {}
             end      
             
             ResourceControllerDisplay.draw()
+            GC.drawMessage()
+        end
+        Colours.setColour(Colours.WHITE)
+    end
+
+    function GC.drawMessage()
+        Colours.setColour(Colours.GREY)
+        love.graphics.rectangle("fill",0,SCREEN_HEIGHT-20 ,SCREEN_WIDTH, SCREEN_HEIGHT)
+
+        if GC.message ~= "" then
+            Colours.setColour(Colours.RED)
+            love.graphics.print(GC.message,  SCREEN_WIDTH * 0.5 - (love.graphics.getFont():getWidth(GC.message) *0.5), SCREEN_HEIGHT - 20)
+
         end
         Colours.setColour(Colours.WHITE)
     end

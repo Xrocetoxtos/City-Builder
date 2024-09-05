@@ -41,8 +41,16 @@ local BC = {}
 
     function BC.placeCurrentBuilding()
         if BC.currentBuilding == nil then return end
-        local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
-        table.insert(BC.activeBuildings, building)
+        if ResourceController.hasResources(BC.currentBuilding.resource) then
+            local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
+            table.insert(BC.activeBuildings, building)
+        else
+            GuiController.setMessage("Not enough resources")
+        end
+        if not love.keyboard.isDown(Settings.select.multi[1]) 
+        and not love.keyboard.isDown(Settings.select.multi[2])  then
+            BC.selectBuilding(nil)
+        end
     end
 
     function BC.getBuildingsByType(type)
@@ -68,6 +76,13 @@ local BC = {}
         if BC.currentBuilding == building then
             BC.currentBuilding = nil
         else
+            if building ~=nil then
+                if not ResourceController.hasResources(building.resource) then
+                    BC.currentBuilding=nil
+                    GuiController.setMessage("Not enough resources")
+                    return
+                end
+            end
             BC.currentBuilding = building
         end
         return BC.currentBuilding == building
