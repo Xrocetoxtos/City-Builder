@@ -6,9 +6,10 @@ local GC = {}
         BuildingControllerDisplay.load()
     end
 
-    function GC.addElement(title, x, y, width, height, func, args, image, quad)
+    function GC.addElement(title, typ, x, y, width, height, func, args, image, quad)
         local element = {
             title = title,
+            type = typ,
             x = x,
             y = y,
             width = width,
@@ -58,6 +59,7 @@ local GC = {}
 
     function GC.draw()
         for index, element in ipairs(GC.elements) do
+            GC.setColour(element)
             love.graphics.rectangle("line",element.x,element.y,element.width, element.height)
             if element.quad ~= nil then
                 local x, y, width, height = element.quad:getViewport()
@@ -73,6 +75,22 @@ local GC = {}
             
             ResourceControllerDisplay.draw()
         end
+        Colours.setColour(Colours.WHITE)
+    end
+
+    function GC.setColour(element)
+        if element == nil then return end
+
+        if element.type == "B" then
+            local available = ResourceController.hasResources(element.args.resource)
+            if available == true then
+                Colours.setColour(Colours.WHITE)
+            else
+                Colours.setColour(Colours.RED)
+                return
+            end
+        end
+        Colours.setColour(Colours.WHITE)
     end
 
 return GC

@@ -4,8 +4,9 @@ local B = {}
         local b = {}
             b.x=position.x
             b.y=position.y
-            b.building = building
-     
+            b.buildingdata = building
+
+            ResourceController.payResources(building.resource)
             
             local x = math.ceil((b.x + 1) / Map.cellSizePixels)
             local y = math.ceil((b.y + 1) / Map.cellSizePixels)

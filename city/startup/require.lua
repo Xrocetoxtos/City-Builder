@@ -11,6 +11,7 @@ BT = require('libraries.bt')
 -- utils
 require('globals')
 Utils = require('startup.utils')
+Colours =  require("startup.colours")
 
 -- resources
 Audio = require('startup.audio')
