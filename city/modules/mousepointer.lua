@@ -9,6 +9,7 @@ function MP.update (dt)
     MP.mouseGridPosition = Map.getGridCoordinate(MOUSE_POSITION)
     MP.pointerPosition = Map.getGridPosition(MP.mouseGridPosition)
     Animations.ui.bonePointerAnimation:update(dt)
+    local tile = Map.getTileInfo(MP.mouseGridPosition)
 end
 
 function MP.draw()

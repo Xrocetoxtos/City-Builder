@@ -47,8 +47,8 @@ local BC = {}
         else
             GuiController.setMessage("Not enough resources")
         end
-        if not love.keyboard.isDown(Settings.select.multi[1]) 
-        and not love.keyboard.isDown(Settings.select.multi[2])  then
+        if not love.keyboard.isDown(Settings.building.multi[1]) 
+        and not love.keyboard.isDown(Settings.building.multi[2])  then
             BC.selectBuilding(nil)
         end
     end
@@ -88,33 +88,51 @@ local BC = {}
         return BC.currentBuilding == building
     end
 
-    function BC.getBuilderByUnit(builder)
-        for index, unit in ipairs(BC.builders) do
-            if unit.unit == builder then
-                return unit, index
+    function BC.getBuildingOnCoordinate(coordinate)
+        if coordinate == nil then return nil end
+
+        for index, building in ipairs(BC.pendingBuildings) do
+            if building.coordinate.x == coordinate.x and building.coordinate.y ==  coordinate.y then
+                return building
             end
         end
-        return nil, -1
+
+        for index, building in ipairs(BC.activeBuildings) do
+            if building.coordinate.x == coordinate.x and building.coordinate.y ==  coordinate.y then
+                return building
+            end
+        end
+
+        return nil
     end
 
-    function BC.getBuilderByBuilding(building)
-        for index, unit in ipairs(BC.builders) do
-            if unit.building == building then
-                return unit, index
-            end
-        end
-        return -1, nil
-    end
+    -- function BC.getBuilderByUnit(builder)
+    --     for index, unit in ipairs(BC.builders) do
+    --         if unit.unit == builder then
+    --             return unit, index
+    --         end
+    --     end
+    --     return nil, -1
+    -- end
 
-    function BC.getIdleBuilderUnits()
-        local idle = {}
-        for index, builder in ipairs(BC.builders) do
-            if builder.building == nil then
-                table.insert(idle, builder.unit)
-            end
-        end
-        return idle
-    end
+    -- function BC.getBuilderByBuilding(building)
+    --     for index, unit in ipairs(BC.builders) do
+    --         if unit.building == building then
+    --             return unit, index
+    --         end
+    --     end
+    --     return -1, nil
+    -- end
+
+    -- function BC.getIdleBuilderUnits()
+    --     local idle = {}
+    --     for index, builder in ipairs(BC.builders) do
+    --         if builder.building == nil then
+    --             table.insert(idle, builder.unit)
+    --         end
+    --     end
+    --     return idle
+    -- end
 
     function BC.getPendingBuilding(building)
         for index, building in ipairs(BC.pendingBuildings) do
@@ -139,56 +157,56 @@ local BC = {}
         end
     end
 
-    function BC.addBuilder(builder, building)
-        if builder == nil then              -- mag best geen building hebben. dan is het gewoon een builder zonder taak.
-            error("Builder is nil")
-            return 
-        end
-        BC.removeBuilder(builder)
+    -- function BC.addBuilder(builder, building)
+    --     if builder == nil then              -- mag best geen building hebben. dan is het gewoon een builder zonder taak.
+    --         error("Builder is nil")
+    --         return 
+    --     end
+    --     BC.removeBuilder(builder)
 
-        local newRecord = {
-            unit = builder, 
-            building = building
-        }
-        table.insert(BC.builders, newRecord)
-    end
+    --     local newRecord = {
+    --         unit = builder, 
+    --         building = building
+    --     }
+    --     table.insert(BC.builders, newRecord)
+    -- end
 
-    function BC.removeBuilder (builder)
-        local record, index = BC.getBuilderByUnit(builder)
-        if index ~= -1 then
-            table.remove(BC.builders, index)
-        end
-    end
+    -- function BC.removeBuilder (builder)
+    --     local record, index = BC.getBuilderByUnit(builder)
+    --     if index ~= -1 then
+    --         table.remove(BC.builders, index)
+    --     end
+    -- end
 
-    function BC.detachBuilder(builder)
-        local attachment, index = BC.getBuilderByUnit(builder)
-        if attachment ~= nil then
-            attachment.building = nil
-            table.insert(BC.pendingBuildings, attachment.building)
-        end
-    end
+    -- function BC.detachBuilder(builder)
+    --     local attachment, index = BC.getBuilderByUnit(builder)
+    --     if attachment ~= nil then
+    --         attachment.building = nil
+    --         table.insert(BC.pendingBuildings, attachment.building)
+    --     end
+    -- end
 
-    function BC.findNearestIdleUnit(position, maxDistance)
-        local units = BC.getIdleBuilderUnits()
-        if #units <= 0 then 
-            return nil 
-        end
-        if #units == 1 then
-            return units[1]
-        end
+    -- function BC.findNearestIdleUnit(position, maxDistance)
+    --     local units = BC.getIdleBuilderUnits()
+    --     if #units <= 0 then 
+    --         return nil 
+    --     end
+    --     if #units == 1 then
+    --         return units[1]
+    --     end
 
-        local distance = maxDistance or 99999999
-        local unit = nil
+    --     local distance = maxDistance or 99999999
+    --     local unit = nil
 
-        for index, value in ipairs(units) do
-            local dist = value.unit.position:dist(position)
-            if dist < distance then
-                distance=dist
-                unit = value.unit
-            end
-        end
-        return unit
-    end
+    --     for index, value in ipairs(units) do
+    --         local dist = value.unit.position:dist(position)
+    --         if dist < distance then
+    --             distance=dist
+    --             unit = value.unit
+    --         end
+    --     end
+    --     return unit
+    -- end
 
     function BC.findNearestPendingBuilding(position, maxDistance)
         if #BC.pendingBuildings <= 0 then 

@@ -10,8 +10,8 @@ local B = {}
             
             local x = math.ceil((b.x + 1) / Map.cellSizePixels)
             local y = math.ceil((b.y + 1) / Map.cellSizePixels)
-            local coordinates =  Vector(x,y)
-            Map.pathfindingMap[coordinates.y][coordinates.x] = 1
+            b.coordinate =  Vector(x,y)
+            Map.pathfindingMap[b.coordinate.y][b.coordinate.x] = 1
             -- Map.debugPathfindingGrid()
             UnitController.reconsiderPaths()
 

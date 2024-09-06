@@ -96,7 +96,22 @@ local map = {}
         if coordinates == nil then return nil end
 
         return Vector((coordinates.x-1)*map.cellSizePixels, (coordinates.y-1)*map.cellSizePixels)
+    end
 
+    function map.getTileInfo(coordinate)
+        if coordinate == nil then return nil end
+
+        local tile = {}
+
+            print("===========")
+            print(coordinate)
+            tile.walkable = map.isNodeWalkable(coordinate)
+            tile.unit = UnitController.getUnitOnCoordinate(coordinate)
+            if tile.unit ~=nil then print("unit") end
+            tile.building = BuildingController.getBuildingOnCoordinate(coordinate)
+            if tile.building ~=nil then print("building") end
+
+        return tile
     end
 
     map.update = function (dt)
