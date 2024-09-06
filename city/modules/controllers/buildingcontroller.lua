@@ -45,7 +45,7 @@ local BC = {}
             local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
             table.insert(BC.activeBuildings, building)
         else
-            GuiController.setMessage("Not enough resources")
+            GuiController.setMessage("Not enough resources to build " ..BC.currentBuilding.name..".")
         end
         if not love.keyboard.isDown(Settings.building.multi[1]) 
         and not love.keyboard.isDown(Settings.building.multi[2])  then
@@ -79,7 +79,7 @@ local BC = {}
             if building ~=nil then
                 if not ResourceController.hasResources(building.resource) then
                     BC.currentBuilding=nil
-                    GuiController.setMessage("Not enough resources")
+                    GuiController.setMessage("Not enough resources to build " ..building.name..".")
                     return
                 end
             end

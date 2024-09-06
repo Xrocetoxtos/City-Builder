@@ -6,13 +6,14 @@ local B = {}
             b.y=position.y
             b.buildingdata = building
 
+            b.buildingProgress = Progress.new(b, 100, b.finishBuilding)         -- TODO signal
+
             ResourceController.payResources(building.resource)
             
             local x = math.ceil((b.x + 1) / Map.cellSizePixels)
             local y = math.ceil((b.y + 1) / Map.cellSizePixels)
             b.coordinate =  Vector(x,y)
             Map.pathfindingMap[b.coordinate.y][b.coordinate.x] = 1
-            -- Map.debugPathfindingGrid()
             UnitController.reconsiderPaths()
 
             b.load=function()
@@ -20,7 +21,14 @@ local B = {}
             end
 
             b.update=function(dt)
+                if b.buildingProgress.current< b.buildingProgress.max then
+                    b.buildingProgress.progress(1)
 
+                end
+            end
+
+            b.finishBuilding = function ()
+                print("finish")
             end
 
             b.draw=function()
