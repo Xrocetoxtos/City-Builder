@@ -5,11 +5,25 @@ local RC = {}
     RC.stone = 100
     RC.food = 100
 
+    RC.population = 2
+    RC.populationMax = 5
+
     function RC.hasResources(resource)
-        if resource.wood > RC.wood then return false end
-        if resource.gold > RC.gold then return false end
-        if resource.stone > RC.stone then return false end
-        if resource.food > RC.food then return false end
+        if resource.wood ~= nil then
+            if resource.wood > RC.wood then return false end
+        end
+        if resource.gold ~= nil then
+            if resource.gold > RC.gold then return false end
+        end
+        if resource.stone ~= nil then
+            if resource.stone > RC.stone then return false end
+        end
+        if resource.food ~= nil then
+            if resource.food > RC.food then return false end
+        end
+        if resource.population ~= nil then
+            if resource.population > RC.populationMax - RC.population then return false end
+        end
         return true
     end
 

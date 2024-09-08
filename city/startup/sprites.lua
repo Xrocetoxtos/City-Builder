@@ -13,7 +13,7 @@ local sprites = {}
     sprites.ui.resources = {}
     sprites.ui.resources.image = love.graphics.newImage("resources/sprites/ui/resources.png")
     sprites.ui.resources.types = {}
-    for i = 1, 4 , 1 do
+    for i = 1, 5 , 1 do
         sprites.ui.resources.types[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, sprites.ui.resources.image)
     end
     
