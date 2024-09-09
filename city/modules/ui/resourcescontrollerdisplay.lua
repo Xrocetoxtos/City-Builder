@@ -9,7 +9,7 @@ local RCD = {}
         love.graphics.print(ResourceController.gold, 110, 2)
         love.graphics.print(ResourceController.stone, 190, 2)
         love.graphics.print(ResourceController.wood, 270, 2)
-        love.graphics.print(ResourceController.population.." / "..ResourceController.populationMax, 350, 2)
+        love.graphics.print(#UnitController.units.." / "..ResourceController.populationMax, 350, 2)
 
         Colours.setColour(Colours.WHITE)
 
