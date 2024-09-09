@@ -6,6 +6,7 @@ local GC = {}
         BuildingControllerDisplay.load()
         GC.messageTimerMax = 3
         GC.setMessage("")
+        Minimap.load()
     end
 
     function GC.setMessage(message)
@@ -68,9 +69,11 @@ local GC = {}
                 GC.activeElement = element
            end 
         end
+        Minimap.update(dt)
     end
 
     function GC.draw()
+        love.graphics.line(SCREEN_WIDTH/2,0, SCREEN_WIDTH/2,SCREEN_HEIGHT)
         for index, element in ipairs(GC.elements) do
             GC.setColour(element)
             love.graphics.rectangle("line",element.x,element.y,element.width, element.height)
@@ -89,6 +92,7 @@ local GC = {}
             ResourceControllerDisplay.draw()
             GC.drawMessage()
         end
+        Minimap.draw()
         Colours.setColour(Colours.WHITE)
     end
 

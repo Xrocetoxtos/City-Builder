@@ -1,6 +1,11 @@
 local BCD = {}
 
     function BCD.load()
+        BCD.typeSize = 64
+        BCD.typeMargin = 16
+        BCD.buildingSize = 32
+        BCD.buildingMargin = 8
+
         BCD.elements = {}
         BCD.setElements()
     end
@@ -24,19 +29,20 @@ local BCD = {}
     end
 
     function BCD.setElements()
-
-        -- TODO: plek bepalen 
-        local x = 400   -- TODO uitrekenen
+        local x = SCREEN_WIDTH * 0.5 - (BCD.typeMargin + BCD.typeSize) * 0.5 * #BuildingTypeDatabase + BCD.typeMargin * 0.5
+        local y = SCREEN_HEIGHT - BCD.typeSize - BCD.typeMargin * 2
         for index, bt in ipairs(BuildingTypeDatabase) do
-            local element = GuiController.addElement(bt.name, "BT", x, 500, 64, 64, BCD.clickBuildingType, bt, Sprites.ui.building_types.image, bt.quad) -- TODO ook iets om een actief element aan te tonen bij het renderen
-            x=x+80
+            local element = GuiController.addElement(bt.name, "BT", x, y, BCD.typeSize, BCD.typeSize, BCD.clickBuildingType, bt, Sprites.ui.building_types.image, bt.quad) -- TODO ook iets om een actief element aan te tonen bij het renderen
+            x = x + BCD.typeSize + BCD.typeMargin
             table.insert(BCD.elements, element)
         end
-        local x = 400   -- TODO uitrekenen
+
+        y = y - BCD.typeMargin - BCD.buildingSize
+        x = SCREEN_WIDTH * 0.5 - (BCD.buildingMargin + BCD.buildingSize) * 0.5 * #BuildingController.buildings + BCD.buildingMargin * 0.5
         for index, building in ipairs(BuildingController.buildings) do
             local hasResources = ResourceController.hasResources(building.resource)
-            local element = GuiController.addElement(building.name, "B", x, 400, 32, 32, BCD.clickBuilding, building) -- TODO ook iets om een actief element aan te tonen bij het renderen
-            x=x+80
+            local element = GuiController.addElement(building.name, "B", x, y, BCD.buildingSize, BCD.buildingSize, BCD.clickBuilding, building) -- TODO ook iets om een actief element aan te tonen bij het renderen
+            x= x + BCD.buildingSize + BCD.buildingMargin
             table.insert(BCD.elements, element)
    
         end
