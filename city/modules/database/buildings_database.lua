@@ -5,6 +5,7 @@ local BD = {
         type = "Civic",
         icon = nil,
         ghost = nil,
+        population = 2,
         sprites = {
 
         }, 
@@ -21,6 +22,7 @@ local BD = {
         type = "Civic",
         icon = nil,
         ghost = nil,
+        population = 0,
         sprites = {
 
         }, 
@@ -37,6 +39,7 @@ local BD = {
         type = "Military",
         icon = nil,
         ghost = nil,
+        population = 0,
         sprites = {
 
         }, 
@@ -53,6 +56,7 @@ local BD = {
         type = "Industrial",
         icon = nil,
         ghost = nil,
+        population = 0,
         sprites = {
 
         }, 
