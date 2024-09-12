@@ -21,6 +21,13 @@ local C = {}
         a=1
     }
 
+    C.ORANGE = {
+        r = 1,
+        g = 0.5, 
+        b = 0,
+        a = 1
+    }
+
     C.BLUE = {
         r=0,
         g = 0,

@@ -32,9 +32,13 @@ local B = {}
             end
 
             b.update=function(dt)
-                if b.buildingProgress.current< b.buildingProgress.max and b.finished == false then
-                    b.buildingProgress.progress(1)
+                b.build(1)
+                if b.finished == false then return end
+            end
 
+            b.build = function (amount)
+                if b.buildingProgress.current< b.buildingProgress.max and b.finished == false then
+                    b.buildingProgress.progress(amount)
                 end
             end
 
