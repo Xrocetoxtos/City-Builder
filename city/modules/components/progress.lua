@@ -1,12 +1,17 @@
 local Progress = {}
 
-    function Progress.new(parent, max, func)        -- TODO: signal voor als het gedaan is
+    function Progress.new(parent, max, func, arg)        -- TODO: signal voor als het gedaan is
         local p = {}
 
         p.parent = parent
         p.current = 0
         p.max = max
-        p.func = func
+        p.func = func or nil
+        p.args =  arg
+
+        -- print("-----")
+        -- print (arg)
+        -- print("-----")
 
         p.reset =function()
             p.current = 0
@@ -20,9 +25,11 @@ local Progress = {}
         end
 
         p.finish = function ()                      -- TODO: signal naar parent
-            print(p.func)
             if p.func ~= nil then
-                p.func()
+                -- print("-----")
+                -- print(p.args)
+                -- print("-----")
+                p.func(p.args)
             end
         end
 

@@ -1,12 +1,18 @@
 local B = {}
+    B.finishBuilding = function (building)
+        print("finish " .. building.buildingData.name)
+        building.finish()
+    end
+
     B.id = 0
     function B.new(position,building)
         local b = {}
             b.x=position.x
             b.y=position.y
-            b.buildingdata = building
+            b.buildingData = building
 
-            b.buildingProgress = Progress.new(b, 100, b.finishBuilding)         -- TODO signal
+            b.buildingProgress = Progress.new(b, 100, B.finishBuilding, b) 
+            b.finished = false
 
             ResourceController.payResources(building.resource)
             
@@ -20,16 +26,18 @@ local B = {}
                 
             end
 
+            b.finish = function()
+                b.finished = true
+                ResourceController.populationMax = ResourceController.populationMax + b.buildingData.population
+            end
+
             b.update=function(dt)
-                if b.buildingProgress.current< b.buildingProgress.max then
+                if b.buildingProgress.current< b.buildingProgress.max and b.finished == false then
                     b.buildingProgress.progress(1)
 
                 end
             end
 
-            b.finishBuilding = function ()
-                print("finish")
-            end
 
             b.draw=function()
                 love.graphics.rectangle("line",b.x,b.y,Map.cellSize, Map.cellSize)
