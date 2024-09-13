@@ -4,7 +4,8 @@ local UC = {}
         UC.units = {}
         UC.selectedUnits = {}
         UC.addUnit(Vector(10,10), 10)
-        UC.addUnit(Vector(13,11), 10)
+        -- UC.addUnit(Vector(13,11), 10)
+        
         -- UC.addUnit(Vector(14,11), 10)
         -- UC.addUnit(Vector(15,11), 10)
         -- UC.addUnit(Vector(18,11), 10)

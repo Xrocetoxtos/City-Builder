@@ -49,6 +49,26 @@ local unit = {}
                 table.remove(u.path, 1)
             end
         end
+
+        u.setTarget = function(building)
+            if building == nil then
+                print("geen building")
+                return
+            end
+            local coordinate = building.coordinate
+            local node = UnitController.findNodeAround(coordinate, u)
+            if node ~= nil then
+                u.setPath(node)
+                return
+            end
+            print("geen target")
+        end
+
+        u.targetReached = function ()
+            local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
+            local distance = u.position:dist(nextPosition)
+            return distance < 1
+        end
         
         u.cancelPath = function ()
             u.pathTarget=nil
@@ -65,7 +85,7 @@ local unit = {}
             if u.tree ~=nil then
                 u.timer = u.timer +dt
                 if u.timer>u.timerMax then
-                    u.tree.tree.process()
+                    local test = u.tree.tree.process()
                     u.timer = 0
                 end
             end

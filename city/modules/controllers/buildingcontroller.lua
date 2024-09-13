@@ -44,6 +44,7 @@ local BC = {}
         if ResourceController.hasResources(BC.currentBuilding.resource) then
             local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
             table.insert(BC.activeBuildings, building)
+            BC.addPendingBuilding(building)
         else
             GuiController.setMessage("Not enough resources to build " ..BC.currentBuilding.name..".")
         end
@@ -222,7 +223,7 @@ local BC = {}
         for index, value in ipairs(BC.pendingBuildings) do
             local dist = value.position:dist(position)
             if dist < distance then
-                distance=dist
+                distance = dist
                 pBuilding = value
             end
         end

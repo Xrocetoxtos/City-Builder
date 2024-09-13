@@ -32,7 +32,7 @@ local B = {}
             end
 
             b.update=function(dt)
-                b.build(1)
+                -- b.build(1)
                 if b.finished == false then return end
             end
 
@@ -40,6 +40,10 @@ local B = {}
                 if b.buildingProgress.current< b.buildingProgress.max and b.finished == false then
                     b.buildingProgress.progress(amount)
                 end
+            end
+
+            b.showInfo = function()
+                print(b.buildingProgress.current)
             end
 
 
