@@ -158,4 +158,9 @@ local UC = {}
         end        
     end
 
+    -- TODO: 
+    -- * beoordelen welke tile er target is.
+    --   --> walkable: gewoon erheen
+    --   --> pending building: eromheen en dan tree building instellen. en target maken.
+
 return UC

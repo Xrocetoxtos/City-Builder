@@ -102,12 +102,12 @@ local map = {}
         if coordinate == nil then return nil end
 
         local tile = {}
+            tile.coordinate = coordinate
+            tile.position = map.getGridPosition(coordinate)
             tile.walkable = map.isNodeWalkable(coordinate)
             tile.unit = UnitController.getUnitOnCoordinate(coordinate)
-            if tile.unit ~=nil then print("unit") end
             tile.building = BuildingController.getBuildingOnCoordinate(coordinate)
-            if tile.building ~=nil then print("building") end
-
+            tile.newBuilding = BuildingController.getPendingBuildingOnCoordinate(coordinate)
         return tile
     end
 

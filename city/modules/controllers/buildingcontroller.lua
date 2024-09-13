@@ -92,18 +92,23 @@ local BC = {}
     function BC.getBuildingOnCoordinate(coordinate)
         if coordinate == nil then return nil end
 
-        for index, building in ipairs(BC.pendingBuildings) do
-            if building.coordinate.x == coordinate.x and building.coordinate.y ==  coordinate.y then
-                return building
-            end
-        end
-
         for index, building in ipairs(BC.activeBuildings) do
             if building.coordinate.x == coordinate.x and building.coordinate.y ==  coordinate.y then
                 return building
             end
         end
 
+        return nil
+    end
+
+    function BC.getPendingBuildingOnCoordinate(coordinate)
+        if coordinate == nil then return nil end
+
+        for index, building in ipairs(BC.pendingBuildings) do
+            if building.coordinate.x == coordinate.x and building.coordinate.y ==  coordinate.y then
+                return building
+            end
+        end     
         return nil
     end
 
