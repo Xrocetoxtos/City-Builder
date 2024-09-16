@@ -30,8 +30,8 @@ function love.mousereleased(x,y,button)
         if MOUSE_ON_GUI == true then
 
         else                                    -- TODO. beoordelen obv het target wat te doen.
-            UnitController.moveSelected()
             BuildingController.placeCurrentBuilding()
+            UnitController.moveSelected(MP.mouseGridPosition)
         end
     end
 end

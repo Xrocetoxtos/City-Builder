@@ -11,6 +11,7 @@ local UC = {}
         -- UC.addUnit(Vector(18,11), 10)
 
         UC.targets = {} -- houdt bij waar welke unit naartoe loopt
+        UC.options = {} -- houdt bij welke mogelijke plekken er beschikbaar zijn voor lopen
     end
 
     function UC.setTarget(unit, target)
@@ -137,12 +138,20 @@ local UC = {}
         end
     end
 
-    function UC.moveSelected()
-        if BuildingController.currentBuilding ~= nil then return end
+    function UC.moveSelected(coordinate)
+        if #UC.selectedUnits <=0 then return end
+        -- if BuildingController.currentBuilding ~= nil then return end
+        local tile = Map.getTileInfo(coordinate)
 
-        local coordinate = MousePointer.mouseGridPosition
+        if #UC.selectedUnits > 1 or BuildingController.currentBuilding ~= nil or tile.walkable == false then 
+            UC.getNeighboura(coordinate)
+        end
+
+        if BuildingController.currentBuilding ~= nil then
+            UC.setBuildingTarget(tile)
+        end
+
         for index, unit in ipairs(UC.selectedUnits) do
-            -- local availableNode = UC.setTarget(unit, MousePointer.mouseGridPosition)
             local availableNode = UC.nodeAvailable(coordinate, unit)
             if availableNode ==true then
                 UC.setTarget(unit, coordinate)
@@ -158,9 +167,19 @@ local UC = {}
         end        
     end
 
-    -- TODO: 
-    -- * beoordelen welke tile er target is.
-    --   --> walkable: gewoon erheen
-    --   --> pending building: eromheen en dan tree building instellen. en target maken.
+    function UC.getNeighbours(coordinate)
+        UC.options = {}
+        table.insert(UC.options, Vector(coordinate.x-1, coordinate.y-1))
+        table.insert(UC.options, Vector(coordinate.x, coordinate.y-1))
+        table.insert(UC.options, Vector(coordinate.x+1, coordinate.y-1))
+        table.insert(UC.options, Vector(coordinate.x-1, coordinate.y))
+        table.insert(UC.options, Vector(coordinate.x+1, coordinate.y))
+        table.insert(UC.options, Vector(coordinate.x-1, coordinate.y+1))
+        table.insert(UC.options, Vector(coordinate.x, coordinate.y+1))
+        table.insert(UC.options, Vector(coordinate.x+1, coordinate.y+1))
+    end
+
+    function UC.setBuildingTarget(tile)
+
 
 return UC
