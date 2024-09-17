@@ -20,7 +20,7 @@ local B = {}
             local y = math.ceil((b.y + 1) / Map.cellSizePixels)
             b.coordinate =  Vector(x,y)
             Map.pathfindingMap[b.coordinate.y][b.coordinate.x] = 1
-            UnitController.reconsiderPaths()
+            UnitOrders.reconsiderPaths()
 
             b.load=function()
                 

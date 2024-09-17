@@ -6,7 +6,7 @@ local RC = {}
     RC.food = 100
 
     RC.populationMax= 5
-    RC.population = function() return RC.populationMax - #UnitController.units end
+    RC.population = function() return RC.populationMax - #UnitSelector.units end
 
     function RC.hasResources(resource)
         if resource.wood ~= nil then

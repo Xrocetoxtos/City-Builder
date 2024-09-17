@@ -15,7 +15,9 @@ local unit = {}
 
         u.delete = false
 
-        u.tree = BTDatabase.Idle.new(u)
+        u.idleTree = BTDatabase.Idle.new(u)
+        -- u.tree = u.idleTree
+        u.tree = BTDatabase.Builder.new(u)
         u.timer = 0
         u.timerMax = 0.5
 
@@ -26,13 +28,13 @@ local unit = {}
 
         u.select = function()
             u.selected=true
-            table.insert(UnitController.selectedUnits, u)
-            u.selectID = #UnitController.selectedUnits
+            table.insert(UnitSelector.selectedUnits, u)
+            u.selectID = #UnitSelector.selectedUnits
         end
 
         u.deselect = function()
             u.selected=false
-            table.remove(UnitController.selectedUnits, u.selectID)
+            table.remove(UnitSelector.selectedUnits, u.selectID)
             u.selectID = -1
         end
         
@@ -56,7 +58,7 @@ local unit = {}
                 return
             end
             local coordinate = building.coordinate
-            local node = UnitController.findNodeAround(coordinate, u)
+            local node = UnitOrders.findNodeAround(coordinate, u)
             if node ~= nil then
                 u.setPath(node)
                 return
@@ -89,7 +91,7 @@ local unit = {}
         end
 
         u.update = function (dt)
-            if u.tree.name  ~= "" then
+            if u.tree ~= nil and u.tree.name ~= "" then
                 u.timer = u.timer +dt
                 if u.timer>u.timerMax then
                     local test = u.tree.tree.process()

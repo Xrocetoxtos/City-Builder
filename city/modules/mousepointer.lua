@@ -22,7 +22,7 @@ function love.mousereleased(x,y,button)
         if MOUSE_ON_GUI == true then
             GuiController.click()
         else
-            UnitController.select()
+            UnitSelector.select()
             BuildingController.selectBuilding(nil)
         end
     end
@@ -31,7 +31,11 @@ function love.mousereleased(x,y,button)
 
         else                                    -- TODO. beoordelen obv het target wat te doen.
             BuildingController.placeCurrentBuilding()
-            UnitController.moveSelected(MP.mouseGridPosition)
+            --UnitSelector.moveSelected(MP.mouseGridPosition)
+            local tile = Map.getTileInfo(MP.mouseGridPosition)
+            if tile ~= nil then
+                UnitOrders.interactWithTile(tile)
+            end
         end
     end
 end

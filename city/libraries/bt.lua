@@ -161,7 +161,9 @@ local bt={}
             end
     -- ----------------------------------------------------------
             node.process = function()
-
+                if DEBUG then
+                    print("RUNNING ".. node.displayName()) 
+                end
                 bt.activeNode = node
                 if node.func then
                     return node.func(node.args)
