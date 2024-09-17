@@ -15,7 +15,7 @@ local unit = {}
 
         u.delete = false
 
-        u.tree = BTDatabase.Builder.new(u)
+        u.tree = BTDatabase.Idle.new(u)
         u.timer = 0
         u.timerMax = 0.5
 
@@ -65,6 +65,9 @@ local unit = {}
         end
 
         u.targetReached = function ()
+            if u.path == nil then return false end
+            if #u.path < 1 then return true end
+
             local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
             local distance = u.position:dist(nextPosition)
             return distance < 1
@@ -77,12 +80,16 @@ local unit = {}
         end
 
         u.setTree = function(tree)
-            u.tree = tree
-            u.timer = u.timerMax+1
+            print (u.tree.name .."  -->  "..tree.name)
+            if u.tree.name ~= tree.name then
+                u.tree = tree.new(u)
+                u.timer = u.timerMax+1
+                    
+            end
         end
 
         u.update = function (dt)
-            if u.tree ~=nil then
+            if u.tree.name  ~= "" then
                 u.timer = u.timer +dt
                 if u.timer>u.timerMax then
                     local test = u.tree.tree.process()

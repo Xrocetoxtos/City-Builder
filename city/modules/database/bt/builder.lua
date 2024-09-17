@@ -1,13 +1,16 @@
 local BTree= {}
 
+    BTree.name = "Builder"
+
     BTree.new = function(unit)
         local BuilderTree = {}
+            BuilderTree.name = BTree.name
             BuilderTree.parent = unit
             BuilderTree.target = nil
 
             local function setIdle()
                 -- idle animation voor BuilderTree.parent
-                print("idle")
+                -- print("idle")
                 return Status.SUCCESS
             end
 
@@ -30,6 +33,7 @@ local BTree= {}
                 if BuilderTree.parent.targetReached() then
                     return Status.SUCCESS
                 end
+                -- print("moving")
                 return Status.RUNNING
             end
 
@@ -40,6 +44,7 @@ local BTree= {}
                 BuilderTree.target.build(10)
                 print(BuilderTree.target.showInfo())
                 if BuilderTree.target.finished then
+                    BuildingController.removePendingBuilding(BuilderTree.parent.target)
                     return Status.SUCCESS
                 end
                 -- TODO: buildingtellertje ophogen

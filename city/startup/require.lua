@@ -36,6 +36,7 @@ MousePointer = require('modules.mousepointer')
 Unit = require('modules.objects.unit')
 Building = require('modules.objects.building')
 UnitController = require('modules.controllers.unitcontroller')
+-- UnitMoveController = require('modules.controllers.unitmovecontroller')
 BuildingController = require('modules.controllers.buildingcontroller')
 ResourceController = require('modules.controllers.resourcecontroller')
 

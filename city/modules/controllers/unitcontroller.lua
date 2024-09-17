@@ -142,9 +142,11 @@ local UC = {}
         if #UC.selectedUnits <=0 then return end
         -- if BuildingController.currentBuilding ~= nil then return end
         local tile = Map.getTileInfo(coordinate)
+        if tile == nil then return end
 
         if #UC.selectedUnits > 1 or BuildingController.currentBuilding ~= nil or tile.walkable == false then 
-            UC.getNeighboura(coordinate)
+            UC.getNeighbours(coordinate)
+            print("XXX")
         end
 
         if BuildingController.currentBuilding ~= nil then
@@ -180,6 +182,13 @@ local UC = {}
     end
 
     function UC.setBuildingTarget(tile)
-
+        for index, unit in ipairs(UC.selectedUnits) do
+            print("test")
+            unit.setTree(BTDatabase.Builder)
+            unit.tree.target = tile.newBuilding
+            debug.debug()
+            
+        end
+    end
 
 return UC

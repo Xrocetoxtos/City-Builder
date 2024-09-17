@@ -45,6 +45,7 @@ local BC = {}
             local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
             table.insert(BC.activeBuildings, building)
             BC.addPendingBuilding(building)
+            UnitController.moveSelected(building.coordinate)
         else
             GuiController.setMessage("Not enough resources to build " ..BC.currentBuilding.name..".")
         end
