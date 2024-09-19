@@ -31,7 +31,9 @@ local BTree= {}
             end
 
             local function getNearestPendingBuilding()
+                print("detectPending")
                 local building = BuildingController.findNearestPendingBuilding(Tree.unit.position, Tree.unit.maxDistance)
+                print (building)
                 if building ~=nil then
                     unit.setTarget(building)
                     Tree.target = building
@@ -72,7 +74,6 @@ local BTree= {}
                     return Status.FAILURE
                 end
                 Tree.target.build(10)
-                print(Tree.target.showInfo())
                 if Tree.target.finished then
                     BuildingController.removePendingBuilding(Tree.unit.target)
                     return Status.SUCCESS

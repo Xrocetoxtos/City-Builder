@@ -28,6 +28,14 @@ local BC = {}
         for index, building in ipairs(BC.activeBuildings) do
             building.update(dt)
         end
+
+        -- print("PENDING")
+        -- for index, value in ipairs(BC.pendingBuildings) do
+        --     print(value.buildingData.name)
+        --     print(index)
+        -- end
+        -- print("-----")
+
     end
 
     function BC.draw()
@@ -142,9 +150,11 @@ local BC = {}
     --     return idle
     -- end
 
-    function BC.getPendingBuilding(building)
+    function BC.getPendingBuilding(b)
         for index, building in ipairs(BC.pendingBuildings) do
-            if building == building then
+            print (b.id)
+            print (index)
+            if building.id == b.id then
                 return building, index
             end
         end
@@ -158,7 +168,7 @@ local BC = {}
         end
     end
 
-    function BC.removePendingBuilding(building)
+    function BC.removePendingBuilding(building)                                           -- TODO. dit gaat nog niet goed, somehow. building is nils?!
         local b, i = BC.getPendingBuilding(building)
         if b~=nil then
             table.remove(BC.pendingBuildings, i)
@@ -217,6 +227,8 @@ local BC = {}
     -- end
 
     function BC.findNearestPendingBuilding(position, maxDistance)
+        print(#BC.pendingBuildings)
+
         if #BC.pendingBuildings <= 0 then 
             return nil 
         end
@@ -226,9 +238,13 @@ local BC = {}
 
         local distance = maxDistance or 99999999
         local pBuilding = nil
-
         for index, value in ipairs(BC.pendingBuildings) do
-            local dist = value.position:dist(position)
+            print("----")
+            print(position)
+            print("buuilding")
+            
+            local pos = Vector(value.x, value.y)
+            local dist = pos:dist(position)
             if dist < distance then
                 distance = dist
                 pBuilding = value
