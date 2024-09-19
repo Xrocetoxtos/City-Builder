@@ -6,11 +6,11 @@ function love.load()
 
     Settings.load(nil) -- file
     Map.load()
-    Pointer.load(400,400)
     UnitController.load()
     BuildingController.load()
     MousePointer.load()
     GuiController.load()
+    Pointer.load(400,400)
 end
 
 

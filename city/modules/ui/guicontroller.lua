@@ -5,6 +5,7 @@ local GC = {}
         GC.activeElement = nil
         BuildingControllerDisplay.load()
         GC.messageTimerMax = 3
+        GC.messageHeight = 20
         GC.setMessage("")
         Minimap.load()
     end
@@ -98,11 +99,11 @@ local GC = {}
 
     function GC.drawMessage()
         Colours.setColour(Colours.GREY)
-        love.graphics.rectangle("fill",0,SCREEN_HEIGHT-20 ,SCREEN_WIDTH, SCREEN_HEIGHT)
+        love.graphics.rectangle("fill",0,SCREEN_HEIGHT-GC.messageHeight ,SCREEN_WIDTH, SCREEN_HEIGHT)
 
         if GC.message ~= "" then
             Colours.setColour(Colours.RED)
-            love.graphics.print(GC.message,  SCREEN_WIDTH * 0.5 - (love.graphics.getFont():getWidth(GC.message) *0.5), SCREEN_HEIGHT - 20)
+            love.graphics.print(GC.message,  SCREEN_WIDTH * 0.5 - (love.graphics.getFont():getWidth(GC.message) *0.5), SCREEN_HEIGHT - GC.messageHeight) 
 
         end
         Colours.setColour(Colours.WHITE)

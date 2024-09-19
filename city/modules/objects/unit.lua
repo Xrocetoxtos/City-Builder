@@ -43,12 +43,24 @@ local unit = {}
         end
 
         u.setPath = function(coordinate)
+            print("setpath")
             local pathLength =0
             u.pathTarget = coordinate
             u.path = {}
             u.path, pathLength = Map.pathfinder:getPath(u.coordinate.x, u.coordinate.y, coordinate.x, coordinate.y) 
             if pathLength ~=nil and pathLength > 0 then
                 table.remove(u.path, 1)
+            else
+                print("geen path bepaald")
+            end
+        end
+
+        u.setPathTowards = function(coordinate)
+            -- coordinate.x=coordinate.x-1
+            -- coordinate.y=coordinate.y-1
+            local destination = UnitOrders.findNodeAround(coordinate, u)
+            if destination ~= nil then
+                u.setPath(destination)
             end
         end
 
@@ -67,7 +79,10 @@ local unit = {}
         end
 
         u.targetReached = function ()
-            if u.path == nil then return false end
+            if u.path == nil then 
+                print("geen path") 
+                return false 
+            end
             if #u.path < 1 then return true end
 
             local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
@@ -118,6 +133,7 @@ local unit = {}
         end
 
         u.move = function(dt)
+            print("moving")
             local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
             local distance = u.position:dist(nextPosition)
             if distance < 1 then

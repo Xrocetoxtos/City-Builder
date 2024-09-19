@@ -53,7 +53,7 @@ local BTree= {}
                     print("nog niet onderweg")
                     print(Tree.target.coordinate)
                     UnitOrders.setTarget(Tree.target, Tree.target.coordinate)
-                    Tree.unit.setPath(Tree.target.coordinate)
+                    Tree.unit.setPathTowards(Tree.target.coordinate)
                     Tree.onHisWay= true
                 end
                 return Status.SUCCESS
@@ -93,7 +93,7 @@ local BTree= {}
             local targetBuildingExists = BT.leaf("Target building exists?", 1, targetExists, nil)
             local moveTarget = BT.leaf("Move to target", 1, moveToTarget, nil)
             local build = BT.leaf("Build building", 1, buildBuilding, nil)
-            local buildSequence = BT.sequence("Build sequence", 1, {targetSelector, targetBuildingExists, startMoving, moveTarget, build})
+            local buildSequence = BT.sequence("Build sequence", 1, {targetSelector, targetBuildingExists, startMoving, moveTarget, build, noTarget})
 
             Tree.tree = BT.selector("builder tree", 1, {buildSequence, idle})
             Tree.tree.debug(0)

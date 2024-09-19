@@ -8,7 +8,7 @@ function pointer.load(x,y)
 
     pointer.margin = Settings.camera.panMargin
     pointer.leftTop = Vector(pointer.margin,pointer.margin)
-    pointer.rightBottom = Vector(SCREEN_WIDTH-pointer.margin, SCREEN_HEIGHT-pointer.margin)
+    pointer.rightBottom = Vector(SCREEN_WIDTH-pointer.margin, SCREEN_HEIGHT-pointer.margin - GuiController.messageHeight)
 end
 
 function pointer.update(dt)
@@ -52,22 +52,22 @@ end
 
 function pointer.getMovementInput()
     local move = Vector(0,0)
-    if MOUSE_POSITION.x < pointer.leftTop.x 
+    if MOUSE_POSITION.x < pointer.leftTop.x and MOUSE_ON_GUI == false
         or love.keyboard.isDown(Settings.camera.left[1]) 
         or love.keyboard.isDown(Settings.camera.left[2]) then
         move.x = move.x - 1
     end
-    if MOUSE_POSITION.x > pointer.rightBottom.x 
+    if MOUSE_POSITION.x > pointer.rightBottom.x and MOUSE_ON_GUI == false
         or love.keyboard.isDown(Settings.camera.right[1])
         or love.keyboard.isDown(Settings.camera.right[2]) then
         move.x = move.x + 1
     end
-    if MOUSE_POSITION.y < pointer.leftTop.y 
+    if MOUSE_POSITION.y < pointer.leftTop.y and MOUSE_ON_GUI == false
         or love.keyboard.isDown(Settings.camera.up[1])
         or love.keyboard.isDown(Settings.camera.up[2]) then
         move.y = move.y - 1
     end
-    if MOUSE_POSITION.y > pointer.rightBottom.y 
+    if MOUSE_POSITION.y > pointer.rightBottom.y and MOUSE_ON_GUI == false
         or love.keyboard.isDown(Settings.camera.down[1]) 
         or love.keyboard.isDown(Settings.camera.down[2]) then
         move.y = move.y + 1
