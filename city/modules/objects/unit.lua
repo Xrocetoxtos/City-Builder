@@ -66,7 +66,6 @@ local unit = {}
 
         u.setTarget = function(building)
             if building == nil then
-                print("geen building")
                 return
             end
             local coordinate = building.coordinate
@@ -133,7 +132,6 @@ local unit = {}
         end
 
         u.move = function(dt)
-            print("moving")
             local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
             local distance = u.position:dist(nextPosition)
             if distance < 1 then

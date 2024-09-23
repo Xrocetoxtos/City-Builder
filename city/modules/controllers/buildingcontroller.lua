@@ -151,9 +151,8 @@ local BC = {}
     -- end
 
     function BC.getPendingBuilding(b)
+        if b == nil then return nil, -1 end
         for index, building in ipairs(BC.pendingBuildings) do
-            print (b.id)
-            print (index)
             if building.id == b.id then
                 return building, index
             end
@@ -169,6 +168,8 @@ local BC = {}
     end
 
     function BC.removePendingBuilding(building)                                           -- TODO. dit gaat nog niet goed, somehow. building is nils?!
+        print ("building remove")
+        print (building)
         local b, i = BC.getPendingBuilding(building)
         if b~=nil then
             table.remove(BC.pendingBuildings, i)

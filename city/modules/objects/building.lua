@@ -1,6 +1,5 @@
 local B = {}
     B.finishBuilding = function (building)
-        print("finish " .. building.buildingData.name)
         building.finish()
     end
 

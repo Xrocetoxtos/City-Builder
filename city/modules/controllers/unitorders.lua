@@ -12,18 +12,14 @@ local UO = {}
             UO.moveUnitsToTile(tile)
             return
         end
-        print("tile is NOT walkable")
 
         if tile.newBuilding ~= nil then
             UO.setBuildingTargetToTile(tile)
             return
         end
-        print("tile is NOT new building")
-
     end
 
     function UO.moveUnitsToTile(tile)
-        print("tile is walkable")
         for index, unit in ipairs(UnitSelector.selectedUnits) do
             local availableNode = UO.nodeAvailable(tile.coordinate, unit)
             if availableNode ==true then
@@ -41,7 +37,6 @@ local UO = {}
     end
 
     function UO.setBuildingTargetToTile(tile)
-        print("tile is new building")
         for index, unit in ipairs(UnitSelector.selectedUnits) do
             local destination = UO.findNodeAround(tile.coordinate, unit)
             if destination ~=nil then

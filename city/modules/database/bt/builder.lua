@@ -16,7 +16,6 @@ local BTree= {}
 
             local function setIdle()
                 -- idle animation voor BuilderTree.parent
-                print("idle")
                 return Status.SUCCESS
             end
 
@@ -31,7 +30,6 @@ local BTree= {}
             end
 
             local function getNearestPendingBuilding()
-                print("detectPending")
                 local building = BuildingController.findNearestPendingBuilding(Tree.unit.position, Tree.unit.maxDistance)
                 print (building)
                 if building ~=nil then
@@ -48,11 +46,8 @@ local BTree= {}
             end
             
             local function startMovingToTarget()
-                print("start moving")
                 if Tree.target == nil then return Status.FAILURE end
-                print("er is een target")
                 if Tree.onHisWay == false then
-                    print("nog niet onderweg")
                     print(Tree.target.coordinate)
                     UnitOrders.setTarget(Tree.target, Tree.target.coordinate)
                     Tree.unit.setPathTowards(Tree.target.coordinate)
@@ -65,7 +60,6 @@ local BTree= {}
                 if Tree.unit.targetReached() then
                     return Status.SUCCESS
                 end
-                print("is er nog niet")
                 return Status.RUNNING
             end
 
@@ -75,7 +69,7 @@ local BTree= {}
                 end
                 Tree.target.build(10)
                 if Tree.target.finished then
-                    BuildingController.removePendingBuilding(Tree.unit.target)
+                    BuildingController.removePendingBuilding(Tree.target)
                     return Status.SUCCESS
                 end
                 return Status.RUNNING
