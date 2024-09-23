@@ -94,6 +94,7 @@ local GC = {}
             GC.drawMessage()
         end
         Minimap.draw()
+        love.graphics.print(#UnitController.idleUnits,  SCREEN_WIDTH - 30, SCREEN_HEIGHT - GC.messageHeight) 
         Colours.setColour(Colours.WHITE)
     end
 
