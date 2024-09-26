@@ -1,3 +1,11 @@
+function getPopulation()
+    local pop = 0
+    for i = 1, #BuildingController.buildings do
+        pop = pop + BuildingController.builders[i].buildingData.population
+    end
+    return pop
+end
+
 local RC = {}
 
     RC.wood = 100
@@ -5,7 +13,7 @@ local RC = {}
     RC.stone = 100
     RC.food = 100
 
-    RC.populationMax= 5
+    RC.populationMax = getPopulation()
     RC.population = function() return RC.populationMax - #UnitSelector.units end
 
     function RC.hasResources(resource)
@@ -54,5 +62,7 @@ local RC = {}
             RC.food = RC.food + resource.food
         end
     end
+
+
 
 return RC

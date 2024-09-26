@@ -26,11 +26,11 @@ function love.update(dt)
     GuiController.update(dt)
 end
 
-function love.keyreleased(key)
-    if key == Settings.quit then
-        love.event.quit()
-    end
-end
+-- function love.keyreleased(key)
+--     if key == Settings.quit then
+--         love.event.quit()
+--     end
+-- end
 
 local function debugDetached()
     if DEBUG == false then return end

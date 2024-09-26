@@ -12,7 +12,7 @@ local BC = {}
     BC.ghostPosition = Vector(0,0)
 
     function BC.load()
-
+        BC.addBuilding(Vector(5*32,5*32), BuildingDatabase[1], true)
     end
 
     function BC.update(dt)
@@ -33,12 +33,25 @@ local BC = {}
         end
     end
 
+    function BC.addBuilding(position, data, finished)
+        finished = finished or false
+        if data == nil or position==nil then return nil end
+
+        local building = Building.new(position, data)
+        table.insert(BC.activeBuildings, building)
+        if finished == true then
+            building.build(9999)
+        else
+            BC.addPendingBuilding(building)
+        end
+        return building
+    end
+
     function BC.placeCurrentBuilding()
         if BC.currentBuilding == nil then return end
         if ResourceController.hasResources(BC.currentBuilding.resource) then
-            local building = Building.new(MousePointer.pointerPosition, BC.currentBuilding)
-            table.insert(BC.activeBuildings, building)
-            BC.addPendingBuilding(building)
+            local building = BC.addBuilding(MousePointer.pointerPosition, BC.currentBuilding)
+            -- BC.addPendingBuilding(building)
             local tile = Map.getTileInfo(building.coordinate)
             UnitOrders.interactWithTile(tile)
         else

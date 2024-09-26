@@ -30,6 +30,7 @@ Health = require('modules.components.health')
 Progress = require('modules.components.progress')
 
 -- modules
+require ('modules.controllers.keyinputcontroller')
 Pointer = require('modules.pointer')
 Map = require('modules.map')
 MousePointer = require('modules.mousepointer')

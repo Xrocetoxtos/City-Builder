@@ -46,7 +46,7 @@ local BTree= {}
                 return BT.boolToStatus(i ~= -1)
             end
             
-            local function startMovingToTarget()
+            local function startMovingToTarget()                --TODO: zorgen dat je op een plek naast het target komt te staan waar nog niemand zit
                 UnitController.setIdle(Tree.unit, false)
                 if Tree.target == nil then return Status.FAILURE end
                 if Tree.onHisWay == false then
