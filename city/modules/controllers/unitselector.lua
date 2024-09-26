@@ -2,28 +2,9 @@ local US = {}
 
     function US.load()
         US.selectedUnits = {}
-
-        -- US.targets = {} -- houdt bij waar welke unit naartoe loopt
-        -- US.options = {} -- houdt bij welke mogelijke plekken er beschikbaar zijn voor lopen
+        US.idleIndex = 1
     end
 
-    -- function US.setTarget(unit, target)
-    --     for index, unitTarget in ipairs(US.targets) do
-    --         if unitTarget.unit == unit then
-    --             table.remove(US.targets, index)
-    --             break
-    --         end
-
-    --         if unitTarget.target.x == target.x and unitTarget.target.y == target.y then
-    --             print("Targeted unitTarget.target is already a targeted target! Target another target or target the targeted target for target practise!")
-    --             --unit.cancelPath()
-    --             return false
-    --         end
-    --     end
-    --     table.insert(US.targets, {unit=unit, target=target})
-    --     return true
-    -- end
- 
     function US.select()
         local unit = UnitController.getUnitOnCoordinate(MousePointer.mouseGridPosition)
         if unit == nil  then
@@ -79,24 +60,6 @@ local US = {}
         return targetTable
     end
 
-    -- function US.nodeAvailable(coordinate, unit)
-    --     for index, unitTarget in ipairs(US.targets) do
-    --         if unitTarget.target.x == coordinate.x and unitTarget.target.y == coordinate.y and unitTarget.unit ~= unit then
-    --             print("Targeted unitTarget.target is already a targeted target! Target another target or target the targeted target for target practise!")
-    --             return false
-    --         end
-    --     end
-    --     return true
-    -- end
-
-    -- function US.reconsiderPaths()           -- TODO: kijken of mogelijk is om alleen units die voorbij bepaald punt komen mee te nemen.
-    --     for index, unit in ipairs(US.units) do
-    --         if unit.pathTarget ~=nil then
-    --             unit.setPath(unit.pathTarget)
-    --         end
-    --     end
-    -- end
-
     function US.moveSelected(coordinate)
         if #US.selectedUnits <=0 then return end
         -- if BuildingController.currentBuilding ~= nil then return end
@@ -151,6 +114,29 @@ local US = {}
                 unit.setPath(destination)
             end
         end
+    end
+
+    function love.keyreleased(key)
+        if key == Settings.select.idle then
+            US.nextIdle()
+        end
+    end
+
+    function US.nextIdle()
+        US.deselectAll()
+        if #UnitController.idleUnits  >= 1 then
+            if #UnitController.idleUnits == 1 then
+                US.idleIndex = 1
+            else
+                US.idleIndex =  US.idleIndex + 1
+                if US.idleIndex > #UnitController.idleUnits then
+                    US.idleIndex = 1
+                end
+            end
+            UnitController.idleUnits[US.idleIndex].select()
+            return
+        end
+        GuiController.setMessage("No idle villager available.")
     end
 
 return US

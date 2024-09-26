@@ -1,9 +1,3 @@
--- selecteer een building. rechtermuisknop: plaatsen
--- als dan een unit geselecteerd is, maak er een builder van en verwijs hem naar dit gebouw. 
--- anders moet de BT van builders dit zelf oppakken
-
--- dit script mag veel korter tzt.
-
 local BC = {}
 
     BC.builders = {}

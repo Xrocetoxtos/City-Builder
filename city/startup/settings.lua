@@ -6,6 +6,7 @@ local settings = {}
 
             settings.select = {}
             settings.select.multi = {"rshift", "lshift"}
+            settings.select.idle = "i"
 
             settings.building = {}
             settings.building.multi = {"rshift", "lshift"}

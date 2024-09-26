@@ -41,8 +41,9 @@ local BTree= {}
             end
 
             local function targetExists()
-                -- TODO: BuilderTree.target bestaat en is nog niet afgebouwd    
-                return Status.SUCCESS
+                local u, i = BuildingController.getPendingBuilding(Tree.target)
+                
+                return BT.boolToStatus(i ~= -1)
             end
             
             local function startMovingToTarget()
