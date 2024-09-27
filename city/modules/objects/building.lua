@@ -47,7 +47,11 @@ local B = {}
 
 
             b.draw=function()
-                love.graphics.rectangle("line",b.x,b.y,Map.cellSize, Map.cellSize)
+                local type = "line" 
+                if b.finished == true then
+                    type = "fill"
+                end
+                love.graphics.rectangle(type, b.x, b.y, Map.cellSize, Map.cellSize)
 
             end
 
