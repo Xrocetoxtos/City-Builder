@@ -21,6 +21,7 @@ Animations = require('startup.animations')
 Settings = require('startup.settings')
 
 -- databases
+ActionsDatabase = require('modules.database.actions_database')
 BuildingTypeDatabase = require('modules.database.buildingtype_database')
 BuildingDatabase = require('modules.database.buildings_database')
 BTDatabase = require('modules.database.btdatabase')

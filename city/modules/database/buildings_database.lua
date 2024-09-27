@@ -14,6 +14,9 @@ local BD = {
             gold = 300,
             stone = 300,
             food = 300
+        },
+        actions = {
+            ActionsDatabase.recruitUnit, ActionsDatabase.researchTech
         }
     },
 
@@ -31,7 +34,8 @@ local BD = {
             gold = 10,
             stone = 20,
             food = 20
-        }
+        },
+        actions = {}
     },
 
     {
@@ -48,7 +52,8 @@ local BD = {
             gold = 10,
             stone = 20,
             food = 20
-        }
+        },
+        actions = {}
     },
 
     {
@@ -65,7 +70,8 @@ local BD = {
             gold = 10,
             stone = 20,
             food = 20
-        }
+        },
+        actions = {}
     },
  
     {
