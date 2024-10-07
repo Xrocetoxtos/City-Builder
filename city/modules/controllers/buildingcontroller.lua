@@ -57,7 +57,6 @@ local BC = {}
         if BC.currentBuilding == nil then return end
         if ResourceController.hasResources(BC.currentBuilding.resource) then
             local building = BC.addBuilding(MousePointer.pointerPosition, BC.currentBuilding)
-            -- BC.addPendingBuilding(building)
             local tile = Map.getTileInfo(building.coordinate)
             UnitOrders.interactWithTile(tile)
         else

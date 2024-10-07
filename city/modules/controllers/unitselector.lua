@@ -117,12 +117,6 @@ local US = {}
         end
     end
 
-    -- function love.keyreleased(key)
-        -- if key == Settings.select.idle then
-        --     US.nextIdle()
-        -- end
-    -- end
-
     function US.nextIdle()
         US.deselectAll()
         if #UnitController.idleUnits  >= 1 then

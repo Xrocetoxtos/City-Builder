@@ -17,7 +17,7 @@ local unit = {}
 
         u.idleTree = BTDatabase.Idle.new(u)
         u.tree = u.idleTree
-        -- u.tree = BTDatabase.Builder.new(u)
+        
         u.timer = 0
         u.timerMax = 0.5
 
