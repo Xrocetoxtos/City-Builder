@@ -30,12 +30,18 @@ local unit = {}
             u.selected=true
             table.insert(UnitSelector.selectedUnits, u)
             u.selectID = #UnitSelector.selectedUnits
+            if #UnitSelector.selectedUnits == 1 then
+                BuildingControllerDisplay.setElements()
+            end
         end
 
         u.deselect = function()
             u.selected=false
             table.remove(UnitSelector.selectedUnits, u.selectID)
             u.selectID = -1
+            if #UnitSelector.selectedUnits == 0 then
+                BuildingControllerDisplay.clearElements()
+            end
         end
         
         u.setCoordinate = function ()

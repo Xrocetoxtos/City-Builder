@@ -7,7 +7,7 @@ local BCD = {}
         BCD.buildingMargin = 8
 
         BCD.elements = {}
-        BCD.setElements()
+        -- BCD.setElements()
     end
 
     function BCD.clickBuildingType(type)
@@ -29,6 +29,7 @@ local BCD = {}
     end
 
     function BCD.setElements()
+
         local x = SCREEN_WIDTH * 0.5 - (BCD.typeMargin + BCD.typeSize) * 0.5 * #BuildingTypeDatabase + BCD.typeMargin * 0.5
         local y = SCREEN_HEIGHT - BCD.typeSize - BCD.typeMargin * 2
         for index, bt in ipairs(BuildingTypeDatabase) do

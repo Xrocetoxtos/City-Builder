@@ -90,9 +90,13 @@ local GC = {}
                 end
             end      
             
-            ResourceControllerDisplay.draw()
-            GC.drawMessage()
+            -- ResourceControllerDisplay.draw()
+            -- GC.drawMessage()
         end
+
+        ResourceControllerDisplay.draw()
+        GC.drawMessage()
+
         Minimap.draw()
         love.graphics.print(#UnitController.idleUnits,  SCREEN_WIDTH - 30, SCREEN_HEIGHT - GC.messageHeight) 
         Colours.setColour(Colours.WHITE)

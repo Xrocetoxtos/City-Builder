@@ -16,9 +16,15 @@ local BC = {}
     end
 
     function BC.update(dt)
+        BC.updateExisting(dt)
+        if #UnitSelector.selectedUnits < 1 then return end
+
         if BC.currentBuilding ~=nil then
             BC.ghostPosition = MousePointer.pointerPosition
         end
+    end
+
+    function BC.updateExisting(dt)
         for index, building in ipairs(BC.activeBuildings) do
             building.update(dt)
         end
