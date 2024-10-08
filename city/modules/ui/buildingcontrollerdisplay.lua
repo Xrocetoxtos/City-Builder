@@ -3,8 +3,11 @@ local BCD = {}
     function BCD.load()
         BCD.typeSize = 64
         BCD.typeMargin = 16
-        BCD.buildingSize = 32
-        BCD.buildingMargin = 8
+        -- BCD.buildingSize = 32
+        -- BCD.buildingMargin = 8
+        BCD.buildingSize = 64
+        BCD.buildingMargin = 16
+
 
         BCD.elements = {}
         -- BCD.setElements()
@@ -29,7 +32,8 @@ local BCD = {}
     end
 
     function BCD.setElements()
-        local x = SCREEN_WIDTH * 0.5 - (BCD.typeMargin + BCD.typeSize) * 0.5 * #BuildingTypeDatabase + BCD.typeMargin * 0.5
+        -- local x = SCREEN_WIDTH * 0.5 - (BCD.typeMargin + BCD.typeSize) * 0.5 * #BuildingTypeDatabase + BCD.typeMargin * 0.5
+        local x= 100
         local y = SCREEN_HEIGHT - BCD.typeSize - BCD.typeMargin * 2
         if #BuildingController.buildings < 1 then
 
@@ -40,7 +44,8 @@ local BCD = {}
             end
         else
             -- y = y - BCD.typeMargin - BCD.buildingSize
-            x = SCREEN_WIDTH * 0.5 - (BCD.buildingMargin + BCD.buildingSize) * 0.5 * #BuildingController.buildings + BCD.buildingMargin * 0.5
+            -- x = SCREEN_WIDTH * 0.5 - (BCD.buildingMargin + BCD.buildingSize) * 0.5 * #BuildingController.buildings + BCD.buildingMargin * 0.5
+            x = 100
             for index, building in ipairs(BuildingController.buildings) do
                 local hasResources = ResourceController.hasResources(building.resource)
                 local element = GuiController.addElement(building.name, "B", x, y, BCD.buildingSize, BCD.buildingSize, BCD.clickBuilding, building) -- TODO ook iets om een actief element aan te tonen bij het renderen
