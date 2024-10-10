@@ -8,7 +8,7 @@ local B = {}
         local b = {}
             b.x=position.x
             b.y=position.y
-            b.buildingData = building
+            b.data = building
 
             b.buildingProgress = Progress.new(b, 100, B.finishBuilding, b) 
             b.finished = false
@@ -27,7 +27,7 @@ local B = {}
 
             b.finish = function()
                 b.finished = true
-                ResourceController.populationMax = ResourceController.populationMax + b.buildingData.population
+                ResourceController.populationMax = ResourceController.populationMax + b.data.population
             end
 
             b.update=function(dt)

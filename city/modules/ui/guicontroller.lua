@@ -1,6 +1,12 @@
 local GC = {}
 
+
     function GC.load()
+        GC.selectedX = 50
+        GC.actionsX = 200
+        GC.objectSize = 64
+        GC.objectMargin = 16
+
         GC.elements = {}
         GC.activeElement = nil
         BuildingControllerDisplay.load()
@@ -29,6 +35,8 @@ local GC = {}
             quad = quad
         }
         table.insert(GC.elements, element)
+        print (element.title.. "  "..element.x.. ":".. element.y.. "   "..element.width..":"..element.height)
+       
         return element
     end
 
@@ -77,6 +85,7 @@ local GC = {}
         love.graphics.line(SCREEN_WIDTH/2,0, SCREEN_WIDTH/2,SCREEN_HEIGHT)
         for index, element in ipairs(GC.elements) do
             GC.setColour(element)
+
             love.graphics.rectangle("line",element.x,element.y,element.width, element.height)
             if element.quad ~= nil then
                 local x, y, width, height = element.quad:getViewport()

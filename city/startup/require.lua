@@ -46,5 +46,6 @@ ResourceController = require('modules.controllers.resourcecontroller')
 -- gui
 BuildingControllerDisplay = require('modules.ui.buildingcontrollerdisplay')
 ResourceControllerDisplay = require('modules.ui.resourcescontrollerdisplay')
+SelectedObjectDisplay = require('modules.ui.selectedobjectdisplay')
 GuiController = require('modules.ui.guicontroller')
 Minimap = require('modules.ui.minimap')
