@@ -6,6 +6,10 @@ local S = {}
     function S.clickObject(obj)
         print ("clicked: ")
     end
+
+    function S.clickAction(args)
+        print("clicked: "..args[2].name)
+    end
     
     function S.setup(obj)
         S.clear()
@@ -17,12 +21,17 @@ local S = {}
             name = obj.data.name
         end
         local y = SCREEN_HEIGHT - GuiController.objectSize - GuiController.objectMargin * 2
-        -- GC.addElement(title, typ, x, y, width, height, func, args, image, quad)
-
-
-        --FIXME height wordt niet herkend. blijkt nil!
-        local element = GuiController.addElement(name, "S", GuiController.selectedX, y, GuiController.objectSize, GuiController.objectSize, S.clickObject, obj, nil, nil) -- TODO ook iets om een actief element aan te tonen bij het renderen
+        local element = GuiController.addElement(name, "S", GuiController.selectedX, y, GuiController.objectSize, GuiController.objectSize, S.clickObject, obj, nil, nil)
         table.insert(S.elements, element)
+
+        local x = GuiController.actionsX
+        if obj.actions == nil then return end
+        for index, action in ipairs(obj.actions) do
+            local element = GuiController.addElement(action.name, "A", x, y, GuiController.objectSize, GuiController.objectSize, S.clickAction, {obj, action}, action.icon, nil)
+            table.insert(S.elements, element)
+              
+            x = x + GuiController.objectSize + GuiController.objectMargin
+        end
     end
 
     function S.clear()

@@ -30,7 +30,7 @@ local BCD = {}
         if #BuildingController.buildings < 1 then
 
             for index, bt in ipairs(BuildingTypeDatabase) do
-                local element = GuiController.addElement(bt.name, "BT", x, y, BCD.typeSize, BCD.typeSize, BCD.clickBuildingType, bt, Sprites.ui.building_types.image, bt.quad) -- TODO ook iets om een actief element aan te tonen bij het renderen
+                local element = GuiController.addElement(bt.name, "BT", x, y, GuiController.objectSize, GuiController.objectSize, BCD.clickBuildingType, bt, Sprites.ui.building_types.image, bt.quad) -- TODO ook iets om een actief element aan te tonen bij het renderen
                 x = x + GuiController.objectSize + GuiController.objectMargin
                 table.insert(BCD.elements, element)
             end
@@ -40,7 +40,7 @@ local BCD = {}
             x = GuiController.actionsX
             for index, building in ipairs(BuildingController.buildings) do
                 local hasResources = ResourceController.hasResources(building.resource)
-                local element = GuiController.addElement(building.name, "B", x, y, BCD.buildingSize, BCD.buildingSize, BCD.clickBuilding, building) -- TODO ook iets om een actief element aan te tonen bij het renderen
+                local element = GuiController.addElement(building.name, "B", x, y, GuiController.objectSize, GuiController.objectSize, BCD.clickBuilding, building) -- TODO ook iets om een actief element aan te tonen bij het renderen
                 x= x + GuiController.objectSize + GuiController.objectMargin
                 table.insert(BCD.elements, element)
             end
