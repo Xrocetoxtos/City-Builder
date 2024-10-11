@@ -5,8 +5,8 @@ local US = {}
         US.idleIndex = 1
     end
 
-    function US.select()
-        local unit = UnitController.getUnitOnCoordinate(MousePointer.mouseGridPosition)
+    function US.select(unit)
+        -- local unit = UnitController.getUnitOnCoordinate(MousePointer.mouseGridPosition)
         if unit == nil  then
             US.deselectAll()
             return
@@ -29,7 +29,7 @@ local US = {}
             table.remove(US.selectedUnits, 1)
         end
         BuildingControllerDisplay.clearElements()
-        SelectedObjectDisplay.clear()
+        --SelectedObjectDisplay.clear()
     end
 
     function US.findNodeAround(coordinate, unit)

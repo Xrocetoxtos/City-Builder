@@ -8,7 +8,6 @@ local ITree= {}
         IdleTree.unit =  unit
 
             local beIdle = function()
-                print("idle")
                 UnitController.setIdle(IdleTree.unit, true)
                 return Status.SUCCESS
             end

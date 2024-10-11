@@ -23,13 +23,16 @@ local S = {}
         local y = SCREEN_HEIGHT - GuiController.objectSize - GuiController.objectMargin * 2
         local element = GuiController.addElement(name, "S", GuiController.selectedX, y, GuiController.objectSize, GuiController.objectSize, S.clickObject, obj, nil, nil)
         table.insert(S.elements, element)
+        print (element.title.. "  "..element.x.. ":".. element.y.. "   "..element.width..":"..element.height)
 
         local x = GuiController.actionsX
-        if obj.actions == nil then return end
-        for index, action in ipairs(obj.actions) do
+        print(#obj.data.actions)
+        if obj.data.actions == nil then return end
+        for index, action in ipairs(obj.data.actions) do
             local element = GuiController.addElement(action.name, "A", x, y, GuiController.objectSize, GuiController.objectSize, S.clickAction, {obj, action}, action.icon, nil)
             table.insert(S.elements, element)
-              
+            print (element.title.. "  "..element.x.. ":".. element.y.. "   "..element.width..":"..element.height)
+    
             x = x + GuiController.objectSize + GuiController.objectMargin
         end
     end

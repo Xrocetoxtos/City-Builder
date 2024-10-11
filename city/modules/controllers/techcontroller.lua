@@ -11,7 +11,6 @@ local T = {}
 
     function T.isDiscovered(tech)
         for index, value in ipairs(T.discovered) do
-            print (tech.. "   "..value)
             if value == tech then return true end
         end
         return false
@@ -19,8 +18,8 @@ local T = {}
 
     function T.tableDiscovered(t)
         for index, value in ipairs(t) do
-            local d = T.isDiscovered(value)
-            if d == false then return false end
+            local discovered = T.isDiscovered(value)
+            if discovered == false then return false end
         end
         return true
     end
