@@ -20,7 +20,7 @@ local T = {}
     function T.tableDiscovered(t)
         for index, value in ipairs(t) do
             local d = T.isDiscovered(value)
-            if value == false then return false end
+            if d == false then return false end
         end
         return true
     end
