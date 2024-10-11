@@ -15,6 +15,9 @@ local BD = {
             stone = 300,
             food = 300
         },
+        requiredTech = {
+
+        },
         actions = {
             ActionsDatabase.recruitUnit, ActionsDatabase.researchTech
         }
@@ -35,6 +38,9 @@ local BD = {
             stone = 20,
             food = 20
         },
+        requiredTech = {
+            "Tech"
+        },
         actions = {}
     },
 
@@ -52,6 +58,9 @@ local BD = {
             gold = 10,
             stone = 20,
             food = 20
+        },
+        requiredTech = {
+
         },
         actions = {}
     },
@@ -71,6 +80,9 @@ local BD = {
             stone = 20,
             food = 20
         },
+        requiredTech = {
+
+        },
         actions = {}
     },
  
@@ -88,7 +100,11 @@ local BD = {
             gold = 10,
             stone = 20,
             food = 20
-        }
+        },
+        requiredTech = {
+
+        },
+        actions = {}
     }
 }
 

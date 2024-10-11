@@ -49,7 +49,6 @@ local unit = {}
         end
 
         u.setPath = function(coordinate)
-            print("setpath")
             local pathLength =0
             u.pathTarget = coordinate
             u.path = {}

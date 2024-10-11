@@ -29,6 +29,7 @@ local US = {}
             table.remove(US.selectedUnits, 1)
         end
         BuildingControllerDisplay.clearElements()
+        SelectedObjectDisplay.clear()
     end
 
     function US.findNodeAround(coordinate, unit)

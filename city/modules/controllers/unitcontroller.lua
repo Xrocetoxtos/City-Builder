@@ -34,12 +34,10 @@ local UC = {}
 
     function UC.setIdle(unit, idle)
         local index = UC.isIdle(unit)
-        print (index)
         if index ~= -1 and idle == false then
             table.remove(UC.idleUnits, index)
         end
         if idle == true and index == -1 then
-            print("set idle")
             table.insert(UC.idleUnits, unit)
         end
     end

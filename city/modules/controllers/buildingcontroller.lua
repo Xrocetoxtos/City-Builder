@@ -72,7 +72,12 @@ local BC = {}
         BC.buildings = {}
         for index, building in ipairs(BuildingDatabase) do
             if building.type == type.name then
-                table.insert(BC.buildings, building)
+                print("tech")
+                print(#building.requiredTech)
+                local discovered = TechController.tableDiscovered(building.requiredTech)
+                if discovered == true then
+                    table.insert(BC.buildings, building)
+                end
             end
         end
     end

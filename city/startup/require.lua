@@ -42,6 +42,7 @@ UnitSelector = require('modules.controllers.unitselector')
 UnitOrders = require('modules.controllers.unitorders')
 BuildingController = require('modules.controllers.buildingcontroller')
 ResourceController = require('modules.controllers.resourcecontroller')
+TechController = require('modules.controllers.techcontroller')
 
 -- gui
 BuildingControllerDisplay = require('modules.ui.buildingcontrollerdisplay')
