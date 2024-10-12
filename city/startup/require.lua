@@ -29,6 +29,7 @@ BTDatabase = require('modules.database.btdatabase')
 -- components 
 Health = require('modules.components.health')
 Progress = require('modules.components.progress')
+RunningAction = require('modules.components.runningaction')
 
 -- modules
 require ('modules.controllers.keyinputcontroller')
