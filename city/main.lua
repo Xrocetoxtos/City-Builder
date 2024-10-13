@@ -26,12 +26,6 @@ function love.update(dt)
     GuiController.update(dt)
 end
 
--- function love.keyreleased(key)
---     if key == Settings.quit then
---         love.event.quit()
---     end
--- end
-
 local function debugDetached()
     if DEBUG == false then return end
 
@@ -45,7 +39,6 @@ end
 local function debugAttached()
     if DEBUG == false then return end
 
-    -- love.graphics.rectangle("line", 100,100,400,500)
     Pointer.debugAttached()
 end
 
