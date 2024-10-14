@@ -42,6 +42,13 @@ local C = {}
         a=1
     }
 
+    C.GREY_50 = {
+        r=.83,
+        g=.83,
+        b=.83,
+        a=.5
+    }
+
     C.currentColour= C.WHITE
 
     function C.setColour(colour)

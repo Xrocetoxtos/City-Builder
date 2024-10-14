@@ -26,9 +26,6 @@ local Progress = {}
 
         p.finish = function ()                      -- TODO: signal naar parent
             if p.func ~= nil then
-                -- print("-----")
-                -- print(p.args)
-                -- print("-----")
                 p.func(p.args)
             end
         end

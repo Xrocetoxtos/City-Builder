@@ -52,18 +52,24 @@ local B = {}
                 print(ra.action.name)
                 for i = 1, #done do
                     if done[i].name == ra.action.name then 
-                        print ("afgekeurd") 
                         return done 
                     end
                 end
-                print("goedgekeurd")
                 table.insert(done, ra.action)
                 ra.setActive()
                 return done 
             end
 
+            b.getActiveRunningActionsProgress =function (action)
+                for index, act in ipairs(b.runningActions) do
+                    if act.action.name == action.name and act.active == true then
+                        return act.progress.procent()
+                    end
+                end
+                return 0
+            end
+
             b.update=function(dt)
-                -- b.build(1)
                 if b.finished == false then return end
                 for index, ra in ipairs(b.runningActions) do
                     ra.update(dt)

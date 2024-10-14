@@ -35,7 +35,7 @@ local GC = {}
             quad = quad
         }
         table.insert(GC.elements, element)
-        print (element.title.. "  "..element.x.. ":".. element.y.. "   "..element.width..":"..element.height)
+        -- print (element.title.. "  "..element.x.. ":".. element.y.. "   "..element.width..":"..element.height)
        
         return element
     end
@@ -99,8 +99,15 @@ local GC = {}
                 end
             end      
             
-            -- ResourceControllerDisplay.draw()
-            -- GC.drawMessage()
+            if element.type == "A" then
+                local procent = element.args[1].getActiveRunningActionsProgress(element.args[2])
+                if procent > 0 then
+                    local size = (1-procent) * GC.objectSize
+                    Colours.setColour(Colours.GREY_50)
+                    love.graphics.rectangle("fill", element.x, element.y, GC.objectSize, size)
+                    Colours.setColour(Colours.WHITE)
+                end
+            end
         end
 
         ResourceControllerDisplay.draw()
