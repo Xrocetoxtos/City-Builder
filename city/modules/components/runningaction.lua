@@ -2,7 +2,9 @@ local RA = {}
 
     function RA.finishAction (runningaction)
         --TODO uitvoeren van de betreffende actie, dus tech, recruit of Upgrade
-        --vervolgens R deleten bij runningaction en volgende met dezelfde action op active=true
+        runningaction.active=false
+        runningaction.building.removeRunningAction(runningaction.action)
+        runningaction.building.activateRunningActions()
         print("done")
     end
 
@@ -21,7 +23,7 @@ local RA = {}
 
             function R.update(dt)
                 if R.active == true then
-                    R.progress.update(dt)
+                    R.progress.progress(dt)
                 end
             end
 

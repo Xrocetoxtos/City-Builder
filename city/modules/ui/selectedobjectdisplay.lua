@@ -8,7 +8,10 @@ local S = {}
     end
 
     function S.clickAction(args)
+        print(args[1].data.name)
         print("clicked: "..args[2].name)
+        args[1].addRunningAction(args[2])
+        args[1].activateRunningActions()
     end
     
     function S.setup(obj)

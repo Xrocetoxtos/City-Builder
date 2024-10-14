@@ -33,6 +33,10 @@ local Progress = {}
             end
         end
 
+        p.procent = function()
+            return p.current/p.max
+        end
+
         return p
     end
 
