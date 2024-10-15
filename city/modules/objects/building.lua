@@ -61,12 +61,17 @@ local B = {}
             end
 
             b.getActiveRunningActionsProgress =function (action)
+                local percent = 0
+                local aantal = 0
                 for index, act in ipairs(b.runningActions) do
-                    if act.action.name == action.name and act.active == true then
-                        return act.progress.procent()
+                    if act.action.name == action.name then
+                        aantal = aantal + 1
+                        if act.active == true then
+                            percent = act.progress.procent()
+                        end
                     end
                 end
-                return 0
+                return percent, aantal
             end
 
             b.update=function(dt)

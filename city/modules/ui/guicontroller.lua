@@ -6,6 +6,7 @@ local GC = {}
         GC.actionsX = 200
         GC.objectSize = 64
         GC.objectMargin = 16
+        GC.objectActionNumberpadding = 3
 
         GC.elements = {}
         GC.activeElement = nil
@@ -100,12 +101,17 @@ local GC = {}
             end      
             
             if element.type == "A" then
-                local procent = element.args[1].getActiveRunningActionsProgress(element.args[2])
+                local procent, aantal = element.args[1].getActiveRunningActionsProgress(element.args[2])
                 if procent > 0 then
                     local size = (1-procent) * GC.objectSize
                     Colours.setColour(Colours.GREY_50)
                     love.graphics.rectangle("fill", element.x, element.y, GC.objectSize, size)
                     Colours.setColour(Colours.WHITE)
+                end
+                if aantal > 1 then
+                    love.graphics.print(aantal,  element.x + 
+                                        GC.objectSize - GC.objectActionNumberpadding - love.graphics.getFont():getWidth(aantal), 
+                                        element.y + GC.objectSize - GC.objectActionNumberpadding - love.graphics.getFont():getHeight()) 
                 end
             end
         end
