@@ -33,7 +33,14 @@ local B = {}
                     GuiController.setMessage("Not enough resources to run " .. action.name..".")
                     return
                 end
-
+        
+                if action.stackable == false then
+                    local r, aantal = b.getActiveRunningActionsProgress(action)
+                    if aantal ~= 0 then
+                        return
+                    end
+                end
+        
                 local ra = RunningAction.new(b,action)
                 table.insert(b.runningActions, ra)
                 ResourceController.payResources(action.resource)
