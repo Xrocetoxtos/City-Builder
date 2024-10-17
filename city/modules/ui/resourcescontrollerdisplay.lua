@@ -8,7 +8,7 @@ local RCD = {}
         love.graphics.print(ResourceController.wood, 30, 2)
         love.graphics.print(ResourceController.gold, 110, 2)
         love.graphics.print(ResourceController.stone, 190, 2)
-        love.graphics.print(ResourceController.wood, 270, 2)
+        love.graphics.print(ResourceController.food, 270, 2)
         if #UnitController.units > ResourceController.populationMax then
             Colours.setColour(Colours.RED)
         else
@@ -25,7 +25,7 @@ local RCD = {}
         love.graphics.draw(Sprites.ui.resources.image, Sprites.ui.resources.types[3], 168,2)
         love.graphics.draw(Sprites.ui.resources.image, Sprites.ui.resources.types[4], 248,2)
         love.graphics.draw(Sprites.ui.resources.image, Sprites.ui.resources.types[5], 328,2)
-       
+
     end
 
 
