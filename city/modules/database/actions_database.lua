@@ -40,4 +40,21 @@ AD = {}
         followUp = {}
     }
 
+    AD.researchTest = {
+        name = "Test Tech",
+        icon = nil,
+        resource = {
+            wood = 0,
+            gold = 0,
+            stone = 0,
+            food = 20,
+        }, 
+        requiredTech = nil,
+        stackable = false,
+        progressTime = 10,
+        type = ActionType.TECH,
+        researchTech = "Tech",
+        followUp = {}
+    }
+
 return AD

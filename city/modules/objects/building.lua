@@ -28,8 +28,15 @@ local B = {}
             end
 
             b.addRunningAction = function(action)
+                local available = ResourceController.hasResources(action.resource)
+                if available == false then
+                    GuiController.setMessage("Not enough resources to run " .. action.name..".")
+                    return
+                end
+
                 local ra = RunningAction.new(b,action)
                 table.insert(b.runningActions, ra)
+                ResourceController.payResources(action.resource)
             end
 
             b.removeRunningAction = function(action)

@@ -145,8 +145,18 @@ local GC = {}
                 Colours.setColour(Colours.WHITE)
             else
                 Colours.setColour(Colours.RED)
-                return
             end
+            return
+        end
+
+        if element.type == "A" then
+            local available = ResourceController.hasResources(element.args[2].resource)
+            if available == true then
+                Colours.setColour(Colours.WHITE)
+            else
+                Colours.setColour(Colours.RED)
+            end        
+            return
         end
         Colours.setColour(Colours.WHITE)
     end

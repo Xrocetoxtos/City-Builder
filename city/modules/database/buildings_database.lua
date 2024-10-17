@@ -19,7 +19,7 @@ local BD = {
 
         },
         actions = {
-            ActionsDatabase.recruitUnit, ActionsDatabase.researchTech
+            ActionsDatabase.recruitUnit, ActionsDatabase.researchTech, ActionsDatabase.researchTest
         }
     },
 

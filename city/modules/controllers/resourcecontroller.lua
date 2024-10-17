@@ -14,7 +14,7 @@ local RC = {}
     RC.food = 100
 
     RC.populationMax = getPopulation()
-    RC.population = function() return RC.populationMax - #UnitSelector.units end
+    RC.population = function() return RC.populationMax - #UnitSelector.selectedUnits end
 
     function RC.hasResources(resource)
         if resource.wood ~= nil then
