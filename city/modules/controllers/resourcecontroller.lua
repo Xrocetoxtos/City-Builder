@@ -35,6 +35,10 @@ local RC = {}
         return true
     end
 
+    function RC.hasPopulationSpace(amount)
+        return RC.populationMax - amount >= 0
+    end
+
     function RC.payResources(resource)
         if not RC.hasResources(resource) then return false end
 

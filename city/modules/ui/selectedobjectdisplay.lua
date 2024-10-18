@@ -14,6 +14,11 @@ local S = {}
         args[1].addRunningAction(args[2])
         args[1].activateRunningActions()
     end
+
+    function S.rightClickAction(args)
+        args[1].removeRunningAction(args[2])
+        args[1].activateRunningActions()
+    end
     
     function S.setup(obj)
         S.clear()
@@ -25,18 +30,16 @@ local S = {}
             name = obj.data.name
         end
         local y = SCREEN_HEIGHT - GuiController.objectSize - GuiController.objectMargin * 2
-        local element = GuiController.addElement(name, "S", GuiController.selectedX, y, GuiController.objectSize, GuiController.objectSize, S.clickObject, obj, nil, nil)
+        local element = GuiController.addElement(name, "S", GuiController.selectedX, y, GuiController.objectSize, GuiController.objectSize, S.clickObject, nil, obj, nil, nil)
         table.insert(S.elements, element)
-        print (element.title.. "  "..element.x.. ":".. element.y.. "   "..element.width..":"..element.height)
+
+        if obj.data == nil then return end
 
         local x = GuiController.actionsX
-        print(#obj.data.actions)
         if obj.data.actions == nil then return end
         for index, action in ipairs(obj.data.actions) do
-            local element = GuiController.addElement(action.name, "A", x, y, GuiController.objectSize, GuiController.objectSize, S.clickAction, {obj, action}, action.icon, nil)
+            local element = GuiController.addElement(action.name, "A", x, y, GuiController.objectSize, GuiController.objectSize, S.clickAction, S.rightClickAction, {obj, action}, action.icon, nil)
             table.insert(S.elements, element)
-            print (element.title.. "  "..element.x.. ":".. element.y.. "   "..element.width..":"..element.height)
-    
             x = x + GuiController.objectSize + GuiController.objectMargin
         end
     end

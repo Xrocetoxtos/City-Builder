@@ -17,6 +17,10 @@ local Progress = {}
             p.current = 0
         end
 
+        p.complete = function()
+            p.current = p.max
+        end
+
         p.progress = function (amount)
             p.current = p.current + amount
             if p.current >= p.max then

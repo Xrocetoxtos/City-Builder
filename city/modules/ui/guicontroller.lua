@@ -22,7 +22,7 @@ local GC = {}
         GC.messageTimer = 0
     end
 
-    function GC.addElement(title, typ, x, y, width, height, func, args, image, quad)
+    function GC.addElement(title, typ, x, y, width, height, leftClick, rightClick, args, image, quad)
         local element = {
             title = title,
             type = typ,
@@ -30,7 +30,8 @@ local GC = {}
             y = y,
             width = width,
             height = height,
-            func = func,
+            leftClick = leftClick,
+            rightClick = rightClick,
             args = args,
             image = image,
             quad = quad
@@ -54,12 +55,21 @@ local GC = {}
         BuildingControllerDisplay.elements = {}
     end
 
-    function GC.click()
+    function GC.leftClick()
         if GC.activeElement == nil then
             return
         end
-        if GC.activeElement.func ~= nil then
-            GC.activeElement.func(GC.activeElement.args)
+        if GC.activeElement.leftClick ~= nil then
+            GC.activeElement.leftClick(GC.activeElement.args)
+        end
+    end
+
+    function GC.rightClick()
+        if GC.activeElement == nil then
+            return
+        end
+        if GC.activeElement.rightClick ~= nil then
+            GC.activeElement.rightClick(GC.activeElement.args)
         end
     end
 
