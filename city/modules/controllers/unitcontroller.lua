@@ -67,5 +67,12 @@ local UC = {}
             unit.draw()
          end
     end
+    
+    function UC.recruitUnit(coordinate)
+        print("unit created")
+        -- TODO bepaal een plek op of rondom coorinate waar de unit kan staan
+        -- gevonden: plaats unit en geef true. anders false
+        return false
+    end
 
 return UC

@@ -1,11 +1,25 @@
 local RA = {}
 
     function RA.finishAction (runningaction)
-        --TODO uitvoeren van de betreffende actie, dus tech, recruit of Upgrade
         runningaction.progress.complete()
         if not runningaction.canComplete() then -- check of we verder kunnen. anders volgend frame checken
             return
         end
+        --TODO uitvoeren van de betreffende actie, dus tech, recruit of Upgrade
+        if runningaction.action.type == ActionType.TECH then
+            TechController.discover(runningaction.action.researchTech)
+        elseif runningaction.action.type == ActionType.UNIT then
+            local placed = UnitController.recruitUnit(runningaction.building.coordinate)
+            if placed==false then
+                GuiController.setMessage("Unable to recruit unit around ".. runningaction.building.data.name.. ".")
+                return          -- kan unit niet plaatsen. dan wachten tot plek beschikbaar komt
+            end
+        elseif runningaction.action.type == ActionType.UPGRADE then
+
+        else
+            print("Action type is wrong.")
+        end
+
         runningaction.active = false
         runningaction.building.removeRunningAction(runningaction.action)
         runningaction.building.activateRunningActions()
