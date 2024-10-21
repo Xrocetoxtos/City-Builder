@@ -16,11 +16,13 @@ local UC = {}
     end
 
     function UC.addUnit(coordinate, hp)
+        print("created")
         local unit = Unit.new(coordinate, hp)
         table.insert(UC.units, unit)
         if DEBUG then
             unit.select()
         end
+        return unit
     end
 
     function UC.isIdle(unit)
@@ -70,9 +72,69 @@ local UC = {}
     
     function UC.recruitUnit(coordinate)
         print("unit created")
-        -- TODO bepaal een plek op of rondom coorinate waar de unit kan staan
-        -- gevonden: plaats unit en geef true. anders false
-        return false
+        local node = UC.findNodeAround(coordinate)
+        print(node)
+        if node == nil then return false end
+        local unit = UC.addUnit(node,10)
+        UnitOrders.setTarget(unit, node)
+        return true
+    end
+
+
+    function UC.findNodeAround(coordinate)
+        local options = {}
+        UC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y-1))
+        UC.addAvailableNode(options, Vector(coordinate.x, coordinate.y-1))
+        UC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y-1))
+        UC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y))
+        UC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y))
+        UC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y+1))
+        UC.addAvailableNode(options, Vector(coordinate.x, coordinate.y+1))
+        UC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y+1))
+
+        if #options == 0 then 
+            UC.addAvailableNode(options, Vector(coordinate.x-2, coordinate.y-2))
+            UC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y-2))
+            UC.addAvailableNode(options, Vector(coordinate.x, coordinate.y-2))
+            UC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y-2))
+            UC.addAvailableNode(options, Vector(coordinate.x+2, coordinate.y-2))
+            UC.addAvailableNode(options, Vector(coordinate.x-2, coordinate.y-1))
+            UC.addAvailableNode(options, Vector(coordinate.x+2, coordinate.y-1))
+            UC.addAvailableNode(options, Vector(coordinate.x-2, coordinate.y))
+            UC.addAvailableNode(options, Vector(coordinate.x+2, coordinate.y))
+            UC.addAvailableNode(options, Vector(coordinate.x-2, coordinate.y+1))
+            UC.addAvailableNode(options, Vector(coordinate.x+2, coordinate.y+1))
+
+            UC.addAvailableNode(options, Vector(coordinate.x-2, coordinate.y+2))
+            UC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y+2))
+            UC.addAvailableNode(options, Vector(coordinate.x, coordinate.y+2))
+            UC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y+2))
+            UC.addAvailableNode(options, Vector(coordinate.x+2, coordinate.y+2))
+        end
+        if #options == 0 then return nil end
+        if #options == 1 then return options[1] end
+
+        local ind = love.math.random(#options)
+        return options[ind]
+    end
+
+    function UC.addAvailableNode(targetTable, coordinate)
+        local node = Map.isNodeWalkable(coordinate)
+        if node ~=nil then
+            if UC.nodeAvailable(coordinate) == true then
+                table.insert(targetTable, node)
+            end
+        end
+        return targetTable
+    end
+
+    function UC.nodeAvailable(coordinate, unit)
+        for index, unitTarget in ipairs(UnitOrders.targets) do
+            if unitTarget.target.x == coordinate.x and unitTarget.target.y == coordinate.y and unitTarget.unit ~= nil then
+                return false
+            end
+        end
+        return true
     end
 
 return UC

@@ -82,34 +82,34 @@ local UO = {}
         return true
     end
 
-    function UO.findNodeAround(coordinate, unit)
-        local options = {}
-        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y-1), unit)
-        UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y-1), unit)
-        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y-1), unit)
-        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y), unit)
-        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y), unit)
-        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y+1), unit)
-        UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y+1), unit)
-        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y+1), unit)
+    -- function UO.findNodeAround(coordinate, unit)
+    --     local options = {}
+    --     UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y-1), unit)
+    --     UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y-1), unit)
+    --     UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y-1), unit)
+    --     UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y), unit)
+    --     UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y), unit)
+    --     UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y+1), unit)
+    --     UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y+1), unit)
+    --     UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y+1), unit)
 
-        if #options == 0 then return nil end
+    --     if #options == 0 then return nil end
 
-        -- for index, value in ipairs(options) do
-        --     print (value.x..":"..value.y)
-        -- end
+    --     -- for index, value in ipairs(options) do
+    --     --     print (value.x..":"..value.y)
+    --     -- end
 
-        return options[1]   -- TODO: bepalen hoe bepaald wordt welke destination hij dan kiest. Nu gewoon de eerste
-    end
+    --     return options[1]   -- TODO: bepalen hoe bepaald wordt welke destination hij dan kiest. Nu gewoon de eerste
+    -- end
 
-    function UO.addNodeToTable(targetTable, coordinate, unit)
-        local node = Map.isNodeWalkable(coordinate)
-        if node ~=nil then
-            if UO.nodeAvailable(coordinate, unit) == true then
-                table.insert(targetTable, node)
-            end
-        end
-        return targetTable
-    end
+    -- function UO.addNodeToTable(targetTable, coordinate, unit)
+    --     local node = Map.isNodeWalkable(coordinate)
+    --     if node ~=nil then
+    --         if UO.nodeAvailable(coordinate, unit) == true then
+    --             table.insert(targetTable, node)
+    --         end
+    --     end
+    --     return targetTable
+    -- end
 
 return UO

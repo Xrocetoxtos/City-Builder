@@ -10,15 +10,15 @@ AD = {}
         name = "Recruit Unit",
         icon = nil,
         resource = {
-            wood = 5,
-            gold = 5,
+            wood = 0,
+            gold = 0,
             stone = 0,
-            food = 20,
+            food = 0,
             population = 1
         },       
         requiredTech = "Tech",
         stackable = true,
-        progressTime = 10,
+        progressTime = 2,
         type = ActionType.UNIT,
         followUp = {}
     }
