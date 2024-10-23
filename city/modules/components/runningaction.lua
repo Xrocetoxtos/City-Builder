@@ -2,7 +2,10 @@ local RA = {}
 
     function RA.finishAction (runningaction)
         runningaction.progress.complete()
-        if not runningaction.canComplete() then -- check of we verder kunnen. anders volgend frame checken
+        local can = runningaction.canComplete()
+        print(can)
+
+        if can == false then -- check of we verder kunnen. anders volgend frame checken
             return
         end
         --TODO uitvoeren van de betreffende actie, dus tech, recruit of Upgrade
