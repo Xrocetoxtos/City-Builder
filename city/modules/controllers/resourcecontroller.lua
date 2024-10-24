@@ -36,7 +36,8 @@ local RC = {}
     end
 
     function RC.hasPopulationSpace(amount)
-        return RC.populationMax - amount >= 0
+        print(RC.populationMax.."--" ..amount.. " ".. #UnitController.units)
+        return RC.populationMax - amount - #UnitController.units >= 0
     end
 
     function RC.payResources(resource)

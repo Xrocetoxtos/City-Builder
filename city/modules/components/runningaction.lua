@@ -3,6 +3,7 @@ local RA = {}
     function RA.finishAction (runningaction)
         runningaction.progress.complete()
         local can = runningaction.canComplete()
+        print("unit!")
         print(can)
 
         if can == false then -- check of we verder kunnen. anders volgend frame checken
@@ -49,7 +50,11 @@ local RA = {}
 
             function R.canComplete()
                 if R.action.type == ActionType.UNIT then
-                    return ResourceController.hasPopulationSpace(R.action.resource.population)
+                    local population = ResourceController.hasPopulationSpace(R.action.resource.population)
+                    if population == false then
+                        GuiController.setMessage("Not enough population space to recruit another villager.")
+                        return false
+                    end
                 end 
                 return true
             end
