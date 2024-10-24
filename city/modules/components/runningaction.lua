@@ -3,8 +3,6 @@ local RA = {}
     function RA.finishAction (runningaction)
         runningaction.progress.complete()
         local can = runningaction.canComplete()
-        print("unit!")
-        print(can)
 
         if can == false then -- check of we verder kunnen. anders volgend frame checken
             return
@@ -12,6 +10,7 @@ local RA = {}
         --TODO uitvoeren van de betreffende actie, dus tech, recruit of Upgrade
         if runningaction.action.type == ActionType.TECH then
             TechController.discover(runningaction.action.researchTech)
+            TechController.stopResearching(runningaction.action.researchTech)
         elseif runningaction.action.type == ActionType.UNIT then
             local placed = UnitController.recruitUnit(runningaction.building.coordinate)
             if placed==false then
@@ -40,6 +39,9 @@ local RA = {}
 
             function R.setActive()
                 R.active = true
+                if R.action.type == ActionType.TECH then
+                    TechController.research(R.action.researchTech)
+                end
             end
 
             function R.update(dt)

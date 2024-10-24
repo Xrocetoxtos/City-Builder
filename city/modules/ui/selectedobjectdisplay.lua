@@ -38,9 +38,27 @@ local S = {}
         local x = GuiController.actionsX
         if obj.data.actions == nil then return end
         for index, action in ipairs(obj.data.actions) do
-            local element = GuiController.addElement(action.name, "A", x, y, GuiController.objectSize, GuiController.objectSize, S.clickAction, S.rightClickAction, {obj, action}, action.icon, nil)
-            table.insert(S.elements, element)
-            x = x + GuiController.objectSize + GuiController.objectMargin
+            local show = true
+
+            if action.type == ActionType.TECH then                              -- TODO: DIT IN EEN APPARTE FUNCTIE ZETTEN. BEPALEN WAT SHOW WORDT
+                if TechController.isDiscovered(action.researchTech) then
+                    show= false 
+                else
+                    local researching = TechController.isResearching(action.researchTech)
+                    if researching == true then
+                        local r, aantal = obj.getActiveRunningActionsProgress(action)
+                        if aantal == 0 then
+                            show = false
+                        end
+                    end
+                end
+            end
+
+            if show == true then
+                local element = GuiController.addElement(action.name, "A", x, y, GuiController.objectSize, GuiController.objectSize, S.clickAction, S.rightClickAction, {obj, action}, action.icon, nil)
+                table.insert(S.elements, element)
+                x = x + GuiController.objectSize + GuiController.objectMargin
+            end
         end
     end
 

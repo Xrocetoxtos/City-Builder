@@ -50,6 +50,9 @@ local B = {}
                 for index, value in ipairs(b.runningActions) do
                     if action.name == value.action.name then
                         table.remove(b.runningActions, index)
+                        if action.type == ActionType.TECH then
+                            TechController.stopResearching(action.researchTech)
+                        end
                         return
                     end
                 end
