@@ -24,7 +24,7 @@ AD = {}
     }
 
     AD.researchTech = {
-        name = "Research Tech",
+        name = "Tech",
         icon = nil,
         resource = {
             wood = 0,
@@ -34,14 +34,14 @@ AD = {}
         }, 
         requiredTech = nil,
         stackable = false,
-        progressTime = 10,
+        progressTime = 20,
         type = ActionType.TECH,
         researchTech = "Tech",
         followUp = {}
     }
 
     AD.researchTest = {
-        name = "Test Tech",
+        name = "Tech2",
         icon = nil,
         resource = {
             wood = 0,
@@ -51,9 +51,9 @@ AD = {}
         }, 
         requiredTech = nil,
         stackable = false,
-        progressTime = 10,
+        progressTime = 20,
         type = ActionType.TECH,
-        researchTech = "Tech",
+        researchTech = "Tech2",
         followUp = {}
     }
 

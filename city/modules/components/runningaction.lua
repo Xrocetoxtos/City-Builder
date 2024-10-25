@@ -26,6 +26,7 @@ local RA = {}
         runningaction.active = false
         runningaction.building.removeRunningAction(runningaction.action)
         runningaction.building.activateRunningActions()
+        SelectedObjectDisplay.setup(SelectedObjectDisplay.currentBuilding)
     end
 
     function RA.new(building, action)

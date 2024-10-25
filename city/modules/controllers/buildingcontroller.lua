@@ -12,7 +12,8 @@ local BC = {}
     BC.ghostPosition = Vector(0,0)
 
     function BC.load()
-        BC.addBuilding(Vector(96, 80), BuildingDatabase[1], true)
+        BC.addBuilding(Vector(96,160), BuildingDatabase[1], true)
+        BC.addBuilding(Vector(160,160), BuildingDatabase[1], true)
     end
 
     function BC.update(dt)
