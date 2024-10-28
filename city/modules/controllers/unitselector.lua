@@ -3,6 +3,18 @@ local US = {}
     function US.load()
         US.selectedUnits = {}
         US.idleIndex = 1
+        US.controlGroups={
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        }
     end
 
     function US.select(unit)
@@ -133,6 +145,23 @@ local US = {}
             return
         end
         GuiController.setMessage("No idle villager available.")
+    end
+
+    function US.controlGroup(key)
+        local n = tonumber(key)
+        if n == 0 then n= 10 end
+        
+        if not love.keyboard.isDown(Settings.select.controlGroupSelect[1]) and not love.keyboard.isDown(Settings.select.controlGroupSelect[2]) then
+            US.deselectAll()
+            for i = 1, #US.controlGroups[n] do
+                US.select(US.controlGroups[n])
+            end
+        else
+            US.controlGroups[n] = {}
+            for i = 1, #US.selectedUnits do
+                table.insert(US.controlGroups[n], US.selectedUnits[i])
+            end
+        end
     end
 
 return US

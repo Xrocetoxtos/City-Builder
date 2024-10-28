@@ -7,7 +7,7 @@ ActionType = {
 AD = {}
 
     AD.recruitUnit = {
-        name = "Recruit Unit",
+        name = "Recruit Villager",
         icon = nil,
         resource = {
             wood = 0,

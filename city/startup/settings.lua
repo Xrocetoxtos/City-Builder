@@ -7,6 +7,8 @@ local settings = {}
             settings.select = {}
             settings.select.multi = {"rshift", "lshift"}
             settings.select.idle = "i"
+            settings.select.controlGroup = { "1","2","3","4","5","6","7","8","9","0"}
+            settings.select.controlGroupSelect = {"lctrl","rctrl"}
 
             settings.building = {}
             settings.building.multi = {"rshift", "lshift"}
@@ -25,6 +27,15 @@ local settings = {}
 
     function settings.save()
         
+    end
+
+    function settings.keyInTable(key, tab)
+        if key == nil or tab == nil then return false end
+        
+        for i = 1,#tab, 1 do
+            if key == tab[i] then return true end
+        end
+        return false
     end
 
 return settings
