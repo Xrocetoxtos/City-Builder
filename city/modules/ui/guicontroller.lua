@@ -127,6 +127,7 @@ local GC = {}
         end
 
         ResourceControllerDisplay.draw()
+        ControlGroupDisplay.draw()
         GC.drawMessage()
 
         Minimap.draw()

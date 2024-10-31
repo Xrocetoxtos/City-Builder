@@ -1,8 +1,10 @@
 local RCD = {}
 
+    RCD.barHeight = 20
+
     function RCD.draw()
         Colours.setColour(Colours.GREY)
-        love.graphics.rectangle("fill",0,0,SCREEN_WIDTH, 20)
+        love.graphics.rectangle("fill",0,0,SCREEN_WIDTH, RCD.barHeight)
 
         Colours.setColour(Colours.BLACK)
         love.graphics.print(ResourceController.wood, 30, 2)

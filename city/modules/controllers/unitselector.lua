@@ -15,6 +15,14 @@ local US = {}
             {},
             {}
         }
+        US.updateUI = false
+    end
+
+    function US.update()
+        if US.updateUI == true then
+            ControlGroupDisplay.update()
+            US.updateUI = false
+        end
     end
 
     function US.select(unit)
@@ -150,20 +158,15 @@ local US = {}
     function US.controlGroup(key)
         local n = tonumber(key)
         if n == 0 then n= 10 end
-        print(n)
         
         if not love.keyboard.isDown(Settings.select.controlGroupSelect[1]) and not love.keyboard.isDown(Settings.select.controlGroupSelect[2]) then
             US.deselectAll()
             for i = 1, #US.controlGroups[n] do
-                print("---")
-                -- US.select(US.controlGroups[n][i])
                 US.controlGroups[n][i].select()
-                print(US.controlGroups[n][i].id)
             end
         else
             US.controlGroups[n] = {}
             for i = 1, #US.selectedUnits do
-                print("===")
                 table.insert(US.controlGroups[n], US.selectedUnits[i])
             end
         end
