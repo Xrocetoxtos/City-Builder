@@ -33,7 +33,6 @@ local unit = {}
             if #UnitSelector.selectedUnits == 1 then
                 BuildingControllerDisplay.setElements()
             end
-            UnitSelector.updateUI= true
         end
 
         u.deselect = function()
@@ -43,7 +42,6 @@ local unit = {}
             if #UnitSelector.selectedUnits == 0 then
                 BuildingControllerDisplay.clearElements()
             end
-            UnitSelector.updateUI= true
         end
         
         u.setCoordinate = function ()

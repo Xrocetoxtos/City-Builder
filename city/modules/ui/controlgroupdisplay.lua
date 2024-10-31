@@ -8,7 +8,7 @@ local C = {}
 
     function C.update()
         for i = 1, #UnitSelector.controlGroups do
-            C.amounts = #UnitSelector.controlGroups[i]
+            C.amounts[i] = #UnitSelector.controlGroups[i]
         end
     end
 
@@ -19,7 +19,7 @@ local C = {}
     end
 
     function C.drawElement(index)
-        local x = SCREEN_WIDTH - ((C.elementMargin + C.elementSize) * (index-1) + C.elementMargin)
+        local x = SCREEN_WIDTH - ((C.elementMargin + C.elementSize) * (#C.amounts - index + 1) + C.elementMargin)
         love.graphics.rectangle("line", x, C.elementY, C.elementSize, C.elementSize)
         love.graphics.print(C.amounts[index], x + C.elementMargin, C.elementY + C.elementMargin)
     end

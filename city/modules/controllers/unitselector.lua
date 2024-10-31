@@ -169,6 +169,7 @@ local US = {}
             for i = 1, #US.selectedUnits do
                 table.insert(US.controlGroups[n], US.selectedUnits[i])
             end
+            US.updateUI=true
         end
     end
 
