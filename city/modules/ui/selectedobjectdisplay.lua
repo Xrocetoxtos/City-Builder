@@ -73,6 +73,24 @@ local S = {}
                     return false
                 end
             end
+
+        elseif action.type == ActionType.UPGRADE then               -- TODO. kijken waarom hij altijd finished lijkt
+            if UpgradeController.isFinished(action.researchUpgrade) then
+                print(action.researchUpgrade.. " is al uitgevonden")
+                return false 
+            end
+
+            local researching = UpgradeController.isPending(action.researchUpgrade)
+            if researching == true then
+                print(action.researchTech.. " is al bezig")
+
+                local r, aantal = obj.getActiveRunningActionsProgress(action)
+                print (aantal)
+                if aantal == 0 then
+                    return false
+                end
+            end
+
         end
 
         return true

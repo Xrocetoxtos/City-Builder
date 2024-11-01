@@ -57,4 +57,21 @@ AD = {}
         followUp = {}
     }
 
+    AD.upgrade = {
+        name = "Upgrade",
+        icon = nil,
+        resource = {
+            wood = 0,
+            gold = 0,
+            stone = 0,
+            food = 20,
+        }, 
+        requiredTech = nil,
+        stackable = false,
+        progressTime = 20,
+        type = ActionType.UPGRADE,
+        researchUpgrade = "Upgrade",
+        followUp = {}
+    }
+
 return AD

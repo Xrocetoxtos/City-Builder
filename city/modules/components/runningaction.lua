@@ -18,7 +18,8 @@ local RA = {}
                 return          -- kan unit niet plaatsen. dan wachten tot plek beschikbaar komt
             end
         elseif runningaction.action.type == ActionType.UPGRADE then
-
+            UpgradeController.setFinished(runningaction.action.researchUpgrade)
+            UpgradeController.unsetPending(runningaction.action.researchUpgrade)
         else
             print("Action type is wrong.")
         end
