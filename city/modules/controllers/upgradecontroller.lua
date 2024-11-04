@@ -22,7 +22,7 @@ local UC = {}
     function UC.unsetPending(upgrade)
         local index = UC.isPending(upgrade)
         if index ~= -1 then
-            table.remove(UC.pendingUpgrades, upgrade)
+            table.remove(UC.pendingUpgrades, index)
         end
     end
 
@@ -45,7 +45,7 @@ local UC = {}
     function UC.unsetFinished(upgrade)
         local index = UC.isFinished(upgrade)
         if index ~= -1 then
-            table.remove(UC.finishedUpgrades, upgrade)
+            table.remove(UC.finishedUpgrades, index)
         end
     end
     

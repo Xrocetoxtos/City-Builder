@@ -7,7 +7,7 @@ local RA = {}
         if can == false then -- check of we verder kunnen. anders volgend frame checken
             return
         end
-        --TODO uitvoeren van de betreffende actie, dus tech, recruit of Upgrade
+
         if runningaction.action.type == ActionType.TECH then
             TechController.discover(runningaction.action.researchTech)
             TechController.stopResearching(runningaction.action.researchTech)
@@ -43,6 +43,8 @@ local RA = {}
                 R.active = true
                 if R.action.type == ActionType.TECH then
                     TechController.research(R.action.researchTech)
+                elseif R.action.type ==ActionType.UPGRADE then
+                    UpgradeController.setPending(R.action.researchUpgrade)
                 end
             end
 

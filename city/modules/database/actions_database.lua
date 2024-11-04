@@ -68,7 +68,7 @@ AD = {}
         }, 
         requiredTech = nil,
         stackable = false,
-        progressTime = 20,
+        progressTime = 2,
         type = ActionType.UPGRADE,
         researchUpgrade = "Upgrade",
         followUp = {}
