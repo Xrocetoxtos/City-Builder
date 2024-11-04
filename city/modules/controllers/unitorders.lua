@@ -82,34 +82,74 @@ local UO = {}
         return true
     end
 
-    -- function UO.findNodeAround(coordinate, unit)
-    --     local options = {}
-    --     UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y-1), unit)
-    --     UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y-1), unit)
-    --     UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y-1), unit)
-    --     UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y), unit)
-    --     UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y), unit)
-    --     UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y+1), unit)
-    --     UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y+1), unit)
-    --     UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y+1), unit)
+    function UO.findNodeAround(coordinate, unit, rings)
+        local options = {}
+        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y-1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y-1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y-1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y+1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y+1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y+1), unit)
 
-    --     if #options == 0 then return nil end
+        if rings == 1 then
+            return UO.pickNode(options,unit)
+        end
+        UO.addNodeToTable(options, Vector(coordinate.x-2, coordinate.y-2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y-2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y-2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y-2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+2, coordinate.y-2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-2, coordinate.y-1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+2, coordinate.y-1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-2, coordinate.y), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+2, coordinate.y), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-2, coordinate.y+1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+2, coordinate.y+1), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-2, coordinate.y+2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x-1, coordinate.y+2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x, coordinate.y+2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+1, coordinate.y+2), unit)
+        UO.addNodeToTable(options, Vector(coordinate.x+2, coordinate.y+2), unit)
 
-    --     -- for index, value in ipairs(options) do
-    --     --     print (value.x..":"..value.y)
-    --     -- end
+        return UO.pickNode(options, unit)
+        -- for index, value in ipairs(options) do
+        --     print (value.x..":"..value.y)
+        -- end
 
-    --     return options[1]   -- TODO: bepalen hoe bepaald wordt welke destination hij dan kiest. Nu gewoon de eerste
-    -- end
+    end
 
-    -- function UO.addNodeToTable(targetTable, coordinate, unit)
-    --     local node = Map.isNodeWalkable(coordinate)
-    --     if node ~=nil then
-    --         if UO.nodeAvailable(coordinate, unit) == true then
-    --             table.insert(targetTable, node)
-    --         end
-    --     end
-    --     return targetTable
-    -- end
+    function UO.addNodeToTable(targetTable, coordinate, unit)
+        local node = Map.isNodeWalkable(coordinate)
+        if node ~=nil then
+            if UO.nodeAvailable(coordinate, unit) == true then
+                table.insert(targetTable, node)
+            end
+        end
+        return targetTable
+    end
+
+    function UO.pickNode(options, unit)
+        if #options == 0 then
+            return nil
+        end
+        return UO.nearestNode(unit.coordinate, options)
+    end
+
+    function UO.nearestNode(from, options)
+        local node = nil
+        local distance = 99999999
+        for i = 1, #options do
+            local x = math.abs(options[i].x - from.x)
+            local y = math.abs(options[i].y - from.y)
+            local d = math.sqrt(x*x + y*y)
+            if d < distance then
+                distance = d
+                node = options[i]
+            end
+        end
+        return node
+    end
 
 return UO

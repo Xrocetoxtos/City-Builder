@@ -60,10 +60,11 @@ local unit = {}
             end
         end
 
-        u.setPathTowards = function(coordinate)
+        u.setPathTowards = function(coordinate, rings)
+            if rings == nil then rings = 1 end
             -- coordinate.x=coordinate.x-1
             -- coordinate.y=coordinate.y-1
-            local destination = UnitOrders.findNodeAround(coordinate, u)
+            local destination = UnitOrders.findNodeAround(coordinate, u, rings)
             if destination ~= nil then
                 u.setPath(destination)
             end
