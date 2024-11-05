@@ -24,6 +24,7 @@ local RA = {}
             print("Action type is wrong.")
         end
 
+    -- followup direct uitvoeren
         runningaction.active = false
         runningaction.building.removeRunningAction(runningaction.action)
         runningaction.building.activateRunningActions()
