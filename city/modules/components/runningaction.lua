@@ -1,6 +1,6 @@
 local RA = {}
 
-    function RA.finishAction (runningaction)
+    function RA.finishRunningAction (runningaction)
         runningaction.progress.complete()
         local can = runningaction.canComplete()
 
@@ -8,27 +8,36 @@ local RA = {}
             return
         end
 
-        if runningaction.action.type == ActionType.TECH then
-            TechController.discover(runningaction.action.researchTech)
-            TechController.stopResearching(runningaction.action.researchTech)
-        elseif runningaction.action.type == ActionType.UNIT then
-            local placed = UnitController.recruitUnit(runningaction.building.coordinate)
-            if placed==false then
-                GuiController.setMessage("Unable to recruit unit around ".. runningaction.building.data.name.. ".")
-                return          -- kan unit niet plaatsen. dan wachten tot plek beschikbaar komt
-            end
-        elseif runningaction.action.type == ActionType.UPGRADE then
-            UpgradeController.setFinished(runningaction.action.researchUpgrade)
-            UpgradeController.unsetPending(runningaction.action.researchUpgrade)
-        else
-            print("Action type is wrong.")
-        end
-
-    -- followup direct uitvoeren
+        RA.finishAction(runningaction.action, runningaction.building)
         runningaction.active = false
         runningaction.building.removeRunningAction(runningaction.action)
         runningaction.building.activateRunningActions()
         SelectedObjectDisplay.setup(SelectedObjectDisplay.currentBuilding)
+    end
+
+    function RA.finishAction(action, building)
+        if action.type == ActionType.TECH then
+            TechController.discover(action.researchTech)
+            TechController.stopResearching(action.researchTech)
+        elseif action.type == ActionType.UNIT then
+            local placed = UnitController.recruitUnit(building.coordinate)
+            if placed==false then
+                GuiController.setMessage("Unable to recruit unit around ".. building.data.name.. ".")
+                return          -- kan unit niet plaatsen. dan wachten tot plek beschikbaar komt
+            end
+        elseif action.type == ActionType.UPGRADE then
+            UpgradeController.setFinished(action.researchUpgrade)
+            UpgradeController.unsetPending(action.researchUpgrade)
+        else
+            print("Action type is wrong.")
+        end
+        RA.runFollowUps(action, building)
+    end
+
+    function RA.runFollowUps(action, building)
+        for index, actie in ipairs(action.followUp) do
+            RA.finishAction(actie, building)
+        end
     end
 
     function RA.new(building, action)
@@ -37,7 +46,7 @@ local RA = {}
             R.building = building
             R.action = action
 
-            R.progress = Progress.new(R, action.progressTime,RA.finishAction, R)
+            R.progress = Progress.new(R, action.progressTime,RA.finishRunningAction, R)
             R.active = false
 
             function R.setActive()
