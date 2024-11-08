@@ -5,6 +5,7 @@ local BC = {}
     BC.activeBuildings = {}
 
     BC.buildings = {}
+    BC.storages = {}
 
     BC.currentBuildingType = nil
     BC.currentBuilding = nil
@@ -149,7 +150,7 @@ local BC = {}
         end
     end
 
-    function BC.removePendingBuilding(building)                                           -- TODO. dit gaat nog niet goed, somehow. building is nils?!
+    function BC.removePendingBuilding(building)                                           -- TODO. dit gaat nog niet goed, somehow. building is nil?!
         local b, i = BC.getPendingBuilding(building)
         if b~=nil then
             table.remove(BC.pendingBuildings, i)
@@ -157,8 +158,6 @@ local BC = {}
     end
 
     function BC.findNearestPendingBuilding(position, maxDistance)
-        print(#BC.pendingBuildings)
-
         if #BC.pendingBuildings <= 0 then 
             return nil 
         end
@@ -177,6 +176,29 @@ local BC = {}
             end
         end
         return pBuilding
+    end
+
+    function BC.findNearestStorage(position, maxDistance, storageType)
+        if #BC.storages <= 0 then 
+            return nil 
+        end
+        if #BC.storages == 1 and (BC.storages[1].data.storageType == StorageType.ALL or BC.storages[1].data.storageType == storageType) then
+            return BC.pendingBuildings[1]
+        end
+
+        local distance = maxDistance or 99999999
+        local storage = nil
+        for index, value in ipairs(BC.pendingBuildings) do
+            if value.data.storageType == StorageType.ALL or value.data.storageType == storageType then
+                local pos = Vector(value.x, value.y)
+                local dist = pos:dist(position)
+                if dist < distance then
+                    distance = dist
+                    storage = value
+                end
+            end
+        end
+        return storage
     end
 
 return BC
