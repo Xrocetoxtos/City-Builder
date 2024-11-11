@@ -25,7 +25,7 @@ local B = {}
             b.finish = function()
                 b.finished = true
                 ResourceController.populationMax = ResourceController.populationMax + b.data.population
-                if b.data.storageType ~= StorageType.NONE then
+                if b.data.storageType ~= ResourceType.NONE then
                     table.insert(BuildingController.storages, b)
                 end
             end

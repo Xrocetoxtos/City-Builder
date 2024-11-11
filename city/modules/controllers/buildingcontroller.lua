@@ -182,14 +182,14 @@ local BC = {}
         if #BC.storages <= 0 then 
             return nil 
         end
-        if #BC.storages == 1 and (BC.storages[1].data.storageType == StorageType.ALL or BC.storages[1].data.storageType == storageType) then
+        if #BC.storages == 1 and (BC.storages[1].data.storageType == ResourceType.ALL or BC.storages[1].data.storageType == storageType) then
             return BC.pendingBuildings[1]
         end
 
         local distance = maxDistance or 99999999
         local storage = nil
         for index, value in ipairs(BC.pendingBuildings) do
-            if value.data.storageType == StorageType.ALL or value.data.storageType == storageType then
+            if value.data.storageType == ResourceType.ALL or value.data.storageType == storageType then
                 local pos = Vector(value.x, value.y)
                 local dist = pos:dist(position)
                 if dist < distance then

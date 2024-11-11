@@ -1,12 +1,3 @@
-StorageType = {
-    NONE= "none",
-    ALL = "all",
-    WOOD = "wood",
-    GOLD = "gold",
-    STONE = "stone",
-    FOOD = "food"
-}
-
 local BD = {
 
     {
@@ -27,7 +18,7 @@ local BD = {
         requiredTech = {
 
         },
-        storageType = StorageType.ALL,
+        storageType = ResourceType.ALL,
         actions = {
             ActionsDatabase.recruitUnit, ActionsDatabase.researchTech, ActionsDatabase.researchTest, ActionsDatabase.upgrade
         }
@@ -51,7 +42,7 @@ local BD = {
         requiredTech = {
             "Tech"
         },
-        storageType = StorageType.NONE,
+        storageType = ResourceType.NONE,
         actions = {}
     },
 
@@ -73,7 +64,7 @@ local BD = {
         requiredTech = {
 
         },
-        storageType = StorageType.FOOD,
+        storageType = ResourceType.FOOD,
         actions = {}
     },
 
@@ -95,7 +86,7 @@ local BD = {
         requiredTech = {
 
         },
-        storageType = StorageType.NONE,
+        storageType = ResourceType.NONE,
         actions = {}
     },
  
@@ -117,7 +108,7 @@ local BD = {
         requiredTech = {
 
         },
-        storageType = StorageType.NONE,
+        storageType = ResourceType.NONE,
         actions = {}
     }
 }
