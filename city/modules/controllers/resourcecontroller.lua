@@ -16,6 +16,23 @@ local RC = {}
     RC.populationMax = getPopulation()
     RC.population = function() return RC.populationMax - #UnitSelector.selectedUnits end
 
+    RC.resources = {}
+
+    function RC.load()
+        RC.addResource(Vector(20,18), ResourceDatabase.wood)
+    end
+
+    function RC.addResource(vector, data)
+        local resource = Resource.new(vector, data)
+        table.insert(RC.resources, resource)
+    end
+
+    function RC.draw()
+        for index, resource in ipairs(RC.resources) do
+            resource.draw()
+        end
+    end
+
     function RC.hasResources(resource)
         if resource.wood ~= nil then
             if resource.wood > RC.wood then return false end
