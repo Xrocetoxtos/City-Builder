@@ -7,8 +7,12 @@ local R = {}
         r.data = data
         r.coordinate = coordinate
         r.position = Map.getGridPosition(coordinate)
-        print (coordinate)
-        print(r.position)
+
+        Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1  --misschien niet alle types of pas als "ontdekt"
+
+
+        r.id = R.id
+        R.id = R.id + 1
 
         r.draw = function ()
             if r.data ~= nil then 

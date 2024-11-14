@@ -16,21 +16,95 @@ local RC = {}
     RC.populationMax = getPopulation()
     RC.population = function() return RC.populationMax - #UnitSelector.selectedUnits end
 
-    RC.resources = {}
+    RC.resourcesOnMap = {
+        wood = {},
+        stone = {},
+        food = {},
+        gold = {}
+    }
 
     function RC.load()
-        RC.addResource(Vector(20,18), ResourceDatabase.wood)
+        RC.addResource(Vector(20,18), ResourceDatabase.stone)
     end
 
     function RC.addResource(vector, data)
         local resource = Resource.new(vector, data)
-        table.insert(RC.resources, resource)
+        local tab= RC.getResourcesTypeTable(data.type)
+        if tab ~= nil then
+            table.insert(tab, resource)
+        end
     end
 
-    function RC.draw()
-        for index, resource in ipairs(RC.resources) do
+    function RC.getResourcesTypeTable(type)
+        if type == ResourceType.FOOD then
+            return RC.resourcesOnMap.food
+            elseif type == ResourceType.GOLD then
+                return RC.resourcesOnMap.gold
+                elseif type ==ResourceType.STONE then
+                    return RC.resourcesOnMap.stone
+                    elseif  type == ResourceType.WOOD then
+                        return RC.resourcesOnMap.wood
+        end
+        return nil
+    end
+
+    function RC.draw()  -- TODO misschien bepaalde types pas tonen als iets uitgevonden is?
+        RC.drawFood()
+        RC.drawWood()
+        RC.drawStone()
+        RC.drawGold()
+    end
+
+    function RC.drawFood()
+        for index, resource in ipairs(RC.resourcesOnMap.food) do
             resource.draw()
         end
+    end
+
+    function RC.drawWood()
+        for index, resource in ipairs(RC.resourcesOnMap.wood) do
+            resource.draw()
+        end
+    end
+
+    function RC.drawStone()
+        for index, resource in ipairs(RC.resourcesOnMap.stone) do
+            resource.draw()
+        end
+    end
+
+    function RC.drawGold()
+        for index, resource in ipairs(RC.resourcesOnMap.gold) do
+            resource.draw()
+        end
+    end
+
+    function RC.getResourceOnCoordinate(coordinate)
+        if coordinate == nil then return nil end
+        for index, resource in ipairs(RC.resourcesOnMap.wood) do
+            if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
+                return resource
+            end
+        end     
+
+        for index, resource in ipairs(RC.resourcesOnMap.food) do
+            if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
+                return resource
+            end
+        end     
+
+        for index, resource in ipairs(RC.resourcesOnMap.stone) do
+            if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
+                return resource
+            end
+        end     
+
+        for index, resource in ipairs(RC.resourcesOnMap.gold) do
+            if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
+                return resource
+            end
+        end  
+        return nil
     end
 
     function RC.hasResources(resource)

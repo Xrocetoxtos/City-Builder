@@ -108,6 +108,7 @@ local map = {}
             tile.unit = UnitController.getUnitOnCoordinate(coordinate)
             tile.building = BuildingController.getBuildingOnCoordinate(coordinate)
             tile.newBuilding = BuildingController.getPendingBuildingOnCoordinate(coordinate)
+            tile.resource = ResourceController.getResourceOnCoordinate(coordinate)
         return tile
     end
 

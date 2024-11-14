@@ -10,6 +10,13 @@ function MP.update (dt)
     MP.pointerPosition = Map.getGridPosition(MP.mouseGridPosition)
     Animations.ui.bonePointerAnimation:update(dt)
     local tile = Map.getTileInfo(MP.mouseGridPosition)
+
+    if tile == nil then return end
+    if tile.resource == nil then
+        print("nil")
+    else
+        print(tile.resource.data.name)
+    end
 end
 
 function MP.draw()
