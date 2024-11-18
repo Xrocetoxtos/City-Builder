@@ -79,6 +79,16 @@ local RC = {}
         end
     end
 
+    function RC.getResource(r)
+        if r == nil then return nil, -1 end
+        for index, resource in ipairs(RC.resourcesOnMap) do
+            if resource.id == r.id then
+                return resource, index
+            end
+        end
+        return nil, -1
+    end
+
     function RC.getResourceOnCoordinate(coordinate)
         if coordinate == nil then return nil end
         for index, resource in ipairs(RC.resourcesOnMap.wood) do

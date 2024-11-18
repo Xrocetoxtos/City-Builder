@@ -2,10 +2,14 @@ local BTree= {}
 
     BTree.name = "Gatherer"
 
-    BTree.new = function(unit)
+    BTree.new = function(unit, resourceType)
         local Tree = {}
             Tree.name = BTree.name
             Tree.unit = unit
+            
+            Tree.resourceType = resourceType    -- welk type moet ik gatheren
+            Tree.amount = 0                     -- hoeveel heb ik nu vast
+
             Tree.target = nil
             Tree.onHisWay = false
 
@@ -29,18 +33,20 @@ local BTree= {}
                 return BT.boolToStatus(has)
             end
 
-            local function getNearestPendingBuilding()
-                local building = BuildingController.findNearestPendingBuilding(Tree.unit.position, Tree.unit.maxDistance)
-                if building ~=nil then
-                    unit.setTarget(building)
-                    Tree.target = building
+            local function getNearestResource()
+                -- local building = BuildingController.findNearestPendingBuilding(Tree.unit.position, Tree.unit.maxDistance)
+                local resource = ResourceController.findNearestResource(Tree.resourceType)
+                if resource ~=nil then
+                    unit.setTarget(resource)
+                    Tree.target = resource
                     return Status.SUCCESS
                 end
                 return Status.FAILURE
             end
 
             local function targetExists()
-                local u, i = BuildingController.getPendingBuilding(Tree.target)
+                -- local u, i = BuildingController.getPendingBuilding(Tree.target)
+                local u,i = ResourceController.getResource(Tree.target)
                 
                 return BT.boolToStatus(i ~= -1)
             end
@@ -63,13 +69,26 @@ local BTree= {}
                 return Status.RUNNING
             end
 
-            local function buildBuilding()      -- gather
-                if not targetExists() then
+            -- local function buildBuilding()      -- gather
+            --     if not targetExists() then
+            --         return Status.FAILURE
+            --     end
+            --     Tree.target.build(10)
+            --     if Tree.target.finished then
+            --         BuildingController.removePendingBuilding(Tree.target)
+            --         return Status.SUCCESS
+            --     end
+            --     return Status.RUNNING
+            -- end
+
+            local function gatherResource()
+                if targetExists() == Status.FAILURE then
                     return Status.FAILURE
                 end
-                Tree.target.build(10)
-                if Tree.target.finished then
-                    BuildingController.removePendingBuilding(Tree.target)
+
+                Tree.target.gather(10)  --gather rate`
+                if Tree.target.empty() then
+                    ResourceController.removeResource(Tree.target)
                     return Status.SUCCESS
                 end
                 return Status.RUNNING
@@ -80,17 +99,19 @@ local BTree= {}
 
             local hasTarget = BT.leaf("Has target?", 1, hasTarget, nil)
 
-            local detectPending = BT.leaf("Detect nearby pending building", 1, getNearestPendingBuilding, nil)
+            local detectResource = BT.leaf("Detect nearby resource of right type", 1, getNearestResource, nil)
             local startMoving = BT.leaf("Start moving to target", 1, startMovingToTarget, nil)
 
-            local targetSelector = BT.selector("Target selector", 1, {hasTarget, detectPending})
+            local targetSelector = BT.selector("Target selector", 1, {hasTarget, detectResource})
 
-            local targetBuildingExists = BT.leaf("Target building exists?", 1, targetExists, nil)
+            local taegetResourceExist = BT.leaf("Target resource exists?", 1, targetExists, nil)
             local moveTarget = BT.leaf("Move to target", 1, moveToTarget, nil)
-            local build = BT.leaf("Build building", 1, buildBuilding, nil)
-            local buildSequence = BT.sequence("Build sequence", 1, {targetSelector, targetBuildingExists, startMoving, moveTarget, build, noTarget})
+            local gather = BT.leaf("Gather resource", 1, gatherResource, nil)
+            local gatherSequence = BT.sequence("Gather sequence", 1, {targetSelector, taegetResourceExist, startMoving, moveTarget, gather, noTarget})
 
-            Tree.tree = BT.selector("builder tree", 1, {buildSequence, idle})
+            -- TODO deliver sequence
+
+            Tree.tree = BT.selector("Gatherer tree", 1, {gatherSequence, idle})
             Tree.tree.debug(0)
 
 -- target zoeken, naar resource, dan pakken, storage zoeken, brengen, resource omhoog, nieuw target zoeken

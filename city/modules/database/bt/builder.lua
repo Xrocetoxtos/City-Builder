@@ -65,7 +65,7 @@ local BTree= {}
             end
 
             local function buildBuilding()
-                if not targetExists() then
+                if targetExists() == Status.FAILURE then
                     return Status.FAILURE
                 end
                 Tree.target.build(10)
