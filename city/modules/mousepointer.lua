@@ -5,18 +5,13 @@ function MP.load()
     MP.pointerPosition = Vector(0,0)
 end
 
-function MP.update (dt)
+function MP.update ()
     MP.mouseGridPosition = Map.getGridCoordinate(MOUSE_POSITION)
     MP.pointerPosition = Map.getGridPosition(MP.mouseGridPosition)
-    Animations.ui.bonePointerAnimation:update(dt)
+    Animations.ui.bonePointerAnimation:update(DELTA)
     local tile = Map.getTileInfo(MP.mouseGridPosition)
 
     if tile == nil then return end
-    if tile.resource == nil then
-        print("nil")
-    else
-        print(tile.resource.data.name)
-    end
 end
 
 function MP.draw()
@@ -46,7 +41,7 @@ function love.mousereleased(x,y,button)
             BuildingController.selectBuilding(nil)
         end
     end
-    if button ==2 then
+    if button == 2 then
         if MOUSE_ON_GUI == true then
             GuiController.rightClick()
         else                                    -- TODO. beoordelen obv het target wat te doen.

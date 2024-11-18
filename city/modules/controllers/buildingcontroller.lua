@@ -17,8 +17,8 @@ local BC = {}
         BC.addBuilding(Vector(160,160), BuildingDatabase[1], true)
     end
 
-    function BC.update(dt)
-        BC.updateExisting(dt)
+    function BC.update()
+        BC.updateExisting()
         if #UnitSelector.selectedUnits < 1 then return end
 
         if BC.currentBuilding ~=nil then
@@ -26,9 +26,9 @@ local BC = {}
         end
     end
 
-    function BC.updateExisting(dt)
+    function BC.updateExisting()
         for index, building in ipairs(BC.activeBuildings) do
-            building.update(dt)
+            building.update()
         end
     end
 

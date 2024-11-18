@@ -48,7 +48,7 @@ local BCD = {}
         SelectedObjectDisplay.setup(UnitSelector.selectedUnits[1])
     end
 
-    function BCD.update(dt)
+    function BCD.update()
 
 
     end

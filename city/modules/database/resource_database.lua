@@ -13,14 +13,16 @@ local RD = {}
         name = "Wood",
         type = ResourceType.WOOD,
         icon = nil,
-        sprite = nil
+        sprite = nil,
+        time = 10
     }
 
     RD.gold = {
         name = "Gold",
         type = ResourceType.GOLD,
         icon = nil,
-        sprite = nil
+        sprite = nil,
+        time = 10
     }
 
 
@@ -28,14 +30,16 @@ local RD = {}
         name = "Stone",
         type = ResourceType.STONE,
         icon = nil,
-        sprite = nil
+        sprite = nil,
+        time = 10
     }
 
     RD.food = {
         name = "Food",
         type = ResourceType.FOOD,
         icon = nil,
-        sprite = nil
+        sprite = nil,
+        time = 10
     }
 
 return RD 

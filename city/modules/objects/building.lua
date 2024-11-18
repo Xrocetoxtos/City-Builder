@@ -94,10 +94,10 @@ local B = {}
                 return percent, aantal
             end
 
-            b.update=function(dt)
+            b.update=function()
                 if b.finished == false then return end
                 for index, ra in ipairs(b.runningActions) do
-                    ra.update(dt)
+                    ra.update()
                 end
             end
 

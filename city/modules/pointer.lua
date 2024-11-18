@@ -11,11 +11,11 @@ function pointer.load(x,y)
     pointer.rightBottom = Vector(SCREEN_WIDTH-pointer.margin, SCREEN_HEIGHT-pointer.margin - GuiController.messageHeight)
 end
 
-function pointer.update(dt)
+function pointer.update()
     local move = pointer.getMovementInput()
-    if move ~=pointer.standStillVector then
+    if move ~= pointer.standStillVector then
         move = move:normalized()
-        local newPos = pointer.position+move*pointer.moveSpeed * dt
+        local newPos = pointer.position+move*pointer.moveSpeed * DELTA
         
         if newPos.x < HALF_WIDTH  then
             newPos.x = HALF_WIDTH

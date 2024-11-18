@@ -73,9 +73,9 @@ local GC = {}
         end
     end
 
-    function GC.update(dt)
+    function GC.update()
         if GC.message ~= "" then
-            GC.messageTimer = GC.messageTimer + dt
+            GC.messageTimer = GC.messageTimer + DELTA
             if GC.messageTimer >  GC.messageTimerMax then
                 GC.message = ""
             end
@@ -89,7 +89,7 @@ local GC = {}
                 GC.activeElement = element
            end 
         end
-        Minimap.update(dt)
+        Minimap.update()
     end
 
     function GC.draw()

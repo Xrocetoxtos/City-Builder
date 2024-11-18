@@ -4,7 +4,7 @@ local M = {}
 
     end
 
-    function M.update(dt)
+    function M.update()
         
     end
 

@@ -7,6 +7,8 @@ local R = {}
         r.data = data
         r.coordinate = coordinate
         r.position = Map.getGridPosition(coordinate)
+        r.time = data.time
+        r.currentTime = 0
 
         Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1  --misschien niet alle types of pas als "ontdekt"
 
@@ -24,6 +26,14 @@ local R = {}
                     love.graphics.draw(r.data.sprite, r.position.x, r.position.y)
                 end
             end
+        end
+
+        r.gather = function(amunt)
+            r.currentTime = r.currentTime + DELTA
+        end
+
+        r.empty = function() 
+            return r.currentTime >= r.time
         end
 
         return r

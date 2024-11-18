@@ -110,9 +110,9 @@ local unit = {}
             end
         end
 
-        u.update = function (dt)
+        u.update = function ()
             if u.tree ~= nil and u.tree.name ~= "" then
-                u.timer = u.timer +dt
+                u.timer = u.timer + DELTA 
                 if u.timer>u.timerMax then
                     local test = u.tree.tree.process()
                     u.timer = 0
@@ -124,7 +124,7 @@ local unit = {}
                 local y = math.ceil(u.position.y /Map.cellSizePixels)
                 u.coordinate =  Vector(x,y)
 
-                u.move(dt) 
+                u.move() 
             end
 
             -- if u.selected then
@@ -137,7 +137,7 @@ local unit = {}
             -- end
         end
 
-        u.move = function(dt)
+        u.move = function()
             local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
             local distance = u.position:dist(nextPosition)
             if distance < 1 then
@@ -147,8 +147,8 @@ local unit = {}
             end
             local velocity = nextPosition-u.position
             velocity= velocity:normalized()
-            velocity.x = velocity.x * u.moveSpeed * dt
-            velocity.y = velocity.y * u.moveSpeed * dt
+            velocity.x = velocity.x * u.moveSpeed * DELTA
+            velocity.y = velocity.y * u.moveSpeed * DELTA
 
             u.position = u.position + velocity
         end

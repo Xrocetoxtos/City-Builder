@@ -7,8 +7,8 @@ local BTree= {}
             Tree.name = BTree.name
             Tree.unit = unit
             
-            Tree.resourceType = resourceType    -- welk type moet ik gatheren
-            Tree.amount = 0                     -- hoeveel heb ik nu vast
+            Tree.resourceType = resourceType
+            Tree.honding = false
 
             Tree.target = nil
             Tree.onHisWay = false
@@ -34,7 +34,6 @@ local BTree= {}
             end
 
             local function getNearestResource()
-                -- local building = BuildingController.findNearestPendingBuilding(Tree.unit.position, Tree.unit.maxDistance)
                 local resource = ResourceController.findNearestResource(Tree.resourceType)
                 if resource ~=nil then
                     unit.setTarget(resource)
@@ -45,7 +44,6 @@ local BTree= {}
             end
 
             local function targetExists()
-                -- local u, i = BuildingController.getPendingBuilding(Tree.target)
                 local u,i = ResourceController.getResource(Tree.target)
                 
                 return BT.boolToStatus(i ~= -1)
@@ -69,26 +67,16 @@ local BTree= {}
                 return Status.RUNNING
             end
 
-            -- local function buildBuilding()      -- gather
-            --     if not targetExists() then
-            --         return Status.FAILURE
-            --     end
-            --     Tree.target.build(10)
-            --     if Tree.target.finished then
-            --         BuildingController.removePendingBuilding(Tree.target)
-            --         return Status.SUCCESS
-            --     end
-            --     return Status.RUNNING
-            -- end
-
             local function gatherResource()
                 if targetExists() == Status.FAILURE then
                     return Status.FAILURE
                 end
 
-                Tree.target.gather(10)  --gather rate`
+                Tree.target.gather()  --gather rate
                 if Tree.target.empty() then
                     ResourceController.removeResource(Tree.target)
+                    Tree.holding = true
+                    print("holding")
                     return Status.SUCCESS
                 end
                 return Status.RUNNING

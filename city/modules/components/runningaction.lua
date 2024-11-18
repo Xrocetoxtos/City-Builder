@@ -58,9 +58,9 @@ local RA = {}
                 end
             end
 
-            function R.update(dt)
+            function R.update()
                 if R.active == true then
-                    R.progress.progress(dt)
+                    R.progress.progress(DELTA)
                 end
             end
 

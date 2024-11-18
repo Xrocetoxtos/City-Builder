@@ -54,12 +54,12 @@ local UC = {}
          end
     end
 
-    function UC.update(dt)
+    function UC.update()
         for index, unit in ipairs(UC.units) do
            if unit.delete == true then
                 table.remove(UC.units, unit)
            else
-                unit.update(dt)
+                unit.update()
            end
         end
     end

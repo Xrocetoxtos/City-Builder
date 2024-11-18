@@ -18,14 +18,16 @@ end
 function love.update(dt)
     MOUSE_POSITION.x, MOUSE_POSITION.y = love.mouse.getPosition()
 
-    Pointer.update(dt)
+    DELTA = dt
+
+    Pointer.update()
     Camera:lookAt(Pointer.position.x, Pointer.position.y)
-    Map.update(dt)
-    UnitController.update(dt)
+    Map.update()
+    UnitController.update()
     UnitSelector.update()
-    BuildingController.update(dt)
-    MousePointer.update(dt)
-    GuiController.update(dt)
+    BuildingController.update()
+    MousePointer.update()
+    GuiController.update()
 end
 
 local function debugDetached()

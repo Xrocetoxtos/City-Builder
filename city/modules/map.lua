@@ -112,7 +112,7 @@ local map = {}
         return tile
     end
 
-    map.update = function (dt)
+    map.update = function ()
        
     end
 

@@ -89,6 +89,10 @@ local RC = {}
         return nil, -1
     end
 
+    function RC.findNearestResource(type)
+        -- zoeken!
+    end
+
     function RC.getResourceOnCoordinate(coordinate)
         if coordinate == nil then return nil end
         for index, resource in ipairs(RC.resourcesOnMap.wood) do
