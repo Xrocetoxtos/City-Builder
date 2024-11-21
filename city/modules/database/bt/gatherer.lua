@@ -34,7 +34,7 @@ local BTree= {}
             end
 
             local function getNearestResource()
-                local resource = ResourceController.findNearestResource(Tree.resourceType)
+                local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.maxDistance, Tree.unit.position)
                 if resource ~=nil then
                     unit.setTarget(resource)
                     Tree.target = resource
@@ -50,6 +50,7 @@ local BTree= {}
             end
             
             local function startMovingToTarget()                --TODO: zorgen dat je op een plek naast het target komt te staan waar nog niemand zit
+            print("moving")
                 UnitController.setIdle(Tree.unit, false)
                 if Tree.target == nil then return Status.FAILURE end
                 if Tree.onHisWay == false then
@@ -68,10 +69,11 @@ local BTree= {}
             end
 
             local function gatherResource()
+                print("gather")
                 if targetExists() == Status.FAILURE then
                     return Status.FAILURE
                 end
-
+                print("resource bestaat")
                 Tree.target.gather()  --gather rate
                 if Tree.target.empty() then
                     ResourceController.removeResource(Tree.target)

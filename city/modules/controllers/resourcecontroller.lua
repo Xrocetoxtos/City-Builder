@@ -89,8 +89,23 @@ local RC = {}
         return nil, -1
     end
 
-    function RC.findNearestResource(type)
-        -- zoeken!
+    function RC.findNearestResource(type, position, maxDistance)
+        if type == nil then return nil end
+
+        local list = RC.getResourcesTypeTable(type)
+        if list == nil or #list <= 0 then return nil end
+
+        local distance = maxDistance or 99999999
+        local pBuilding = nil
+        for index, value in ipairs(list) do
+            local pos = Vector(value.x, value.y)
+            local dist = pos:dist(position)
+            if dist < distance then
+                distance = dist
+                pBuilding = value
+            end
+        end
+        return pBuilding
     end
 
     function RC.getResourceOnCoordinate(coordinate)
