@@ -9,9 +9,9 @@ local UC = {}
     end
 
     function UC.init()
-        UC.addUnit(Vector(10,10), 10)
-        UC.addUnit(Vector(11,10), 10)
-        UC.addUnit(Vector(12,10), 10)
+        -- UC.addUnit(Vector(10,10), 10)
+        -- UC.addUnit(Vector(11,10), 10)
+        -- UC.addUnit(Vector(12,10), 10)
         UC.addUnit(Vector(10,11), 10)
     end
 

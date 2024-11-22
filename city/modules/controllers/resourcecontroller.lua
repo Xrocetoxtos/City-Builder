@@ -136,6 +136,13 @@ local RC = {}
         return nil
     end
 
+    function RC.putResourcesOnList(resource)
+        local tbl = RC.getResourcesTypeTable(resource.data.type)
+        if tbl ~=nil then
+            table.insert(tbl.resource)
+        end
+    end
+
     function RC.hasResources(resource)
         if resource.wood ~= nil then
             if resource.wood > RC.wood then return false end

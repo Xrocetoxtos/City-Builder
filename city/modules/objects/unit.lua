@@ -115,6 +115,8 @@ local unit = {}
                 u.timer = u.timer + DELTA 
                 if u.timer>u.timerMax then
                     local test = u.tree.tree.process()
+                    print(u.tree.name)
+                    -- print ("^^^TARGET^^")
                     u.timer = 0
                 end
             end

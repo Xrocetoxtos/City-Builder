@@ -19,27 +19,38 @@ local BTree= {}
             end
 
             local function setIdle()
-                UnitController.setIdle(Tree.unit, true)
-                return Status.SUCCESS
+                -- print("set idle R")
+                -- UnitController.setIdle(Tree.unit, true)
+                -- return Status.SUCCESS
             end
 
             local function noTarget()
-                Tree.setTarget(nil)
-                return Status.SUCCESS
+                -- Tree.setTarget(nil)
+                -- return Status.SUCCESS
             end
 
-            local function hasTarget()
+            local function hasTarget()                      -- TODO. WAAROM ZIJN HAS EN GET ALLEBEI SATEEDS FAILURE?!
                 local has = Tree.target ~= nil
+                if has == true then 
+                    print("has SUCCESS")
+                else
+                    print("has FAILURE")
+                end
+
                 return BT.boolToStatus(has)
             end
 
             local function getNearestResource()
-                local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.maxDistance, Tree.unit.position)
+                local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.position, Tree.unit.maxDistance)
                 if resource ~=nil then
                     unit.setTarget(resource)
                     Tree.target = resource
+                    print("get SUCCESS")
+
                     return Status.SUCCESS
                 end
+                print("get FAILURE")
+
                 return Status.FAILURE
             end
 
