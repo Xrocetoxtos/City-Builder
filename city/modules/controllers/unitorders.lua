@@ -42,7 +42,7 @@ local UO = {}
 
     function UO.setBuildingTargetToTile(tile)
         for index, unit in ipairs(UnitSelector.selectedUnits) do
-            local destination = UO.findNodeAround(tile.coordinate, unit)
+            local destination = UO.findNodeAround(tile.coordinate, unit, 1)
             if destination ~=nil then
                 UO.setTarget(unit, destination)
                 unit.tree = BTDatabase.Builder.new(unit)
@@ -53,7 +53,7 @@ local UO = {}
 
     function UO.setResourceTargetToTile(tile)
         for index, unit in ipairs(UnitSelector.selectedUnits) do
-            local destination = UO.findNodeAround(tile.coordinate, unit)
+            local destination = UO.findNodeAround(tile.coordinate, unit, 1)
             if destination ~=nil then
                 UO.setTarget(unit, destination)
                 unit.tree = BTDatabase.Gatherer.new(unit)

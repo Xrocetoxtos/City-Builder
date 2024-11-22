@@ -45,12 +45,10 @@ local BTree= {}
 
             local function targetExists()
                 local u,i = ResourceController.getResource(Tree.target)
-                
                 return BT.boolToStatus(i ~= -1)
             end
             
-            local function startMovingToTarget()                --TODO: zorgen dat je op een plek naast het target komt te staan waar nog niemand zit
-            print("moving")
+            local function startMovingToTarget()
                 UnitController.setIdle(Tree.unit, false)
                 if Tree.target == nil then return Status.FAILURE end
                 if Tree.onHisWay == false then
@@ -84,20 +82,20 @@ local BTree= {}
                 return Status.RUNNING
             end
 
-            local idle = BT.leaf("Idle state", 1, setIdle, nil)
-            local noTarget = BT.leaf("Set target to nothing", 1, noTarget, nil)
+            local idle = BT.leaf("Idle state R", 1, setIdle, nil)
+            local noTarget = BT.leaf("Set target to nothing R", 1, noTarget, nil)
 
-            local hasTarget = BT.leaf("Has target?", 1, hasTarget, nil)
+            local hasTarget = BT.leaf("Has target? R", 1, hasTarget, nil)
 
-            local detectResource = BT.leaf("Detect nearby resource of right type", 1, getNearestResource, nil)
-            local startMoving = BT.leaf("Start moving to target", 1, startMovingToTarget, nil)
+            local detectResource = BT.leaf("Detect nearby resource of right type R", 1, getNearestResource, nil)
+            local startMoving = BT.leaf("Start moving to target R", 1, startMovingToTarget, nil)
 
-            local targetSelector = BT.selector("Target selector", 1, {hasTarget, detectResource})
+            local targetSelector = BT.selector("Target selector R", 1, {hasTarget, detectResource})
 
-            local taegetResourceExist = BT.leaf("Target resource exists?", 1, targetExists, nil)
-            local moveTarget = BT.leaf("Move to target", 1, moveToTarget, nil)
-            local gather = BT.leaf("Gather resource", 1, gatherResource, nil)
-            local gatherSequence = BT.sequence("Gather sequence", 1, {targetSelector, taegetResourceExist, startMoving, moveTarget, gather, noTarget})
+            local targetResourceExist = BT.leaf("Target resource exists? R", 1, targetExists, nil)
+            local moveTarget = BT.leaf("Move to target R", 1, moveToTarget, nil)
+            local gather = BT.leaf("Gather resource R", 1, gatherResource, nil)
+            local gatherSequence = BT.sequence("Gather sequence R", 1, {targetSelector, targetResourceExist, startMoving, moveTarget, gather, noTarget})
 
             -- TODO deliver sequence
 

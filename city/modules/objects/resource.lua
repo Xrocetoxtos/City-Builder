@@ -28,8 +28,9 @@ local R = {}
             end
         end
 
-        r.gather = function(amunt)
+        r.gather = function()
             r.currentTime = r.currentTime + DELTA
+            print("gather de gather")
         end
 
         r.empty = function() 
