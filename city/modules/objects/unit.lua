@@ -104,7 +104,8 @@ local unit = {}
         u.setTree = function(tree)
             print (u.tree.name .."  -->  "..tree.name)
             if u.tree.name ~= tree.name then
-                u.tree = tree.new(u)
+                -- u.tree = tree.new(u)
+                u.tree = tree
                 u.timer = u.timerMax+1
                     
             end
@@ -115,8 +116,6 @@ local unit = {}
                 u.timer = u.timer + DELTA 
                 if u.timer>u.timerMax then
                     local test = u.tree.tree.process()
-                    print(u.tree.name)
-                    -- print ("^^^TARGET^^")
                     u.timer = 0
                 end
             end

@@ -12,7 +12,6 @@ local R = {}
 
         Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1  --misschien niet alle types of pas als "ontdekt"
 
-
         r.id = R.id
         R.id = R.id + 1
 

@@ -2,7 +2,7 @@
 Anim8 = require('libraries.anim8')
 STI  = require('libraries.sti')
 CameraLib = require('libraries.hump.camera')
-Timer = require('libraries.hump.timer')
+-- Timer = require('libraries.hump.timer')
 Vector = require('libraries.hump.vector')
 Signal = require('libraries.hump.signal')
 Jumper = require('libraries.jumper.init')

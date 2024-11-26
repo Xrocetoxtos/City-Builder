@@ -32,6 +32,7 @@ local RC = {}
         local tab= RC.getResourcesTypeTable(data.type)
         if tab ~= nil then
             table.insert(tab, resource)
+            print("added resource " .. data.type)
         end
     end
 

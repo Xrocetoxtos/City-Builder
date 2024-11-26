@@ -8,7 +8,7 @@ local BTree= {}
             Tree.unit = unit
             
             Tree.resourceType = resourceType
-            Tree.honding = false
+            Tree.holding = false
 
             Tree.target = nil
             Tree.onHisWay = false
@@ -30,6 +30,7 @@ local BTree= {}
             end
 
             local function hasTarget()                      -- TODO. WAAROM ZIJN HAS EN GET ALLEBEI SATEEDS FAILURE?!
+            print(Tree.resourceType)
                 local has = Tree.target ~= nil
                 if has == true then 
                     print("has SUCCESS")
@@ -60,6 +61,7 @@ local BTree= {}
             end
             
             local function startMovingToTarget()
+                print("GO")
                 UnitController.setIdle(Tree.unit, false)
                 if Tree.target == nil then return Status.FAILURE end
                 if Tree.onHisWay == false then
