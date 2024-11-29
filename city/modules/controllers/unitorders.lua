@@ -45,7 +45,7 @@ local UO = {}
             local destination = UO.findNodeAround(tile.coordinate, unit, 1)
             if destination ~=nil then
                 UO.setTarget(unit, destination)
-                local tree = BTDatabase.Builder.new(unit)
+                local tree = BTDatabase.Builder.new({unit})
                 unit.setTree(tree)
                 unit.setPath(destination)
             end
@@ -56,10 +56,10 @@ local UO = {}
         for index, unit in ipairs(UnitSelector.selectedUnits) do
             local destination = UO.findNodeAround(tile.coordinate, unit, 1)
             if destination ~=nil then
-                local tree = BTDatabase.Gatherer.new(unit, tile.resource.data.type)
+                local tree = BTDatabase.Gatherer.new({unit, tile.resource..data.type, tile.resource})
                 unit.setTree(tree)
                 UO.setTarget(unit, tile.resource)
-                print(tile.resource)
+                -- tree.setTarget(tile.resource)
                 unit.setPath(destination)
             end
         end

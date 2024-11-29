@@ -2,10 +2,10 @@ local BTree= {}
 
     BTree.name = "Builder"
 
-    BTree.new = function(unit)
+    BTree.new = function(args)
         local Tree = {}
             Tree.name = BTree.name
-            Tree.unit = unit
+            Tree.unit = args[1]
             Tree.target = nil
             Tree.onHisWay = false
 
@@ -33,7 +33,7 @@ local BTree= {}
             local function getNearestPendingBuilding()
                 local building = BuildingController.findNearestPendingBuilding(Tree.unit.position, Tree.unit.maxDistance)
                 if building ~=nil then
-                    unit.setTarget(building)
+                    Tree.unit.setTarget(building)
                     Tree.target = building
                     return Status.SUCCESS
                 end

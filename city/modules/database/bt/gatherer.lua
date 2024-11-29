@@ -2,15 +2,15 @@ local BTree= {}
 
     BTree.name = "Gatherer"
 
-    BTree.new = function(unit, resourceType)
+    BTree.new = function(args)
         local Tree = {}
             Tree.name = BTree.name
-            Tree.unit = unit
+            Tree.unit = args[1]
             
-            Tree.resourceType = resourceType
+            Tree.resourceType = args[2]
             Tree.holding = false
 
-            Tree.target = nil
+            Tree.target = args[3]
             Tree.onHisWay = false
 
             function Tree.setTarget(target)
@@ -30,7 +30,6 @@ local BTree= {}
             end
 
             local function hasTarget()                      -- TODO. WAAROM ZIJN HAS EN GET ALLEBEI SATEEDS FAILURE?!
-            print(Tree.resourceType)
                 local has = Tree.target ~= nil
                 if has == true then 
                     print("has SUCCESS")

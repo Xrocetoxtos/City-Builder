@@ -2,10 +2,10 @@ local ITree= {}
 
     ITree.name = "Idle"
 
-    ITree.new = function(unit)
+    ITree.new = function(args)
         local IdleTree = {}
         IdleTree.name = ITree.name
-        IdleTree.unit =  unit
+        IdleTree.unit =  args[1]
 
             local beIdle = function()
                 UnitController.setIdle(IdleTree.unit, true)

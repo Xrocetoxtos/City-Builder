@@ -15,7 +15,7 @@ local unit = {}
 
         u.delete = false
 
-        u.idleTree = BTDatabase.Idle.new(u)
+        u.idleTree = BTDatabase.Idle.new({u})
         u.tree = u.idleTree
         
         u.timer = 0
