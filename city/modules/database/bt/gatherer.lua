@@ -40,6 +40,14 @@ local BTree= {}
                 return BT.boolToStatus(has)
             end
 
+            local function isHoldingResource()
+                return BT.boolToStatus(Tree.holding)
+            end
+
+            local function isNotHoldingResource()
+                return BT.boolToStatus(not Tree.holding)
+            end
+
             local function getNearestResource()
                 local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.position, Tree.unit.maxDistance)
                 if resource ~=nil then
@@ -52,6 +60,10 @@ local BTree= {}
                 print("get FAILURE")
 
                 return Status.FAILURE
+            end
+
+            local function getNearestStorage()
+                
             end
 
             local function targetExists()
@@ -94,10 +106,18 @@ local BTree= {}
                 return Status.RUNNING
             end
 
+            local function dropResource()
+                
+            end
+
             local idle = BT.leaf("Idle state R", 1, setIdle, nil)
             local noTarget = BT.leaf("Set target to nothing R", 1, noTarget, nil)
 
             local hasTarget = BT.leaf("Has target? R", 1, hasTarget, nil)
+
+            local isHolding = BT.leaf("Is holding resource?", 1, isHoldingResource, nil)
+            -- local notHolding = BT.inverter("Is not holding resource", 1, {isHolding})
+            local notHolding = BT.leaf("Is not holding resource", isNotHoldingResource, nil)
 
             local detectResource = BT.leaf("Detect nearby resource of right type R", 1, getNearestResource, nil)
             local startMoving = BT.leaf("Start moving to target R", 1, startMovingToTarget, nil)
@@ -107,11 +127,14 @@ local BTree= {}
             local targetResourceExist = BT.leaf("Target resource exists? R", 1, targetExists, nil)
             local moveTarget = BT.leaf("Move to target R", 1, moveToTarget, nil)
             local gather = BT.leaf("Gather resource R", 1, gatherResource, nil)
-            local gatherSequence = BT.sequence("Gather sequence R", 1, {targetSelector, targetResourceExist, startMoving, moveTarget, gather, noTarget})
+            local gatherSequence = BT.sequence("Gather sequence R", 1, {notHolding, targetSelector, targetResourceExist, startMoving, moveTarget, gather, noTarget})
+            
+            local detectStorage = BT.leaf("Target nearby storage of right type", 1, getNearestStorage, nil)
+            local dropAtStorage = BT.leaf("Drop resource at storage", 1, dropResource, nil)
+            local selectStorage = BT.selector("Storage selector", 1, {hasTarget, detectStorage})
+            local deliverSequence = BT.sequence("Deliver Sequence", 1, {isHolding, selectStorage, startMoving, dropAtStorage})
 
-            -- TODO deliver sequence
-
-            Tree.tree = BT.selector("Gatherer tree", 1, {gatherSequence, idle})
+            Tree.tree = BT.selector("Gatherer tree", 1, {gatherSequence, deliverSequence, idle})
             Tree.tree.debug(0)
 
 -- target zoeken, naar resource, dan pakken, storage zoeken, brengen, resource omhoog, nieuw target zoeken
