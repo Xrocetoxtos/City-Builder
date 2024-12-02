@@ -36,6 +36,18 @@ local RC = {}
         end
     end
 
+    function RC.removeResource(r)
+        local t = RC.getResourcesTypeTable(r.data.type)
+        if t ~= nil then
+            for index, value in ipairs(t) do
+                if value == r then
+                    table.remove(t,index)
+                    Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 0
+                end
+            end
+        end
+    end
+
     function RC.getResourcesTypeTable(type)
         if type == ResourceType.FOOD then
             return RC.resourcesOnMap.food
@@ -82,7 +94,8 @@ local RC = {}
 
     function RC.getResource(r)
         if r == nil then return nil, -1 end
-        for index, resource in ipairs(RC.resourcesOnMap) do
+        local t = RC.getResourcesTypeTable(r.data.type)
+        for index, resource in ipairs(t) do
             if resource.id == r.id then
                 return resource, index
             end

@@ -19,7 +19,7 @@ local R = {}
             if r.data ~= nil then 
                 -- de sprite of, als die er niet is: een kruisje ofzo
                 if r.data.sprite == nil then
-                    if r.empty ==  true then
+                    if r.empty() ==  true then
                         Colours.setColour(Colours.RED)
                     end
                     love.graphics.line(r.position.x, r.position.y, r.position.x+10, r.position.y+10)
@@ -33,12 +33,13 @@ local R = {}
         end
 
         r.gather = function()
-            r.currentTime = r.currentTime + DELTA
+            r.currentTime = r.currentTime + 0.5
             print("gather de gather")
-        end
+            print(r.currentTime .. " :  ".. r.data.time)
+        end 
 
         r.empty = function() 
-            return r.currentTime >= r.time
+            return r.currentTime >= r.data.time
         end
 
         return r

@@ -31,6 +31,7 @@ local BTree= {}
 
             local function hasTarget()                      -- TODO. WAAROM ZIJN HAS EN GET ALLEBEI SATEEDS FAILURE?!
                 local has = Tree.target ~= nil
+                print("has " .. BT.boolToStatus(has))
                 return BT.boolToStatus(has)
             end
 
@@ -65,6 +66,8 @@ local BTree= {}
 
             local function targetExists()
                 local u,i = ResourceController.getResource(Tree.target)
+                print("exist " .. BT.boolToStatus(i ~= -1))
+                print(u)
                 return BT.boolToStatus(i ~= -1)
             end
             
@@ -82,8 +85,10 @@ local BTree= {}
 
             local function moveToTarget()
                 if Tree.unit.targetReached() then
+                    print("targetReached")
                     return Status.SUCCESS
                 end
+                print("target not reached")
                 return Status.RUNNING
             end
 
@@ -129,7 +134,7 @@ local BTree= {}
             local detectStorage = BT.leaf("Target nearby storage of right type", 1, getNearestStorage, nil)
             local dropAtStorage = BT.leaf("Drop resource at storage", 1, dropResource, nil)
             local selectStorage = BT.selector("Storage selector", 1, {hasTarget, detectStorage})
-            local deliverSequence = BT.sequence("Deliver Sequence", 1, {isHolding, selectStorage, startMoving, dropAtStorage})
+            local deliverSequence = BT.sequence("Deliver Sequence", 1, {isHolding, selectStorage, startMoving, moveTarget, dropAtStorage})
 
             Tree.tree = BT.selector("Gatherer tree", 1, {gatherSequence, deliverSequence, idle})
             Tree.tree.debug(0)
