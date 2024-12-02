@@ -21,22 +21,16 @@ local BTree= {}
             local function setIdle()
                 -- print("set idle R")
                 -- UnitController.setIdle(Tree.unit, true)
-                -- return Status.SUCCESS
+                return Status.SUCCESS
             end
 
             local function noTarget()
                 -- Tree.setTarget(nil)
-                -- return Status.SUCCESS
+                return Status.SUCCESS
             end
 
             local function hasTarget()                      -- TODO. WAAROM ZIJN HAS EN GET ALLEBEI SATEEDS FAILURE?!
                 local has = Tree.target ~= nil
-                if has == true then 
-                    print("has SUCCESS")
-                else
-                    print("has FAILURE")
-                end
-
                 return BT.boolToStatus(has)
             end
 
@@ -45,7 +39,8 @@ local BTree= {}
             end
 
             local function isNotHoldingResource()
-                return BT.boolToStatus(not Tree.holding)
+                local nope = Tree.holding == false
+                return BT.boolToStatus(nope)
             end
 
             local function getNearestResource()
@@ -53,17 +48,19 @@ local BTree= {}
                 if resource ~=nil then
                     unit.setTarget(resource)
                     Tree.target = resource
-                    print("get SUCCESS")
-
                     return Status.SUCCESS
                 end
-                print("get FAILURE")
-
                 return Status.FAILURE
             end
 
             local function getNearestStorage()
-                
+                local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.position, Tree.unit.maxDistance)
+                if resource ~=nil then
+                    Tree.unit.setTarget(resource)
+                    Tree.target = resource
+                    return Status.SUCCESS
+                end
+                return Status.FAILURE
             end
 
             local function targetExists()
@@ -107,7 +104,7 @@ local BTree= {}
             end
 
             local function dropResource()
-                
+                return Status.SUCCESS
             end
 
             local idle = BT.leaf("Idle state R", 1, setIdle, nil)
@@ -117,7 +114,7 @@ local BTree= {}
 
             local isHolding = BT.leaf("Is holding resource?", 1, isHoldingResource, nil)
             -- local notHolding = BT.inverter("Is not holding resource", 1, {isHolding})
-            local notHolding = BT.leaf("Is not holding resource", isNotHoldingResource, nil)
+            local notHolding = BT.leaf("Is not holding resource", 1, isNotHoldingResource, nil)
 
             local detectResource = BT.leaf("Detect nearby resource of right type R", 1, getNearestResource, nil)
             local startMoving = BT.leaf("Start moving to target R", 1, startMovingToTarget, nil)
