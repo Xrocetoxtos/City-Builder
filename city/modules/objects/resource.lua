@@ -34,7 +34,6 @@ local R = {}
 
         r.gather = function()
             r.currentTime = r.currentTime + 0.5
-            print("gather de gather")
             print(r.currentTime .. " :  ".. r.data.time)
         end 
 

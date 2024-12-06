@@ -25,23 +25,17 @@ local BTree= {}
             end
 
             local function noTarget()
-                -- Tree.setTarget(nil)
+                Tree.setTarget(nil)
                 return Status.SUCCESS
             end
 
-            local function hasTarget()                      -- TODO. WAAROM ZIJN HAS EN GET ALLEBEI SATEEDS FAILURE?!
+            local function hasTarget()
                 local has = Tree.target ~= nil
-                print("has " .. BT.boolToStatus(has))
                 return BT.boolToStatus(has)
             end
 
             local function isHoldingResource()
                 return BT.boolToStatus(Tree.holding)
-            end
-
-            local function isNotHoldingResource()
-                local nope = Tree.holding == false
-                return BT.boolToStatus(nope)
             end
 
             local function getNearestResource()
@@ -55,7 +49,9 @@ local BTree= {}
             end
 
             local function getNearestStorage()
-                local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.position, Tree.unit.maxDistance)
+                local resource = StorageController.findNearestStorage(Tree.resourceType, Tree.unit.position, Tree.unit.maxDistance)
+                print("storage")
+                print(resource)
                 if resource ~=nil then
                     Tree.unit.setTarget(resource)
                     Tree.target = resource
@@ -66,13 +62,10 @@ local BTree= {}
 
             local function targetExists()
                 local u,i = ResourceController.getResource(Tree.target)
-                print("exist " .. BT.boolToStatus(i ~= -1))
-                print(u)
                 return BT.boolToStatus(i ~= -1)
             end
             
             local function startMovingToTarget()
-                print("GO")
                 UnitController.setIdle(Tree.unit, false)
                 if Tree.target == nil then return Status.FAILURE end
                 if Tree.onHisWay == false then
@@ -85,24 +78,19 @@ local BTree= {}
 
             local function moveToTarget()
                 if Tree.unit.targetReached() then
-                    print("targetReached")
                     return Status.SUCCESS
                 end
-                print("target not reached")
                 return Status.RUNNING
             end
 
             local function gatherResource()
-                print("gather")
                 if targetExists() == Status.FAILURE then
                     return Status.FAILURE
                 end
-                print("resource bestaat")
                 Tree.target.gather()  --gather rate
                 if Tree.target.empty() then
                     ResourceController.removeResource(Tree.target)
                     Tree.holding = true
-                    print("holding")
                     return Status.SUCCESS
                 end
                 return Status.RUNNING
@@ -118,8 +106,7 @@ local BTree= {}
             local hasTarget = BT.leaf("Has target? R", 1, hasTarget, nil)
 
             local isHolding = BT.leaf("Is holding resource?", 1, isHoldingResource, nil)
-            -- local notHolding = BT.inverter("Is not holding resource", 1, {isHolding})
-            local notHolding = BT.leaf("Is not holding resource", 1, isNotHoldingResource, nil)
+            local notHolding = BT.inverter("Is not holding resource", 1, isHolding)
 
             local detectResource = BT.leaf("Detect nearby resource of right type R", 1, getNearestResource, nil)
             local startMoving = BT.leaf("Start moving to target R", 1, startMovingToTarget, nil)
@@ -134,7 +121,7 @@ local BTree= {}
             local detectStorage = BT.leaf("Target nearby storage of right type", 1, getNearestStorage, nil)
             local dropAtStorage = BT.leaf("Drop resource at storage", 1, dropResource, nil)
             local selectStorage = BT.selector("Storage selector", 1, {hasTarget, detectStorage})
-            local deliverSequence = BT.sequence("Deliver Sequence", 1, {isHolding, selectStorage, startMoving, moveTarget, dropAtStorage})
+            local deliverSequence = BT.sequence("Deliver Sequence", 1, {isHolding, selectStorage, startMoving, moveTarget, dropAtStorage, noTarget})
 
             Tree.tree = BT.selector("Gatherer tree", 1, {gatherSequence, deliverSequence, idle})
             Tree.tree.debug(0)

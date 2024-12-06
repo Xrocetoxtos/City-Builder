@@ -32,7 +32,6 @@ local RC = {}
         local tab= RC.getResourcesTypeTable(data.type)
         if tab ~= nil then
             table.insert(tab, resource)
-            print("added resource " .. data.type)
         end
     end
 
@@ -110,16 +109,16 @@ local RC = {}
         if list == nil or #list <= 0 then return nil end
 
         local distance = maxDistance or 99999999
-        local pBuilding = nil
+        local resource = nil
         for index, value in ipairs(list) do
             local pos = Vector(value.x, value.y)
             local dist = pos:dist(position)
             if dist < distance then
                 distance = dist
-                pBuilding = value
+                resource = value
             end
         end
-        return pBuilding
+        return resource
     end
 
     function RC.getResourceOnCoordinate(coordinate)
