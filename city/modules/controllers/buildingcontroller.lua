@@ -5,7 +5,7 @@ local BC = {}
     BC.activeBuildings = {}
 
     BC.buildings = {}
-    BC.storages = {}
+    -- BC.storages = {}
 
     BC.currentBuildingType = nil
     BC.currentBuilding = nil

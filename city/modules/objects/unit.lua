@@ -11,7 +11,7 @@ local unit = {}
         u.pathTarget = nil
         u.path = {}
         u.moveSpeed = 30
-        u.maxDistance= 50
+        u.maxDistance= 500
 
         u.delete = false
 

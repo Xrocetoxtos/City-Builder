@@ -31,7 +31,7 @@ local RD = {}
         type = ResourceType.STONE,
         icon = nil,
         sprite = nil,
-        time = 10
+        time = 1
     }
 
     RD.food = {

@@ -97,6 +97,18 @@ local BTree= {}
             end
 
             local function dropResource()
+                print("drop")
+                Tree.holding = false
+                if Tree.resourceType == nil then return Status.FAILURE end
+                local res = {}
+
+                if Tree.resourceType == ResourceType.FOOD then res.food = 1 end
+                if Tree.resourceType == ResourceType.WOOD then res.wood = 1 end
+                if Tree.resourceType == ResourceType.GOLD then res.gold = 1 end
+                if Tree.resourceType == ResourceType.STONE then res.stone = 1 end
+
+                ResourceController.addResources(res)
+
                 return Status.SUCCESS
             end
 
