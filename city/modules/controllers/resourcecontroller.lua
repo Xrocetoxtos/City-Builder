@@ -24,7 +24,9 @@ local RC = {}
     }
 
     function RC.load()
-        RC.addResource(Vector(20,18), ResourceDatabase.stone)
+        RC.addResource(Vector(20,18), ResourceDatabase.stone)       
+        RC.addResource(Vector(21,18), ResourceDatabase.stone)
+        RC.addResource(Vector(22,18), ResourceDatabase.stone)
     end
 
     function RC.addResource(vector, data)

@@ -11,6 +11,8 @@ local BTree= {}
             Tree.holding = false
 
             Tree.target = args[3]
+            Tree.initialTarget = Tree.target
+
             Tree.onHisWay = false
 
             function Tree.setTarget(target)
@@ -39,9 +41,14 @@ local BTree= {}
             end
 
             local function getNearestResource()
-                local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.position, Tree.unit.maxDistance)
+                -- local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.unit.position, Tree.unit.maxDistance)
+                if Tree.initialTarget== nil then
+                    Tree.initialTarget = Tree.unit
+                end
+                local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.initialTarget.position, Tree.unit.maxDistance)
+
                 if resource ~=nil then
-                    unit.setTarget(resource)
+                    Tree.unit.setTarget(resource)
                     Tree.target = resource
                     return Status.SUCCESS
                 end
@@ -108,6 +115,7 @@ local BTree= {}
                 if Tree.resourceType == ResourceType.STONE then res.stone = 1 end
 
                 ResourceController.addResources(res)
+                Tree.target = nil
 
                 return Status.SUCCESS
             end
