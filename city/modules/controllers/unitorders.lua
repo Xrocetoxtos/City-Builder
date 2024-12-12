@@ -1,8 +1,7 @@
 local UO = {}
 
     function UO.load()
-        UO.targets = {} -- houdt bij waar welke unit naartoe loopt
-        --UO.options = {} -- houdt bij welke mogelijke plekken er beschikbaar zijn voor lopen
+        UO.targets = {} 
     end
 
     function UO.interactWithTile(tile)

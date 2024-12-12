@@ -19,9 +19,6 @@ local UC = {}
         print("created")
         local unit = Unit.new(coordinate, hp)
         table.insert(UC.units, unit)
-        -- if DEBUG then
-        --     unit.select()
-        -- end
         return unit
     end
 

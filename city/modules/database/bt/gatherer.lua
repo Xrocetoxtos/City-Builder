@@ -15,26 +15,26 @@ local BTree= {}
 
             Tree.onHisWay = false
 
-            function Tree.setTarget(target)
-                Tree.target = target
-                Tree.onHisWay = false
-            end
+            -- function Tree.setTarget(target)
+            --     Tree.target = target
+            --     Tree.onHisWay = false
+            -- end
 
-            local function setIdle()
-                -- print("set idle R")
-                -- UnitController.setIdle(Tree.unit, true)
-                return Status.SUCCESS
-            end
+            -- local function setIdle()
+            --     print("set idle R")
+            --     UnitController.setIdle(Tree.unit, true)
+            --     return Status.SUCCESS
+            -- end
 
-            local function noTarget()
-                Tree.setTarget(nil)
-                return Status.SUCCESS
-            end
+            -- local function noTarget()
+            --     Tree.setTarget(nil)
+            --     return Status.SUCCESS
+            -- end
 
-            local function hasTarget()
-                local has = Tree.target ~= nil
-                return BT.boolToStatus(has)
-            end
+            -- local function hasTarget()
+            --     local has = Tree.target ~= nil
+            --     return BT.boolToStatus(has)
+            -- end
 
             local function isHoldingResource()
                 return BT.boolToStatus(Tree.holding)
@@ -48,8 +48,9 @@ local BTree= {}
                 local resource = ResourceController.findNearestResource(Tree.resourceType, Tree.initialTarget.position, Tree.unit.maxDistance)
 
                 if resource ~=nil then
-                    Tree.unit.setTarget(resource)
-                    Tree.target = resource
+                    -- Tree.unit.setTarget(resource)
+                    SharedBT.setTarget({Tree, resource})
+                    -- Tree.target = resource
                     return Status.SUCCESS
                 end
                 return Status.FAILURE
@@ -60,8 +61,9 @@ local BTree= {}
                 print("storage")
                 print(resource)
                 if resource ~=nil then
-                    Tree.unit.setTarget(resource)
-                    Tree.target = resource
+                    -- Tree.unit.setTarget(resource)
+                    SharedBT.setTarget({Tree, resource})
+                    -- Tree.target = resource
                     return Status.SUCCESS
                 end
                 return Status.FAILURE
@@ -120,10 +122,10 @@ local BTree= {}
                 return Status.SUCCESS
             end
 
-            local idle = BT.leaf("Idle state R", 1, setIdle, nil)
-            local noTarget = BT.leaf("Set target to nothing R", 1, noTarget, nil)
+            local idle = BT.leaf("Idle state R", 1, SharedBT.setIdle, {Tree})
+            local noTarget = BT.leaf("Set target to nothing R", 1, SharedBT.noTarget, {Tree})
 
-            local hasTarget = BT.leaf("Has target? R", 1, hasTarget, nil)
+            local hasTarget = BT.leaf("Has target? R", 1, SharedBT.hasTarget, {Tree})
 
             local isHolding = BT.leaf("Is holding resource?", 1, isHoldingResource, nil)
             local notHolding = BT.inverter("Is not holding resource", 1, isHolding)

@@ -27,6 +27,9 @@ BuildingTypeDatabase = require('modules.database.buildingtype_database')
 BuildingDatabase = require('modules.database.buildings_database')
 BTDatabase = require('modules.database.btdatabase')
 
+SharedBT = require ('modules.database.bt.shared')
+
+
 -- components 
 Health = require('modules.components.health')
 Progress = require('modules.components.progress')

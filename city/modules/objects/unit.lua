@@ -127,15 +127,6 @@ local unit = {}
 
                 u.move() 
             end
-
-            -- if u.selected then
-            --     if love.keyboard.isDown("p") then
-            --         u.health.damage(1)
-            --     end
-            --     if love.keyboard.isDown("o") then
-            --         u.health.heal(1)
-            --     end
-            -- end
         end
 
         u.move = function()
