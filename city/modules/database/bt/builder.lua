@@ -9,32 +9,10 @@ local BTree= {}
             Tree.target = nil
             Tree.onHisWay = false
 
-            function Tree.setTarget(target)
-                Tree.target = target
-                Tree.onHisWay = false
-            end
-
-            local function setIdle()
-                -- idle animation voor BuilderTree.parent
-                UnitController.setIdle(Tree.unit, true)
-                return Status.SUCCESS
-            end
-
-            local function noTarget()
-                Tree.setTarget(nil)
-                return Status.SUCCESS
-            end
-
-            local function hasTarget()
-                local has = Tree.target ~= nil
-                return BT.boolToStatus(has)
-            end
-
             local function getNearestPendingBuilding()
                 local building = BuildingController.findNearestPendingBuilding(Tree.unit.position, Tree.unit.maxDistance)
                 if building ~=nil then
-                    Tree.unit.setTarget(building)
-                    Tree.target = building
+                    SharedBT.setTarget({Tree, building})
                     return Status.SUCCESS
                 end
                 return Status.FAILURE
@@ -42,26 +20,7 @@ local BTree= {}
 
             local function targetExists()
                 local u, i = BuildingController.getPendingBuilding(Tree.target)
-                
                 return BT.boolToStatus(i ~= -1)
-            end
-            
-            local function startMovingToTarget()
-                UnitController.setIdle(Tree.unit, false)
-                if Tree.target == nil then return Status.FAILURE end
-                if Tree.onHisWay == false then
-                    UnitOrders.setTarget(Tree.target, Tree.target.coordinate)
-                    Tree.unit.setPathTowards(Tree.target.coordinate)
-                    Tree.onHisWay= true
-                end
-                return Status.SUCCESS
-            end
-
-            local function moveToTarget()
-                if Tree.unit.targetReached() then
-                    return Status.SUCCESS
-                end
-                return Status.RUNNING
             end
 
             local function buildBuilding()
@@ -76,18 +35,18 @@ local BTree= {}
                 return Status.RUNNING
             end
 
-            local idle = BT.leaf("Idle state", 1, setIdle, nil)
-            local noTarget = BT.leaf("Set target to nothing", 1, noTarget, nil)
+            local idle = BT.leaf("Idle state", 1, SharedBT.setIdle, {Tree})
+            local noTarget = BT.leaf("Set target to nothing", 1, SharedBT.noTarget, {Tree})
 
-            local hasTarget = BT.leaf("Has target?", 1, hasTarget, nil)
+            local hasTarget = BT.leaf("Has target?", 1, SharedBT.hasTarget, {Tree})
 
             local detectPending = BT.leaf("Detect nearby pending building", 1, getNearestPendingBuilding, nil)
-            local startMoving = BT.leaf("Start moving to target", 1, startMovingToTarget, nil)
+            local startMoving = BT.leaf("Start moving to target", 1, SharedBT.startMovingToTarget, {Tree})
 
             local targetSelector = BT.selector("Target selector", 1, {hasTarget, detectPending})
 
             local targetBuildingExists = BT.leaf("Target building exists?", 1, targetExists, nil)
-            local moveTarget = BT.leaf("Move to target", 1, moveToTarget, nil)
+            local moveTarget = BT.leaf("Move to target", 1, SharedBT.moveToTarget, {Tree})
             local build = BT.leaf("Build building", 1, buildBuilding, nil)
             local buildSequence = BT.sequence("Build sequence", 1, {targetSelector, targetBuildingExists, startMoving, moveTarget, build, noTarget})
 
