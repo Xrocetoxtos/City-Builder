@@ -51,8 +51,11 @@ local BTree= {}
                     return Status.FAILURE
                 end
                 Tree.target.gather()  --gather rate
-                if Tree.target.empty() then
-                    ResourceController.removeResource(Tree.target)
+                if Tree.target.gatherComplete() then
+                    Tree.target.reduce(1)
+                    if Tree.target.empty() then
+                        ResourceController.removeResource(Tree.target)
+                    end
                     Tree.holding = true
                     return Status.SUCCESS
                 end
@@ -103,4 +106,5 @@ local BTree= {}
 
         return Tree
     end
+
 return BTree
