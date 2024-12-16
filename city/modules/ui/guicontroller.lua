@@ -93,7 +93,7 @@ local GC = {}
     end
 
     function GC.draw()
-        love.graphics.line(SCREEN_WIDTH/2,0, SCREEN_WIDTH/2,SCREEN_HEIGHT)
+       --love.graphics.line(SCREEN_WIDTH/2,0, SCREEN_WIDTH/2,SCREEN_HEIGHT)
         for index, element in ipairs(GC.elements) do
             GC.setColour(element)
 
