@@ -27,6 +27,9 @@ local RC = {}
         RC.addResource(Vector(20,18), ResourceDatabase.stone)       
         RC.addResource(Vector(21,18), ResourceDatabase.stone)
         RC.addResource(Vector(22,18), ResourceDatabase.stone)
+        RC.addResource(Vector(18,18), ResourceDatabase.food1)
+        RC.addResource(Vector(17,18), ResourceDatabase.food2)
+        RC.addResource(Vector(25,18), ResourceDatabase.food2)
     end
 
     function RC.addResource(vector, data)
@@ -106,8 +109,35 @@ local RC = {}
 
     function RC.findNearestResource(type, position, maxDistance)
         if type == nil then return nil end
+        print("find " .. type.type)
+        if type.type ~= ResourceType.FOOD then
+            return RC.findNearestNonFood(type, position, maxDistance)
+        end
+        return RC.findNearestFood(type, position, maxDistance)
+    end
 
-        local list = RC.getResourcesTypeTable(type)
+    function RC.findNearestFood(type, position, maxDistance)
+        print("food " ..#RC.resourcesOnMap.food)
+        if #RC.resourcesOnMap.food <=0 then return nil end
+
+        local distance = maxDistance or 99999999
+        local resource = nil
+        for index, value in ipairs(RC.resourcesOnMap.food) do
+            -- CHECK OF DIT OVEREEN KOMT.. DIT MOET ZORGEN DAT JE ALTIJD NAAR HETZELFDE TYPE FOOD TERUGKEERT
+            if type == value.data then
+                local pos = Vector(value.x, value.y)
+                local dist = pos:dist(position)
+                if dist < distance then
+                    distance = dist
+                    resource = value
+                end
+            end
+        end
+        return resource
+    end
+    
+    function RC.findNearestNonFood(type, position, maxDistance)
+        local list = RC.getResourcesTypeTable(type.type)
         if list == nil or #list <= 0 then return nil end
 
         local distance = maxDistance or 99999999
