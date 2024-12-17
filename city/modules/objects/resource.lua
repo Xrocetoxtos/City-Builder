@@ -5,7 +5,8 @@ local R = {}
         local r = {}
 
         r.data = data
-        r.sprite = data.sprites[math.random (0,#data.sprites)]
+        local rnd = math.random(1, #data.sprites)
+        r.sprite = data.sprites[rnd]
 
         r.coordinate = coordinate
         r.position = Map.getGridPosition(coordinate)
@@ -13,23 +14,17 @@ local R = {}
         r.currentTime = 0
         r.amount = data.amount
 
-        Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1  --misschien niet alle types of pas als "ontdekt"
+        Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1  --TODO: misschien niet alle types of pas als "ontdekt"
 
         r.id = R.id
         R.id = R.id + 1
 
         r.draw = function ()
             if r.data ~= nil then 
-                -- de sprite of, als die er niet is: een kruisje ofzo
                 if r.sprite == nil then
-                    -- if r.gatherComplete() ==  true then
-                    --     Colours.setColour(Colours.RED)
-                    -- end
                     love.graphics.line(r.position.x, r.position.y, r.position.x+10, r.position.y+10)
                     love.graphics.line(r.position.x+10, r.position.y, r.position.x, r.position.y+10)
-                    -- Colours.setColour(Colours.WHITE)
                 else
-                    -- love.graphics.draw(r.sprite, r.position.x, r.position.y)
                     love.graphics.draw( r.data.image, r.sprite, r.position.x, r.position.y)
 
                 end

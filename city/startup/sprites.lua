@@ -37,10 +37,23 @@ local sprites = {}
     sprites.resources.gold = {}
     sprites.resources.gold.image = love.graphics.newImage("resources/sprites/gold.png")
     sprites.resources.gold.sprites = {}
-    for i = 1, 3 , 1 do
-        sprites.resources.gold.sprites[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, sprites.resources.gold.image)
-    end  
-    
+    sprites.resources.gold.sprites[1] = love.graphics.newQuad(0, 0, 16, 16, sprites.resources.gold.image)
+
+    sprites.resources.apple = {}
+    sprites.resources.apple.image = love.graphics.newImage("resources/sprites/apple.png")
+    sprites.resources.apple.sprites = {}
+    sprites.resources.apple.sprites[1] = love.graphics.newQuad(0, 0, 16, 16, sprites.resources.apple.image)
+
+    sprites.resources.cow_meat = {}
+    sprites.resources.cow_meat.image = love.graphics.newImage("resources/sprites/dead cow.png")
+    sprites.resources.cow_meat.sprites = {}
+    sprites.resources.cow_meat.sprites[1] = love.graphics.newQuad(0, 0, 16, 16, sprites.resources.cow_meat.image)
+ 
+    sprites.resources.berry_bush = {}
+    sprites.resources.berry_bush.image = love.graphics.newImage("resources/sprites/berry bush.png")
+    sprites.resources.berry_bush.sprites = {}
+    sprites.resources.berry_bush.sprites[1] = love.graphics.newQuad(0, 0, 16, 16, sprites.resources.berry_bush.image)
+
     -- sprites.resources.food = {}
     -- sprites.resources.food.image = love.graphics.newImage("resources/sprites/food.png")
     -- sprites.resources.food.sprites = {}

@@ -40,23 +40,32 @@ local RD = {}
         time = 1
     }
 
-    --TODO. verschillende types food nodig? (bessen, graan, dieren, vis...)
-    RD.food1 = {
-        name = "Food1",
+    RD.apple = {
+        name = "Apple",
         type = ResourceType.FOOD,
         icon = nil,
-        image = Sprites.resources.stone.image,
-        sprites = Sprites.resources.stone.sprites,
+        image = Sprites.resources.apple.image,
+        sprites = Sprites.resources.apple.sprites,
         amount = 1,
-        time = 10
+        time = 1
     }
-    RD.food2 = {
-        name = "Food2",
+    RD.cow_meat = {
+        name = "Cow meat",
         type = ResourceType.FOOD,
         icon = nil,
-        image = Sprites.resources.stone.image,
-        sprites = Sprites.resources.stone.sprites,
-        amount = 1,
-        time = 10
+        image = Sprites.resources.cow_meat.image,
+        sprites = Sprites.resources.cow_meat.sprites,
+        amount = 10,
+        time = 2
     }
+    RD.berry_bush = {
+        name = "Berry bush",
+        type = ResourceType.FOOD,
+        icon = nil,
+        image = Sprites.resources.berry_bush.image,
+        sprites = Sprites.resources.berry_bush.sprites,
+        amount = 20,
+        time = 2
+    }
+
 return RD 

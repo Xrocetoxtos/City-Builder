@@ -56,8 +56,14 @@ local UO = {}
             local destination = UO.findNodeAround(tile.coordinate, unit, 1)
             if destination ~=nil then
                 -- local tree = BTDatabase.Gatherer.new({unit, tile.resource.data.type, tile.resource})
-                local tree = BTDatabase.Gatherer.new({unit, tile.resource.data, tile.resource})
-                unit.setTree(tree)
+                if unit.tree.name ~= "Gatherer" then
+                    local tree = BTDatabase.Gatherer.new({unit, tile.resource.data, tile.resource})
+                    unit.setTree(tree)
+                else
+                    unit.tree.resourceType = tile.resource.data
+                    unit.tree.initialTarget = tile.resource
+                    unit.tree.target = tile.resource
+                end
                 UO.setTarget(unit, tile.resource)
                 unit.setPath(destination)
             end

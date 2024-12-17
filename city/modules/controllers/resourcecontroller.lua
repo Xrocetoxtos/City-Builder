@@ -27,9 +27,10 @@ local RC = {}
         RC.addResource(Vector(20,18), ResourceDatabase.stone)       
         RC.addResource(Vector(21,18), ResourceDatabase.stone)
         RC.addResource(Vector(22,18), ResourceDatabase.stone)
-        RC.addResource(Vector(18,18), ResourceDatabase.food1)
-        RC.addResource(Vector(17,18), ResourceDatabase.food2)
-        RC.addResource(Vector(25,18), ResourceDatabase.food2)
+        RC.addResource(Vector(18,18), ResourceDatabase.cow_meat)
+        RC.addResource(Vector(17,18), ResourceDatabase.berry_bush)
+        RC.addResource(Vector(25,18), ResourceDatabase.apple)
+        RC.addResource(Vector(25,17), ResourceDatabase.apple)
     end
 
     function RC.addResource(vector, data)
