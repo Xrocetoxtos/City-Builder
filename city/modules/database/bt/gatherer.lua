@@ -50,7 +50,9 @@ local BTree= {}
                 if targetExists() == Status.FAILURE then
                     return Status.FAILURE
                 end
-                Tree.target.gather()  --gather rate
+                print("target")
+                print(Tree.target)
+                Tree.target.gather()  --TODO: gather rate
                 if Tree.target.gatherComplete() then
                     Tree.target.reduce(1)
                     if Tree.target.empty() then

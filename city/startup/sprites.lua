@@ -18,6 +18,9 @@ local sprites = {}
         sprites.ui.resources.types[i] = love.graphics.newQuad((i-1)*16, 0, 16, 16, sprites.ui.resources.image)
     end
 
+    -- villager
+    sprites.villager = love.graphics.newImage("resources/sprites/villager.png")
+
     -- In map resources
     sprites.resources = {}
     sprites.resources.wood = {}

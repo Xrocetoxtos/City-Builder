@@ -22,6 +22,9 @@ local unit = {}
         u.timerMax = 0.5
 
         u.health = Health.new(hp, u)
+
+        u.currentDirection = Direction.NONE
+        u.currentAnimation = Animations.villager.idle
         
         u.id = unit.id
         unit.id=unit.id+1
@@ -126,7 +129,10 @@ local unit = {}
                 u.coordinate =  Vector(x,y)
 
                 u.move() 
+            else
+                u.setWalkingAnimation(Direction.NONE)
             end
+            u.currentAnimation:update(DELTA)
         end
 
         u.move = function()
@@ -142,7 +148,27 @@ local unit = {}
             velocity.x = velocity.x * u.moveSpeed * DELTA
             velocity.y = velocity.y * u.moveSpeed * DELTA
 
+            local direction = Utils.vectorToDirection(velocity)
+            if direction ~= u.currentDirection then
+                u.setWalkingAnimation(direction)
+                u.currentDirection = direction
+            end
+
             u.position = u.position + velocity
+        end
+
+        u.setWalkingAnimation = function(direction)
+            local newAnimation
+            print(direction)
+            if direction == Direction.NONE then newAnimation = Animations.villager.idle end
+            if direction == Direction.NORTH then newAnimation = Animations.villager.walkDU end
+            if direction == Direction.EAST then newAnimation = Animations.villager.walkLR end
+            if direction == Direction.SOUTH then newAnimation = Animations.villager.walkUD end
+            if direction == Direction.WEST then newAnimation = Animations.villager.walkRL end
+
+            if newAnimation ~= u.currentAnimation then
+                u.currentAnimation = newAnimation
+            end
         end
 
         u.draw = function ()
@@ -152,7 +178,7 @@ local unit = {}
                 type = "fill"
                 healthBar=true
             end
-            love.graphics.circle(type, u.position.x, u.position.y, 5*Map.scale)
+            --love.graphics.circle(type, u.position.x, u.position.y, 5*Map.scale)
             if DEBUG and u.path ~= nil and #u.path > 0 then
                 local nextPosition = Map.getGridPosition(u.path[1]) + Map.halfTile
                 love.graphics.line(u.position.x, u.position.y, nextPosition.x, nextPosition.y)
@@ -163,6 +189,7 @@ local unit = {}
             if healthBar then
                 u.drawHealthBar()
             end
+            u.currentAnimation:draw(Sprites.villager,u.position.x-8, u.position.y-8,0,Map.scale)
         end
 
         u.drawHealthBar = function()
