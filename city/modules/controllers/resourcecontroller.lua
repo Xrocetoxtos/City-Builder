@@ -31,6 +31,7 @@ local RC = {}
         RC.addResource(Vector(17,18), ResourceDatabase.berry_bush)
         RC.addResource(Vector(25,18), ResourceDatabase.apple)
         RC.addResource(Vector(25,17), ResourceDatabase.apple)
+        RC.addResource(Vector(15,15), ResourceDatabase.apple_tree)
     end
 
     function RC.addResource(vector, data)
@@ -65,6 +66,22 @@ local RC = {}
         end
         return nil
     end
+
+    function RC.update()
+        for index, resource in ipairs(RC.resourcesOnMap.food) do
+            resource.update()
+        end
+        for index, resource in ipairs(RC.resourcesOnMap.wood) do
+            resource.update()
+        end
+        for index, resource in ipairs(RC.resourcesOnMap.stone) do
+            resource.update()
+        end
+        for index, resource in ipairs(RC.resourcesOnMap.gold) do
+            resource.update()
+        end
+    end
+
 
     function RC.draw()  -- TODO misschien bepaalde types pas tonen als iets uitgevonden is?
         RC.drawFood()

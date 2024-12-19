@@ -34,6 +34,7 @@ SharedBT = require ('modules.database.bt.shared')
 Health = require('modules.components.health')
 Progress = require('modules.components.progress')
 RunningAction = require('modules.components.runningaction')
+objectDropper = require('modules.components.objectdropper')
 
 -- modules
 require ('modules.controllers.keyinputcontroller')

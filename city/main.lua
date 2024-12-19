@@ -28,6 +28,7 @@ function love.update(dt)
     UnitController.update()
     UnitSelector.update()
     BuildingController.update()
+    ResourceController.update()
     MousePointer.update()
     GuiController.update()
 end

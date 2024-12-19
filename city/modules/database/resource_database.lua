@@ -10,7 +10,7 @@ ResourceType = {
 local RD = {}
 
     RD.wood = {
-        name = "Wood",
+        name = "Tree",
         type = ResourceType.WOOD,
         icon = nil,
         image = Sprites.resources.wood.image,
@@ -66,6 +66,19 @@ local RD = {}
         sprites = Sprites.resources.berry_bush.sprites,
         amount = 20,
         time = 2
+    }
+    RD.apple_tree = {
+        name = "Apple tree",
+        type = ResourceType.WOOD,
+        icon = nil,
+        image = Sprites.resources.apple_tree.image,
+        sprites = Sprites.resources.apple_tree.sprites,
+        amount = 1,
+        time = 2,   
+        drop = {
+            dropObject = RD.apple,
+            dropTime = 1
+        }
     }
 
 return RD 

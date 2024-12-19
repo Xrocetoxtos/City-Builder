@@ -57,6 +57,11 @@ local sprites = {}
     sprites.resources.berry_bush.sprites = {}
     sprites.resources.berry_bush.sprites[1] = love.graphics.newQuad(0, 0, 16, 16, sprites.resources.berry_bush.image)
 
+    sprites.resources.apple_tree = {}
+    sprites.resources.apple_tree.image = love.graphics.newImage("resources/sprites/apple tree.png")
+    sprites.resources.apple_tree.sprites = {}
+    sprites.resources.apple_tree.sprites[1] = love.graphics.newQuad(0, 0, 16, 16, sprites.resources.apple_tree.image)
+
     -- sprites.resources.food = {}
     -- sprites.resources.food.image = love.graphics.newImage("resources/sprites/food.png")
     -- sprites.resources.food.sprites = {}

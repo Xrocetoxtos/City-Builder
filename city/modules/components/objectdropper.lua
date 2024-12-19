@@ -1,10 +1,15 @@
 local D = {}
 
-    local function dropObject(args)
+    function D.dropObject(args)
         local position = args[1]
         local drop = args[2]
+        local d = args[3]
+
+        print("   ----     ")
+        print(position)
 
         ResourceController.addResource(position, drop)
+        d.dropTime = nil
     end
 
     function D.new (parent, drop, dropTime)
@@ -13,18 +18,25 @@ local D = {}
             d.parent = parent
             d.drop = drop
             d.dropTime = dropTime or nil
-            if d.dropTime ~= nil then
-                d.progress = Progress.new(parent, dropTime, dropObject, {parent, drop} )
+
+            function d.setProgress()
+                if d.dropTime ~= nil then
+                    local position = UnitController.findNodeAround(parent.coordinate)    
+
+                    d.progress = Progress.new(parent, dropTime, D.dropObject, {position, drop, d} )
+                end
             end
 
             function d.dropObject()
                 local position = UnitController.findNodeAround(parent.coordinate)    
 
-                dropObject({position, d.drop})
+                D.dropObject({position, d.drop})
             end
 
-            function d.progress()
-                --groeien naar dropobject
+            function d.update()
+                if d.dropTime ~=nil then
+                    d.progress.progress(DELTA)
+                end
             end
 
         return d

@@ -9,15 +9,29 @@ local R = {}
         r.sprite = data.sprites[rnd]
 
         r.coordinate = coordinate
+        print(coordinate)
+        print("test")
         r.position = Map.getGridPosition(coordinate)
         r.time = data.time
         r.currentTime = 0
         r.amount = data.amount
 
+        r.objectDropper = nil
+        if data.drop ~= nil then
+            r.objectDropper = objectDropper.new(r, data.drop.dropObject, data.drop.dropTime)
+            r.objectDropper.setProgress()
+        end
+
         Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1  --TODO: misschien niet alle types of pas als "ontdekt"
 
         r.id = R.id
         R.id = R.id + 1
+
+        r.update = function()
+            if r.objectDropper ~= nil then
+                r.objectDropper.update()
+            end
+        end
 
         r.draw = function ()
             if r.data ~= nil then 
