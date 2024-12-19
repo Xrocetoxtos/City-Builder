@@ -159,7 +159,7 @@ local unit = {}
 
         u.setWalkingAnimation = function(direction)
             local newAnimation
-            print(direction)
+            -- print(direction)
             if direction == Direction.NONE then newAnimation = Animations.villager.idle end
             if direction == Direction.NORTH then newAnimation = Animations.villager.walkDU end
             if direction == Direction.EAST then newAnimation = Animations.villager.walkLR end
