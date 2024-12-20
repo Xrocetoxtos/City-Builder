@@ -6,16 +6,12 @@ local D = {}
         local d = args[3]
 
         if d.progress ~= nil then
-            print("..........")
             position = ResourceController.findDropLocation(position)
         end
 
-        print("   ----     ")
-        print(position)
         if position ~= nil then
             ResourceController.addResource(position, drop)
         end
-        --d.dropTime = nil
         if d.progress ~=nil then
             d.progress.reset()
         end
@@ -30,17 +26,12 @@ local D = {}
 
             function d.setProgress()
                 if d.dropTime ~= nil then
-                    local position = UnitController.findNodeAround(parent.coordinate)    
-
-                    d.progress = Progress.new(parent, dropTime, D.dropObject, {position, drop, d} )
+                    d.progress = Progress.new(parent, dropTime, D.dropObject, {d.parent.coordinate, drop, d} )
                 end
             end
 
             function d.dropObject()
-                --local position = UnitController.findNodeAround(parent.coordinate)    
-                local position = ResourceController.findDropLocation(parent.coordinate)
-
-                D.dropObject({position, d.drop})
+                D.dropObject({d.parent.position, d.drop})
             end
 
             function d.update()

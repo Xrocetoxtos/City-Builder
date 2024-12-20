@@ -29,7 +29,7 @@ local R = {}
 
         r.update = function()
             if r.objectDropper ~= nil then
-                --r.objectDropper.update()
+                r.objectDropper.update()
             end
         end
 

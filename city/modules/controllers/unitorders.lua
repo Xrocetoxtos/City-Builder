@@ -7,6 +7,10 @@ local UO = {}
     function UO.interactWithTile(tile)
         if tile == nil then return end
 
+        if tile.resource~=nil then
+            UO.setResourceTargetToTile(tile)
+            return
+        end
         if tile.walkable then
             UO.moveUnitsToTile(tile)
             return
@@ -16,10 +20,7 @@ local UO = {}
             UO.setBuildingTargetToTile(tile)
             return
         end
-        if tile.resource~=nil then
-            UO.setResourceTargetToTile(tile)
-            return
-        end
+
     end
 
     function UO.moveUnitsToTile(tile)

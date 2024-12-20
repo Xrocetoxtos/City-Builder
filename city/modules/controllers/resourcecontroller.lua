@@ -75,7 +75,6 @@ local RC = {}
         if #options < 1 then return nil end
 
         local rnd = math.random(1, #options)
-        print(rnd)
         return options[rnd]
     end
     
@@ -104,6 +103,7 @@ local RC = {}
         for index, resource in ipairs(RC.allResourcesOnMap) do
             resource.update()
         end
+        print(#RC.allResourcesOnMap)
     end
 
 

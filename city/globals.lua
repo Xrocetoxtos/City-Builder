@@ -1,4 +1,4 @@
-DEBUG = true
+DEBUG = false
 DELTA = 0
 
 Camera = CameraLib()
