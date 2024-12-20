@@ -111,7 +111,8 @@ local UC = {}
         if #options == 0 then return nil end
         if #options == 1 then return options[1] end
 
-        local ind = love.math.random(#options)
+        math.randomseed (love.timer.getTime())
+        local ind = math.random(#options)
         return options[ind]
     end
 

@@ -22,6 +22,7 @@ local RC = {}
         food = {},
         gold = {}
     }
+    RC.allResourcesOnMap = {}
 
     function RC.load()
         RC.addResource(Vector(20,18), ResourceDatabase.stone)       
@@ -40,6 +41,7 @@ local RC = {}
         if tab ~= nil then
             table.insert(tab, resource)
         end
+        table.insert(RC.allResourcesOnMap, resource)
     end
 
     function RC.removeResource(r)
@@ -52,6 +54,37 @@ local RC = {}
                 end
             end
         end
+        for index, value in ipairs(RC.allResourcesOnMap) do
+            if value == r then
+                table.remove(RC.allResourcesOnMap,index)
+            end
+        end
+    end
+
+    function RC.findDropLocation(coordinate)
+        local options = {}
+        RC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y-1))
+        RC.addAvailableNode(options, Vector(coordinate.x, coordinate.y-1))
+        RC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y-1))
+        RC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y))
+        RC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y))
+        RC.addAvailableNode(options, Vector(coordinate.x-1, coordinate.y+1))
+        RC.addAvailableNode(options, Vector(coordinate.x, coordinate.y+1))
+        RC.addAvailableNode(options, Vector(coordinate.x+1, coordinate.y+1))
+
+        if #options < 1 then return nil end
+
+        local rnd = math.random(1, #options)
+        print(rnd)
+        return options[rnd]
+    end
+    
+    function RC.addAvailableNode(options, coordinate)
+        local node = RC.getResourceOnCoordinate(coordinate)
+        if node == nil then
+            table.insert(options, coordinate)
+        end
+        return options
     end
 
     function RC.getResourcesTypeTable(type)
@@ -68,48 +101,14 @@ local RC = {}
     end
 
     function RC.update()
-        for index, resource in ipairs(RC.resourcesOnMap.food) do
-            resource.update()
-        end
-        for index, resource in ipairs(RC.resourcesOnMap.wood) do
-            resource.update()
-        end
-        for index, resource in ipairs(RC.resourcesOnMap.stone) do
-            resource.update()
-        end
-        for index, resource in ipairs(RC.resourcesOnMap.gold) do
+        for index, resource in ipairs(RC.allResourcesOnMap) do
             resource.update()
         end
     end
 
 
     function RC.draw()  -- TODO misschien bepaalde types pas tonen als iets uitgevonden is?
-        RC.drawFood()
-        RC.drawWood()
-        RC.drawStone()
-        RC.drawGold()
-    end
-
-    function RC.drawFood()
-        for index, resource in ipairs(RC.resourcesOnMap.food) do
-            resource.draw()
-        end
-    end
-
-    function RC.drawWood()
-        for index, resource in ipairs(RC.resourcesOnMap.wood) do
-            resource.draw()
-        end
-    end
-
-    function RC.drawStone()
-        for index, resource in ipairs(RC.resourcesOnMap.stone) do
-            resource.draw()
-        end
-    end
-
-    function RC.drawGold()
-        for index, resource in ipairs(RC.resourcesOnMap.gold) do
+        for index, resource in ipairs(RC.allResourcesOnMap) do
             resource.draw()
         end
     end
@@ -173,25 +172,7 @@ local RC = {}
 
     function RC.getResourceOnCoordinate(coordinate)
         if coordinate == nil then return nil end
-        for index, resource in ipairs(RC.resourcesOnMap.wood) do
-            if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
-                return resource
-            end
-        end     
-
-        for index, resource in ipairs(RC.resourcesOnMap.food) do
-            if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
-                return resource
-            end
-        end     
-
-        for index, resource in ipairs(RC.resourcesOnMap.stone) do
-            if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
-                return resource
-            end
-        end     
-
-        for index, resource in ipairs(RC.resourcesOnMap.gold) do
+        for index, resource in ipairs(RC.allResourcesOnMap) do
             if resource.coordinate.x == coordinate.x and resource.coordinate.y ==  coordinate.y then
                 return resource
             end

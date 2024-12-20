@@ -47,7 +47,8 @@ local RD = {}
         image = Sprites.resources.apple.image,
         sprites = Sprites.resources.apple.sprites,
         amount = 1,
-        time = 1
+        time = 1,
+        walkable = true
     }
     RD.cow_meat = {
         name = "Cow meat",

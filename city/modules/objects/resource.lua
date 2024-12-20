@@ -9,8 +9,6 @@ local R = {}
         r.sprite = data.sprites[rnd]
 
         r.coordinate = coordinate
-        print(coordinate)
-        print("test")
         r.position = Map.getGridPosition(coordinate)
         r.time = data.time
         r.currentTime = 0
@@ -22,14 +20,16 @@ local R = {}
             r.objectDropper.setProgress()
         end
 
-        Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1  --TODO: misschien niet alle types of pas als "ontdekt"
+        if data.walkable ~= true then
+            Map.pathfindingMap[r.coordinate.y][r.coordinate.x] = 1 
+        end
 
         r.id = R.id
         R.id = R.id + 1
 
         r.update = function()
             if r.objectDropper ~= nil then
-                r.objectDropper.update()
+                --r.objectDropper.update()
             end
         end
 

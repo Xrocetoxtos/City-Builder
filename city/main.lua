@@ -40,6 +40,8 @@ local function debugDetached()
     love.graphics.print("grid: ".. MousePointer.mouseGridPosition.x .. " : " .. MousePointer.mouseGridPosition.y, 10,430)
     love.graphics.print("map pointer: ".. MousePointer.pointerPosition.x .. " : " .. MousePointer.pointerPosition.y, 10,450)
 
+    -- love.graphics.print("walkable: ".. Map.isNodeWalkable(MousePointer.mouseGridPosition), 10,470)
+
     Pointer.debugDetached()
 end
 
