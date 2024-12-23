@@ -30,7 +30,8 @@ local S = {}
         UnitController.setIdle(tree.unit, false)
         if tree.target == nil then return Status.FAILURE end
         if tree.onHisWay == false then
-            UnitOrders.setTarget(tree.target, tree.target.coordinate)
+            -- UnitOrders.setTarget(tree.target, tree.target.coordinate)
+            UnitOrders.setTarget(tree.unit, tree.target.coordinate)
             tree.unit.setPathTowards(tree.target.coordinate)
             tree.onHisWay= true
         end
