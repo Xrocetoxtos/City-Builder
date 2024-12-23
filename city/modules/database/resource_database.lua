@@ -78,7 +78,7 @@ local RD = {}
         time = 2,   
         drop = {
             dropObject = RD.apple,
-            dropTime = 1
+            dropTime = 10
         }
     }
 

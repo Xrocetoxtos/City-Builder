@@ -103,7 +103,12 @@ local RC = {}
         for index, resource in ipairs(RC.allResourcesOnMap) do
             resource.update()
         end
-        print(#RC.allResourcesOnMap)
+        -- print(#RC.allResourcesOnMap)
+        -- print("------")
+        -- for index, value in ipairs(RC.resourcesOnMap.food) do
+        --     print(value.data.name)
+        --     print(value.coordinate)
+        -- end
     end
 
 
@@ -125,6 +130,7 @@ local RC = {}
     end
 
     function RC.findNearestResource(type, position, maxDistance)
+        position = Map.getGridCoordinate(position)
         if type == nil then return nil end
         print("find " .. type.type)
         if type.type ~= ResourceType.FOOD then
@@ -134,7 +140,9 @@ local RC = {}
     end
 
     function RC.findNearestFood(type, position, maxDistance)
+        print("----")
         print("food " ..#RC.resourcesOnMap.food)
+        print(position)
         if #RC.resourcesOnMap.food <=0 then return nil end
 
         local distance = maxDistance or 99999999
@@ -142,14 +150,20 @@ local RC = {}
         for index, value in ipairs(RC.resourcesOnMap.food) do
             -- CHECK OF DIT OVEREEN KOMT.. DIT MOET ZORGEN DAT JE ALTIJD NAAR HETZELFDE TYPE FOOD TERUGKEERT
             if type == value.data then
-                local pos = Vector(value.x, value.y)
-                local dist = pos:dist(position)
+                -- local pos = Vector(value.coordinate.x, value.coordinate.y)
+                local dist = value.coordinate:dist(position)
+                print(value.data.name)
+                print(value.coordinate)
+
+                print(dist)
                 if dist < distance then
                     distance = dist
                     resource = value
                 end
             end
         end
+        print ("--- "..distance)
+        -- debug.debug()
         return resource
     end
     
@@ -160,8 +174,10 @@ local RC = {}
         local distance = maxDistance or 99999999
         local resource = nil
         for index, value in ipairs(list) do
-            local pos = Vector(value.x, value.y)
-            local dist = pos:dist(position)
+            -- local pos = Vector(value.x, value.y)
+            -- local dist = pos:dist(position)
+            local dist = value.coordinate:dist(position)
+
             if dist < distance then
                 distance = dist
                 resource = value
