@@ -15,9 +15,21 @@ local animations = {}
         animations.villager.walkDU = animations.villager.walkUD:clone()
 
         animations.villager.pickLR = Anim8.newAnimation(grid('1-4',3), 0.2)
-        animations.villager.pickRL = animations.villager.walkLR:clone()
+        animations.villager.pickRL = animations.villager.pickLR:clone()
         animations.villager.pickRL:flipH()
         animations.villager.pickUD = Anim8.newAnimation(grid('5-8',3), 0.2)
-        animations.villager.pickDU = animations.villager.walkUD:clone()
+        animations.villager.pickDU = animations.villager.pickUD:clone()
+
+        animations.villager.axeLR = Anim8.newAnimation(grid('1-4',4), 0.2)
+        animations.villager.axekRL = animations.villager.axeLR:clone()
+        animations.villager.axekRL:flipH()
+        animations.villager.axeUD = Anim8.newAnimation(grid('5-8',4), 0.2)
+        animations.villager.axeDU = animations.villager.axeUD:clone()
+
+        animations.villager.hammerLR = Anim8.newAnimation(grid('1-4',5), 0.2)
+        animations.villager.hammerRL = animations.villager.hammerLR:clone()
+        animations.villager.hammerRL:flipH()
+        animations.villager.hammerUD = Anim8.newAnimation(grid('5-8',5), 0.2)
+        animations.villager.hammerDU = animations.villager.hammerUD:clone()
 
 return animations
