@@ -25,6 +25,7 @@ local unit = {}
 
         u.currentDirection = Direction.NONE
         u.currentAnimation = Animations.villager.idle
+        u.busy=false
         
         u.id = unit.id
         unit.id=unit.id+1
@@ -130,7 +131,13 @@ local unit = {}
 
                 u.move() 
             else
-                u.setWalkingAnimation(Direction.NONE)
+                if u.busy ==  false then
+                    -- print("niet busy ----")
+                    u.setWalkingAnimation(Direction.NONE)
+                -- else 
+                --     print("wel busy ----")
+
+                end
             end
             u.currentAnimation:update(DELTA)
         end
@@ -158,17 +165,25 @@ local unit = {}
         end
 
         u.setWalkingAnimation = function(direction)
-            local newAnimation
+            -- local newAnimation
             -- print(direction)
-            if direction == Direction.NONE then newAnimation = Animations.villager.idle end
-            if direction == Direction.NORTH then newAnimation = Animations.villager.walkDU end
-            if direction == Direction.EAST then newAnimation = Animations.villager.walkLR end
-            if direction == Direction.SOUTH then newAnimation = Animations.villager.walkUD end
-            if direction == Direction.WEST then newAnimation = Animations.villager.walkRL end
+            if direction == Direction.NONE then u.setAnimation(Animations.villager.idle) end
+            if direction == Direction.NORTH then u.setAnimation(Animations.villager.walkDU) end
+            if direction == Direction.EAST then u.setAnimation(Animations.villager.walkLR) end
+            if direction == Direction.SOUTH then u.setAnimation(Animations.villager.walkUD) end
+            if direction == Direction.WEST then u.setAnimation(Animations.villager.walkRL) end
 
+            -- if newAnimation ~= u.currentAnimation then
+            --     u.currentAnimation = newAnimation
+            -- end
+        end
+
+        u.setAnimation = function(animation)
+            local newAnimation = animation
             if newAnimation ~= u.currentAnimation then
+                print("new animation")
                 u.currentAnimation = newAnimation
-            end
+            end      
         end
 
         u.draw = function ()

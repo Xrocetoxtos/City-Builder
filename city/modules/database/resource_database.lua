@@ -7,6 +7,12 @@ ResourceType = {
     FOOD = "food"
 }
 
+Tool = {
+    NONE = "none",
+    AXE = "axe",
+    HAMMER = "hammer"
+}
+
 local RD = {}
 
     RD.wood = {
@@ -16,7 +22,8 @@ local RD = {}
         image = Sprites.resources.wood.image,
         sprites = Sprites.resources.wood.sprites,
         amount = 1,
-        time = 2
+        time = 2,
+        tool = Tool.AXE
     }
 
     RD.gold = {
@@ -26,7 +33,8 @@ local RD = {}
         image = Sprites.resources.gold.image,
         sprites = Sprites.resources.gold.sprites,
         amount = 15,
-        time = 10
+        time = 10,
+        tool = Tool.AXE
     }
 
 
@@ -37,7 +45,8 @@ local RD = {}
         image = Sprites.resources.stone.image,
         sprites = Sprites.resources.stone.sprites,
         amount = 2,
-        time = 1
+        time = 1,
+        tool = Tool.AXE
     }
 
     RD.apple = {
@@ -48,7 +57,9 @@ local RD = {}
         sprites = Sprites.resources.apple.sprites,
         amount = 1,
         time = 1,
-        walkable = true
+        walkable = true,
+        tool = Tool.NONE
+
     }
     RD.cow_meat = {
         name = "Cow meat",
@@ -57,7 +68,8 @@ local RD = {}
         image = Sprites.resources.cow_meat.image,
         sprites = Sprites.resources.cow_meat.sprites,
         amount = 10,
-        time = 2
+        time = 2,
+        tool = Tool.NONE
     }
     RD.berry_bush = {
         name = "Berry bush",
@@ -66,7 +78,8 @@ local RD = {}
         image = Sprites.resources.berry_bush.image,
         sprites = Sprites.resources.berry_bush.sprites,
         amount = 20,
-        time = 2
+        time = 2,
+        tool = Tool.NONE
     }
     RD.apple_tree = {
         name = "Apple tree",
@@ -79,7 +92,8 @@ local RD = {}
         drop = {
             dropObject = RD.apple,
             dropTime = 10
-        }
+        },
+        tool = Tool.AXE
     }
 
 return RD 

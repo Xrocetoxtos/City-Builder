@@ -45,22 +45,67 @@ local BTree= {}
                 local u,i = ResourceController.getResource(Tree.target)
                 return BT.boolToStatus(i ~= -1)
             end
+
+            local function setGatherAnimation()
+                -- local velocity = Tree.target.position-Tree.unit.position
+                -- velocity= velocity:normalized()
+                -- local direction = Utils.vectorToDirection(velocity)
+                -- if Tree.target.data.tool == Tool.NONE then
+                --     if direction == Direction.NORTH then 
+                --         Tree.unit.setAnimation(Animations.villager.pickDU)
+                --         elseif direction == Direction.EAST then
+                --             Tree.unit.setAnimation(Animations.villager.pickLR)
+                --             elseif direction == Direction.SOUTH then
+                --                 Tree.unit.setAnimation(Animations.villager.pickUD)
+                --                 elseif direction == Direction.WEST then
+                --                     Tree.unit.setAnimation(Animations.villager.pickRL)
+                --     end
+                --     elseif Tree.target.data.tool == Tool.AXE then
+                --         if direction == Direction.NORTH then 
+                --             Tree.unit.setAnimation(Animations.villager.axeDU)
+                --             elseif direction == Direction.EAST then
+                --                 Tree.unit.setAnimation(Animations.villager.axeLR)
+                --                 elseif direction == Direction.SOUTH then
+                --                     Tree.unit.setAnimation(Animations.villager.axeUD)
+                --                     elseif direction == Direction.WEST then
+                --                         Tree.unit.setAnimation(Animations.villager.axeRL)
+                --         end
+                --         elseif Tree.target.data.tool == Tool.HAMMER then
+                --             if direction == Direction.NORTH then 
+                --                 Tree.unit.setAnimation(Animations.villager.hammerDU)
+                --                 elseif direction == Direction.EAST then
+                --                     Tree.unit.setAnimation(Animations.villager.hammerLR)
+                --                     elseif direction == Direction.SOUTH then
+                --                         Tree.unit.setAnimation(Animations.villager.hammerUD)
+                --                         elseif direction == Direction.WEST then
+                --                             Tree.unit.setAnimation(Animations.villager.hammerRL)
+                --             end        
+                -- end
+            end
             
             local function gatherResource()
                 if targetExists() == Status.FAILURE then
+                    Tree.unit.busy=false
                     return Status.FAILURE
                 end
+                Tree.unit.busy=true
+
                 Tree.target.gather()  --TODO: gather rate
+                setGatherAnimation()
                 if Tree.target.gatherComplete() then
                     Tree.target.reduce(1)
                     if Tree.target.empty() then
                         ResourceController.removeResource(Tree.target)
                     end
                     Tree.holding = true
+                    Tree.unit.busy=false
                     return Status.SUCCESS
                 end
+
                 return Status.RUNNING
             end
+
+
 
             local function dropResource()
                 Tree.holding = false
@@ -73,6 +118,7 @@ local BTree= {}
                 if Tree.resourceType.type == ResourceType.STONE then res.stone = 1 end
 
                 ResourceController.addResources(res)
+
                 Tree.target = nil
 
                 return Status.SUCCESS

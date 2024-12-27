@@ -28,12 +28,16 @@ local R = {}
         R.id = R.id + 1
 
         r.update = function()
+            print(r.position)
             if r.objectDropper ~= nil then
                 r.objectDropper.update()
             end
+            -- print (r.position)
+            -- print("---")
         end
 
         r.draw = function ()
+            -- love.graphics.print(r.position, -50,-50)    -- Dit is omdat anders de locatie steeds verder naar beneden schuift...(y-positie stijgt met 100)
             if r.data ~= nil then 
                 if r.sprite == nil then
                     love.graphics.line(r.position.x, r.position.y, r.position.x+10, r.position.y+10)
@@ -47,18 +51,26 @@ local R = {}
         end
 
         r.gather = function()
+            print("resource gather")
+
             r.currentTime = r.currentTime + 0.5
         end
         
         r.gatherComplete = function() 
+            print("resource gather complete")
+
             return r.currentTime >= r.data.time
         end
 
         r.reduce = function (amount)
+            print("resource reduce " .. amount)
+
             r.amount = r.amount - amount
         end
 
         r.empty = function ()
+            print("reduce empty" .. r.amount)
+
             return r.amount <= 0
         end
 

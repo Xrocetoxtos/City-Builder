@@ -25,14 +25,14 @@ local RC = {}
     RC.allResourcesOnMap = {}
 
     function RC.load()
-        RC.addResource(Vector(20,18), ResourceDatabase.stone)       
-        RC.addResource(Vector(21,18), ResourceDatabase.stone)
-        RC.addResource(Vector(22,18), ResourceDatabase.stone)
+        -- RC.addResource(Vector(20,18), ResourceDatabase.stone)       
+        -- RC.addResource(Vector(21,18), ResourceDatabase.stone)
+        -- RC.addResource(Vector(22,18), ResourceDatabase.stone)
         RC.addResource(Vector(18,18), ResourceDatabase.cow_meat)
-        RC.addResource(Vector(17,18), ResourceDatabase.berry_bush)
-        RC.addResource(Vector(25,18), ResourceDatabase.apple)
-        RC.addResource(Vector(25,17), ResourceDatabase.apple)
-        RC.addResource(Vector(15,15), ResourceDatabase.apple_tree)
+        -- RC.addResource(Vector(17,18), ResourceDatabase.berry_bush)
+        -- RC.addResource(Vector(25,18), ResourceDatabase.apple)
+        -- RC.addResource(Vector(25,17), ResourceDatabase.apple)
+        -- RC.addResource(Vector(15,15), ResourceDatabase.apple_tree)
     end
 
     function RC.addResource(vector, data)
@@ -103,6 +103,8 @@ local RC = {}
         for index, resource in ipairs(RC.allResourcesOnMap) do
             resource.update()
         end
+        print("xx")
+        print(RC.resourcesOnMap.food[1].position)
         -- print(#RC.allResourcesOnMap)
         -- print("------")
         -- for index, value in ipairs(RC.resourcesOnMap.food) do
@@ -140,29 +142,35 @@ local RC = {}
     end
 
     function RC.findNearestFood(type, position, maxDistance)
-        print("----")
-        print("food " ..#RC.resourcesOnMap.food)
-        print(position)
+        -- print("----")
+        -- print("food " ..#RC.resourcesOnMap.food)
+        -- print(position)
         if #RC.resourcesOnMap.food <=0 then return nil end
 
         local distance = maxDistance or 99999999
         local resource = nil
+        -- local debugPos = nil
         for index, value in ipairs(RC.resourcesOnMap.food) do
-            -- CHECK OF DIT OVEREEN KOMT.. DIT MOET ZORGEN DAT JE ALTIJD NAAR HETZELFDE TYPE FOOD TERUGKEERT
-            if type == value.data then
-                -- local pos = Vector(value.coordinate.x, value.coordinate.y)
-                local dist = value.coordinate:dist(position)
-                print(value.data.name)
-                print(value.coordinate)
 
-                print(dist)
+            -- hier wordt de position van resources soms verschoven, mestal y, soms x
+            if type == value.data then
+                local pos = Vector(value.coordinate.x, value.coordinate.y)
+                -- print(value.position)
+                -- print("..")
+                local dist = pos:dist(position)
+                -- print(value.data.name)
+                -- print(value.coordinate)
+                -- print(value.position)
+                -- print(dist)
                 if dist < distance then
                     distance = dist
                     resource = value
+                    -- debugPos = value.position
                 end
             end
         end
-        print ("--- "..distance)
+
+        -- print ("--- "..distance)
         -- debug.debug()
         return resource
     end
